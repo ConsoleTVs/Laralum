@@ -1,7 +1,7 @@
 {
     "name": "ConsoleTVs/laralum",
     "description": "The Laravel Framework with laralum administration panel.",
-    "keywords": ["framework", "laravel", "laralum],
+    "keywords": ["framework", "laravel", "laralum"],
 	"authors": [
         {
             "name": "Laravel Developers",
