@@ -38,21 +38,6 @@ Route::group(['middleware' => 'web'], function () {
 	Route::get('/', function () {
 	    return view('welcome');
 	});
-
-    Route::get('/test', function() {
-        foreach(App\Permission::all() as $perm) {
-            $type = $perm->type;
-            print str_replace('|', '$',"
-                |perm = new Permission;<br>
-                |perm->slug = '$perm->slug';<br>
-                |perm->name = '$perm->name';<br>
-                |perm->info = '$perm->info';<br>
-                |perm->type_id = Permission_Types::where('name', '$type->type')->first()->id;<br>
-                |perm->su = true;<br>
-                |perm->save();<br><br>
-            ");
-        }
-    });
     
     Route::auth();
 

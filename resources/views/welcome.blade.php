@@ -1,11 +1,11 @@
-@extends('layouts.app')
+@extends('layouts.admin.welcome')
 
 @section('content')
 <div class="container">
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
-                <div class="panel-heading">Welcome to laralum</div>
+                <div class="panel-heading">Welcome to laralum <a href="{{ url('/login') }}" class="pull-right btn btn-primary btn-sm">Check</a></div>
 
                 <div class="panel-body">
                     
@@ -73,8 +73,9 @@ MAIL_NAME="Laralum"
                         <pre>cd {{ base_path() }}</pre>
                         <h3><small>Install it!</small></h3>
                         <pre>php artisan migrate</pre>
-                        <h3><small>What's next?</small></h3>
-                        <p>Refresh this page to see the menu items.<br>Go ahead and login with the credentials you specified in the configuration and enjoy :)</p>
+                        <br>
+                        <h4>What's next?</h4>
+                        <p>Press the check button on the top and if no error is found go ahead and login with the credentials you specified in the configuration.</p>
                       </p>
 
                 </div>

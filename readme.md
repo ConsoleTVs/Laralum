@@ -1,15 +1,3 @@
-# Laralum - Laravel Administration Panel
-Laralum is a a laravel administration panel, build to make work simple while developing a project
-
-## STILL ON BETA - NEED DOCUMENTION
-Althought Most of the work has been done, the documentation needs to be written, so in fact, it's not yet recommended to use it unless you know how laravel works!
-
-## Documented Code
-I took care of the code while coding the application, so everything is commented and readable
-
-## Screenshot
-![alt text](http://puu.sh/n3awr/cbb7ad607d.png "Logo Title Text 1")
-
 ## Laravel PHP Framework
 
 [![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
