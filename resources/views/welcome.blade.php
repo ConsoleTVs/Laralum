@@ -29,9 +29,9 @@
                       <pre>
 APP_ENV=local
 APP_DEBUG=true
-APP_KEY=123
+APP_KEY={{ env('APP_KEY') }}
 APP_NAME=Laralum
-APP_VERSION=1.0
+APP_VERSION={{ env('APP_VERSION') }}
 
 USER_NAME="ADMINISTRATOR_NAME"
 USER_EMAIL="my@email.com"
