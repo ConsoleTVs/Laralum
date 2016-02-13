@@ -25,13 +25,13 @@
                         .env file placed in your root directory
                       </p>
 
-                      <h3><small>.env example</small></h3>
+                      <h3><small>.env example (it uses your generated key)</small></h3>
                       <pre>
 APP_ENV=local
 APP_DEBUG=true
 APP_KEY={{ env('APP_KEY') }}
 APP_NAME=Laralum
-APP_VERSION={{ env('APP_VERSION') }}
+APP_VERSION='1.0.3'
 
 USER_NAME="ADMINISTRATOR_NAME"
 USER_EMAIL="my@email.com"
