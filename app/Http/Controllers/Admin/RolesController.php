@@ -60,7 +60,6 @@ class RolesController extends Controller
                 'masked'            =>  [],
                 'validator'         =>  [
                     'name' => 'required|unique:roles',
-                    'color' => 'required|unique:roles',
                 ],
             ],
             'edit'      =>  [
@@ -74,7 +73,6 @@ class RolesController extends Controller
                 'masked'            =>  [],
                 'validator'         =>  [
                     'name' => 'sometimes|required|unique:roles,name,'.$role->id,
-                    'color' => 'sometimes|required|unique:roles,color,'.$role->id,
                 ],
             ],
         ];
