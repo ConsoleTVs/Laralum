@@ -18,7 +18,7 @@ composer create-project erik/laralum ProjectName
 ## Simple instructions
 To make things simple while i try to build a site and start a documentation, i will tell small and usefull details here.
 
--Check if a user belongs to a role (Response: true / false):
+- Check if a user belongs to a role (Response: true / false):
 Example (check if the logged in user is in the role 'Administrator'):
 ```
 $user = Auth::user();
