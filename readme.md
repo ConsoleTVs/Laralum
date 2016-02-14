@@ -53,7 +53,7 @@ $role->has('admin.access');
 Example (Get all the users of the role with an id of 1 and display their names):
 ```
 $role = Role::findOrFail(1);
-$permissions = $role->users();
+$users = $role->users();
 foreach($users as $user){
   echo $user->name . '<br>';
 }
