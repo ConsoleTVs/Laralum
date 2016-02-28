@@ -36,7 +36,7 @@ $user->has('admin.access');
 Example (Get all the roles of the logged in user and display their names):
 ```
 $user = Auth::user();
-$roles = $user->roles();
+$roles = $user->roles;
 foreach($roles as $role){
   echo $role->name . '<br>';
 }
@@ -53,7 +53,7 @@ $role->has('admin.access');
 Example (Get all the users of the role with an id of 1 and display their names):
 ```
 $role = Role::findOrFail(1);
-$users = $role->users();
+$users = $role->users;
 foreach($users as $user){
   echo $user->name . '<br>';
 }
@@ -63,7 +63,7 @@ foreach($users as $user){
 Example (Get all the permissions of the role with an id of 1 and display their names):
 ```
 $role = Role::findOrFail(1);
-$permissions = $role->permissions();
+$permissions = $role->permissions;
 foreach($permissions as $perm){
   echo $perm->name . '<br>';
 }
@@ -73,7 +73,7 @@ foreach($permissions as $perm){
 Example (Get all the roles of the permission 'admin.access' and display their names):
 ```
 $permission = Permission::where('slug', 'admin.access')->first();
-$roles = $permission->roles();
+$roles = $permission->roles;
 foreach($roles as $role){
   echo $role->name . '<br>';
 }
@@ -83,14 +83,14 @@ foreach($roles as $role){
 Example (Get the type of the permission 'admin.access'):
 ```
 $permission = Permission::where('slug', 'admin.access')->first();
-$type = $permission->type();
+$type = $permission->type;
 ```
 
 - Get the permissions from a type (Response: Object):
 Example (Get the permissions from the type 'Administration Panel'):
 ```
 $type = Permission_Types::where('type', 'Administration Panel')->first();
-$permissions = $type->permissions();
+$permissions = $type->permissions;
 ```
 
 ## Screenshots
