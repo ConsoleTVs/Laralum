@@ -26,8 +26,8 @@ class CreateUsersSettings extends Migration
         $settings = new Users_Settings;
         $settings->default_role = Role::where('name', env('DEFAULT_ROLE_NAME', 'Administrator'))->first()->id;
         $settings->register_enabled = true;
-        $settings->default_active = 1;
-        $settings->welcome_email = true;
+        $settings->default_active = 2;
+        $settings->welcome_email = false;
         $settings->save();
     }
 

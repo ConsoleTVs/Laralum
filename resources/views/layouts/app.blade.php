@@ -83,7 +83,7 @@
             <div class="spacer">
               <div class="alert alert-success">
                   <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                  <p>Laralax seems to be installed in your database, you should now be able to login with the admin credentials.</p>
+                  <p>Laralum seems to be installed in your database, you should now be able to login with the admin credentials.</p>
               </div>
             </div>
         @endif
