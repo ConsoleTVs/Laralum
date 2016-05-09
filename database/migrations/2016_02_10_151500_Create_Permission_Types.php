@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use App\Permission_types;
+use App\Permission_Types;
 
 class CreatePermissionTypes extends Migration
 {
