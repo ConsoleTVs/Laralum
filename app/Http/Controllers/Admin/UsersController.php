@@ -27,63 +27,6 @@ class UsersController extends Controller
         }
     }
 
-    public function tableSettings($user = null)
-    {
-        # --------------------
-        # Users Table settings
-        # --------------------
-        #
-        # hidden: Columns that will not be displayed in the edit form, and they won't be updated
-        # empty: Columns that will not have their current value when editing them (eg: password field is hidden in the model)
-        # confirmed: fields that will need to be confirmed twice
-        # encrypted: Fields that will be encrypted using: Crypt::encrypt(); when they are saved and decrypted when editing them
-        # hashed: Fields that will be hashed when they are saved in the database, will be empty on editing, and if saved as empty they will not be modified
-        # masked: Fields that will be displayed as a type='password', so their content when beeing modified won't be visible
-        # default_random: Fields that if no data is set, they will be randomly generated (10 characters)
-        # su_hidden: Columns that will be added to the hidden array if the user is su
-        # validator: validator settings when executing: $this->validate();
-        #
-        #
-        if(!$user) {
-            $user = User::first();
-        }
-        #
-        # NOTE: if you use the variable $user and it's not set, it will use the first user in the database
-
-        $data = [
-            'create'    =>  [
-                'hidden'            =>  ['id', 'su', 'active', 'banned', 'register_ip', 'activation_key', 'remember_token', 'created_at', 'updated_at'],
-                'default_random'    =>  ['password'],
-                'confirmed'         =>  ['password'],
-                'encrypted'         =>  [],
-                'hashed'            =>  ['password'],
-                'masked'            =>  ['password'],
-                'validator'         =>  [
-                    'name'              => 'required|max:255',
-                    'email'             => 'required|email|unique:users',
-                    'password'          => 'confirmed|min:6',
-                    'country_code'      => 'required',
-                ],
-            ],
-            'edit'      =>  [
-                'hidden'            =>  ['id', 'su', 'email', 'register_ip', 'activation_key', 'remember_token', 'created_at', 'updated_at'],
-                'su_hidden'         =>  ['name', 'bio', 'active', 'banned', 'password', 'phone', 'location', 'country_code'],
-                'empty'             =>  ['password'],
-                'default_random'    =>  [],
-                'confirmed'         =>  ['password'],
-                'encrypted'         =>  [],
-                'hashed'            =>  ['password'],
-                'masked'            =>  ['password'],
-                'validator'         =>  [
-                    'name'              => 'sometimes|required|max:255',
-                    'password'          => 'sometimes|confirmed|min:6',
-                    'country_code'      => 'sometimes|required',
-                ],
-            ],
-        ];
-        return $data;
-    }   
-
     public function fields($columns, $hidden)
     {
         # Gets the fields available to edit / update
@@ -162,30 +105,21 @@ class UsersController extends Controller
         # Get all roles
         $roles = Role::all();
 
-        # Get the users table columns
-        $columns = Schema::getColumnListing('users');
-
-        # Get the table settings
-        $data = $this->tableSettings();
-
-        # Get the table data
-        $hidden = $data['create']['hidden'];
-        $confirmed = $data['create']['confirmed'];
-        $encrypted = $data['create']['encrypted'];
-        $hashed = $data['create']['hashed'];
-        $masked = $data['create']['masked'];
-
-        # Get the available fields
-        $fields = $this->fields($columns, $hidden);
+        # Get all the data
+        $data_index = 'users';
+        require('Data/Create/Get.php');
 
         # Return the view
         return view('admin/users/create', [
-            'roles'      =>  $roles,
+            'roles'     =>  $roles,
             'fields'    =>  $fields,
             'confirmed' =>  $confirmed,
             'encrypted' =>  $encrypted,
             'hashed'    =>  $hashed,
             'masked'    =>  $masked,
+            'table'     =>  $table,
+            'code'      =>  $code,
+            'wysiwyg'   =>  $wysiwyg,
         ]);
     }
 
@@ -197,114 +131,44 @@ class UsersController extends Controller
             return redirect('/admin/users')->with('warning', "You are not allowed to perform this action");
         }
 
-        # Find the user
-        $user = new User;
+        # create the user
+        $row = new User;
 
-        # Get the table settings
-        $data = $this->tableSettings();
-
-        # Get the users table columns
-        $columns = Schema::getColumnListing('users');
-
-        # Get the table data
-        $hidden = $data['create']['hidden'];
-        $default_random = $data['create']['default_random'];
-        $encrypted = $data['create']['encrypted'];
-        $hashed = $data['create']['hashed'];
-        $validator = $data['create']['validator'];
-
-        # Validate The Request
-        $this->validate($request, $validator);
-
-        # Get the available fields to update
-        $fields = $this->fields($columns, $hidden);
-
-        # Update the user
-        foreach($fields as $field) {
-
-            $save = true;
-
-            # Check the field type
-            $type = Schema::getColumnType('users', $field);
-
-            # Get the value
-            $value = $request->input($field);
-
-            if($type == 'string' or $type == 'integer') {
-
-                # Check if it's a default_random field
-                foreach($default_random as $random) {
-                    if($random == $field) {
-                        if(!$value) {
-                            $value = str_random(10);
-                        }
-                    }
-                }
-
-                # Check if it's a hashed field
-                foreach($hashed as $hash) {
-                    if($hash == $field) {
-                        if($value) {
-                            $value = Hash::make($value);
-                        } else {
-                            $save = false;
-                        }
-                    }
-                }
-
-                # Check if it's an encrypted field
-                foreach($encrypted as $encrypt) {
-                    if($encrypt == $field) {
-                        $value = Crypt::encrypt($value);
-                    }
-                }
-
-                # Save it
-                if($save) {
-                    $user->$field = $value;
-                }
-
-            } elseif($type == 'boolean') {
-                
-                # Save it
-                if($value) {
-                    $user->$field = true;
-                } else {
-                    $user->$field = false;
-                }
-
-            } else {
-                # Save it
-                $user->$field = $value;
-            }
-        }
+        # Save the data
+        $data_index = 'users';
+        require('Data/Create/Save.php');
 
         # Setup a random activation key
-        $user->activation_key = str_random(25);
+        $row->activation_key = str_random(25);
 
         # Get the register IP
-        $user->register_ip = $request->ip();
-
-        # Save the user
-        $user->save();
+        $row->register_ip = $request->ip();
 
         # Send welcome email if set
         if($request->input('mail')) {
             if($request->input('send_password')) {
                 # Send Welcome email with password
-                $this->SendWelcomeEmail($user, $password);
+                $this->SendWelcomeEmail($row, $password);
             } else {
                 # Send Welcome email without password
-                $this->SendWelcomeEmail($user, null);
+                $this->SendWelcomeEmail($row, null);
             }
         }
 
         # Send activation email if set
         if($request->input('send_activation')) {
-            $this->sendActivationEmail($user, $activation_key);
+            $this->sendActivationEmail($row, $activation_key);
         }
 
-        $this->setRoles($user->id, $request);
+        # Activate the user if set
+        if($request->input('active')){
+            $row->active = true;
+        }
+
+        # Save the user
+        $row->save();
+
+        $this->setRoles($row->id, $request);
 
         # Return the admin to the users page with a success message
         return redirect('/admin/users')->with('success', "The user has been created");
@@ -318,41 +182,24 @@ class UsersController extends Controller
         }
 
         # Find the user
-        $user = User::findOrFail($id);
+        $row = User::findOrFail($id);
 
-        # Get the users table columns
-        $columns = Schema::getColumnListing('users');
-
-        # Get the table settings
-        $data = $this->tableSettings($user);
-
-        # Get the table data
-        $hidden = $data['edit']['hidden'];
-        $empty = $data['edit']['empty'];
-        $confirmed = $data['edit']['confirmed'];
-        $encrypted = $data['edit']['encrypted'];
-        $hashed = $data['edit']['hashed'];
-        $masked = $data['edit']['masked'];
-        $su_hidden = $data['edit']['su_hidden'];
-
-        # Add su_hidden to hidden if the user is su
-        if($user->su) {
-            $hidden = $this->addSuHidden($hidden, $su_hidden);
-        }
-
-        # Get the available fields
-        $fields = $this->fields($columns, $hidden);
-
+        # Get all the data
+        $data_index = 'users';
+        require('Data/Edit/Get.php');
 
         # Return the view
         return view('admin/users/edit', [
-            'user'      =>  $user,
+            'row'       =>  $row,
             'fields'    =>  $fields,
             'confirmed' =>  $confirmed,
             'empty'     =>  $empty,
             'encrypted' =>  $encrypted,
             'hashed'    =>  $hashed,
             'masked'    =>  $masked,
+            'table'     =>  $table,
+            'code'      =>  $code,
+            'wysiwyg'   =>  $wysiwyg,
         ]);
     }
 
@@ -365,95 +212,11 @@ class UsersController extends Controller
         }
 
         # Find the user
-        $user = User::findOrFail($id);
+        $row = User::findOrFail($id);
 
-        # Get the table settings
-        $data = $this->tableSettings($user);
-
-        # Get the users table columns
-        $columns = Schema::getColumnListing('users');
-
-        # Get the table data
-        $hidden = $data['edit']['hidden'];
-        $encrypted = $data['edit']['encrypted'];
-        $hashed = $data['edit']['hashed'];
-        $validator = $data['edit']['validator'];
-        $default_random = $data['edit']['default_random'];
-        $su_hidden = $data['edit']['su_hidden'];
-
-        # Add su_hidden to hidden if the user is su
-        if($user->su) {
-            $hidden = $this->addSuHidden($hidden, $su_hidden);
-        }
-
-        # Validate The Request
-        $this->validate($request, $validator);
-
-        # Get the available fields to update
-        $fields = $this->fields($columns, $hidden);
-
-        # Update the user
-        foreach($fields as $field) {
-
-            $save = true;
-
-            # Check the field type
-            $type = Schema::getColumnType('users', $field);
-
-            # Get the value
-            $value = $request->input($field);
-
-            if($type == 'string' or $type == 'integer') {
-
-                # Check if it's a default_random field
-                foreach($default_random as $random) {
-                    if($random == $field) {
-                        if(!$value) {
-                            $value = str_random(10);
-                        }
-                    }
-                }
-
-                # Check if it's a hashed field
-                foreach($hashed as $hash) {
-                    if($hash == $field) {
-                        if($value) {
-                            $value = Hash::make($value);
-                        } else {
-                            $save = false;
-                        }
-                    }
-                }
-
-                # Check if it's an encrypted field
-                foreach($encrypted as $encrypt) {
-                    if($encrypt == $field) {
-                        $value = Crypt::encrypt($value);
-                    }
-                }
-
-                # Save it
-                if($save) {
-                    $user->$field = $value;
-                }
-
-            } elseif($type == 'boolean') {
-                
-                # Save it
-                if($value) {
-                    $user->$field = true;
-                } else {
-                    $user->$field = false;
-                }
-
-            } else {
-                # Save it
-                $user->$field = $value;
-            }
-        }
-
-        # Save the user
-        $user->save();
+        # Save the data
+        $data_index = 'users';
+        require('Data/Edit/Save.php');
 
         # Return the admin to the users page with a success message
         return redirect('/admin/users')->with('success', "The user has been edited");
@@ -491,7 +254,7 @@ class UsersController extends Controller
 
     	# Change user's roles
     	foreach($roles as $role) {
-    		
+
             # Check for su
             $modify = true;
             if($user->su) {
@@ -542,7 +305,7 @@ class UsersController extends Controller
     }
 
     public function deleteRel($user_id, $role_id)
-    {	
+    {
     	$rel = Role_User::whereUser_idAndRole_id($user_id, $role_id)->first();
     	if($rel) {
     		$rel->delete();

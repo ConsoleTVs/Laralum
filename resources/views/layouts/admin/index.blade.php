@@ -52,6 +52,31 @@
     .little-down-spacer {
       margin-bottom: 15px;
     }
+
+    .blog-img {
+        height:300px;
+        background-size:cover;
+        background-position:center center;
+        background-repeat:no-repeat;
+    }
+    .blog-img-full {
+        height:500px;
+        background-size:cover;
+        background-position:center center;
+        background-repeat:no-repeat;
+    }
+
+    .post-text {
+        font-size: 18px;
+    }
+
+    .feature {
+        font-size: 80px;
+    }
+
+    .code {
+        min-height: 450px;
+    }
     </style>
 
     @yield('css')
@@ -59,7 +84,12 @@
     <!-- Bootstrap -->
     <link href="{{ url('admin_panel/css/bootstrap.min.css') }}" rel="stylesheet">
 
-    <link rel="stylesheet" href="//cdn.materialdesignicons.com/1.4.57/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="//cdn.materialdesignicons.com/1.6.50/css/materialdesignicons.min.css">
+
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
+
+    <script src='{{ asset('admin_panel/tinymce/tinymce.min.js') }}'></script>
+    <script src="{{ asset('admin_panel/code/ace.js') }}" type="text/javascript" charset="utf-8"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -86,6 +116,7 @@
 	          <li><a href="{{ url('admin/users') }}">Users</a></li>
 	          <li><a href="{{ url('admin/roles') }}">Roles</a></li>
             <li><a href="{{ url('admin/permissions') }}">Permissions</a></li>
+            <li><a href="{{ url('admin/blogs') }}">Blog</a></li>
 	        </ul>
 	        <ul class="nav navbar-nav navbar-right">
 				<li class="dropdown">
@@ -197,6 +228,14 @@
       $("form").submit(function(){
           $( "#load" ).fadeIn(750);
       });
+    </script>
+
+    <script>
+    tinymce.init({
+        selector: '.editor',
+        min_height: 450,
+        content_css : '{{ url('admin_panel/css/roboto.css') }}'
+    });
     </script>
 
     @yield('js')

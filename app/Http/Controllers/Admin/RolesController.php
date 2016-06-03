@@ -15,6 +15,9 @@ use App\Permission_Role;
 use App\Permission_Types;
 use Schema;
 use Auth;
+use Hash;
+use Crypt;
+use Mail;
 
 class RolesController extends Controller
 {
@@ -27,92 +30,12 @@ class RolesController extends Controller
         }
     }
 
-    public function tableSettings($role = null)
-    {
-        # --------------------
-        # Roles Table settings
-        # --------------------
-        #
-        # hidden: Columns that will not be displayed in the edit form, and they won't be updated
-        # empty: Columns that will not have their current value when editing them (eg: password field is hidden in the model)
-        # confirmed: fields that will need to be confirmed twice
-        # encrypted: Fields that will be encrypted using: Crypt::encrypt(); when they are saved and decrypted when editing them
-        # hashed: Fields that will be hashed when they are saved in the database, will be empty on editing, and if saved as empty they will not be modified
-        # masked: Fields that will be displayed as a type='password', so their content when beeing modified won't be visible
-        # default_random: Fields that if no data is set, they will be randomly generated (10 characters)
-        # su_hidden: Columns that will be added to the hidden array if the user is su
-        # validator: validator settings when executing: $this->validate();
-        #
-        #
-        if(!$role) {
-            $role = Role::first();
-        }
-        #
-        # NOTE: if you use the variable $role and it's not set, it will use the first role in the database
-
-        $data = [
-            'create'    =>  [
-                'hidden'            =>  ['id', 'su', 'created_at', 'updated_at'],
-                'default_random'    =>  [],
-                'confirmed'         =>  [],
-                'encrypted'         =>  [],
-                'hashed'            =>  [],
-                'masked'            =>  [],
-                'validator'         =>  [
-                    'name' => 'required|unique:roles',
-                ],
-            ],
-            'edit'      =>  [
-                'hidden'            =>  ['id', 'su', 'created_at', 'updated_at'],
-                'su_hidden'         =>  ['color', 'name'],
-                'empty'             =>  [],
-                'default_random'    =>  [],
-                'confirmed'         =>  [],
-                'encrypted'         =>  [],
-                'hashed'            =>  [],
-                'masked'            =>  [],
-                'validator'         =>  [
-                    'name' => 'sometimes|required|unique:roles,name,'.$role->id,
-                ],
-            ],
-        ];
-        return $data;
-    }
-
-    public function fields($columns, $hidden)
-    {
-        # Gets the fields available to edit / update
-        $final_columns = [];
-        foreach($columns as $column) {
-            $add = true;
-            foreach($hidden as $hide) {
-                if($column == $hide) {
-                    $add = false;
-                }
-            }
-            if($add) {
-                array_push($final_columns, $column);
-            }
-        }
-        return $final_columns;
-    }
-
-    public function addSuHidden($hidden, $su_hidden)
-    {
-        # Add the su_hidden fields to the hiden variable
-        foreach($su_hidden as $su_hid) {
-            array_push($hidden, $su_hid);
-        }
-
-        return $hidden;
-    }
-
     public function index()
     {
     	# Get all the roles
     	$roles = Role::all();
 
-    	# Get Latest Role
+    	# Get Default Role
     	$default_role = Role::findOrFail(Users_Settings::first()->default_role);
 
     	# Return the view
@@ -135,42 +58,25 @@ class RolesController extends Controller
             return redirect('/admin/roles')->with('warning', "You are not allowed to perform this action");
         }
 
-        # Get the users table columns
-        $columns = Schema::getColumnListing('roles');
-
         # Find the role
-        $role = Role::findOrFail($id);
+        $row = Role::findOrFail($id);
 
-        # Get the table settings
-        $data = $this->tableSettings($role);
-
-        # Get the table data
-        $hidden = $data['edit']['hidden'];
-        $empty = $data['edit']['empty'];
-        $default_random = $data['edit']['default_random'];
-        $confirmed = $data['edit']['confirmed'];
-        $encrypted = $data['edit']['encrypted'];
-        $hashed = $data['edit']['hashed'];
-        $masked = $data['edit']['masked'];
-        $su_hidden = $data['edit']['su_hidden'];
-
-        # Add su_hidden to hidden if the user is su
-        if($role->su) {
-            $hidden = $this->addSuHidden($hidden, $su_hidden);
-        }
-
-        # Get the available fields
-        $fields = $this->fields($columns, $hidden);
+        # Get all the data
+        $data_index = 'roles';
+        require('Data/Edit/Get.php');
 
         # Return the view
         return view('admin/roles/edit', [
-            'role'      => $role,
+            'row'       =>  $row,
             'fields'    =>  $fields,
             'confirmed' =>  $confirmed,
             'empty'     =>  $empty,
             'encrypted' =>  $encrypted,
             'hashed'    =>  $hashed,
             'masked'    =>  $masked,
+            'table'     =>  $table,
+            'code'      =>  $code,
+            'wysiwyg'   =>  $wysiwyg,
         ]);
     }
 
@@ -182,96 +88,12 @@ class RolesController extends Controller
             return redirect('/admin/roles')->with('warning', "You are not allowed to perform this action");
         }
 
-        # Find the user
-        $role = Role::findOrFail($id);
+        # Find the row
+        $row = Role::findOrFail($id);
 
-        # Get the table settings
-        $data = $this->tableSettings($role);
-
-        # Get the users table columns
-        $columns = Schema::getColumnListing('roles');
-
-        # Get the table data
-        $hidden = $data['edit']['hidden'];
-        $encrypted = $data['edit']['encrypted'];
-        $hashed = $data['edit']['hashed'];
-        $validator = $data['edit']['validator'];
-        $default_random = $data['edit']['default_random'];
-        $su_hidden = $data['edit']['su_hidden'];
-
-        # Add su_hidden to hidden if the user is su
-        if($role->su) {
-            $hidden = $this->addSuHidden($hidden, $su_hidden);
-        }
-
-        # Validate The Request
-        $this->validate($request, $validator);
-        
-        # Get the available fields to update
-        $fields = $this->fields($columns, $hidden);
-
-        # Update the user
-        foreach($fields as $field) {
-
-            $save = true;
-
-            # Check the field type
-            $type = Schema::getColumnType('roles', $field);
-
-            # Get the value
-            $value = $request->input($field);
-
-            if($type == 'string' or $type == 'integer') {
-
-                # Check if it's a default_random field
-                foreach($default_random as $random) {
-                    if($random == $field) {
-                        if(!$value) {
-                            $value = str_random(10);
-                        }
-                    }
-                }
-
-                # Check if it's a hashed field
-                foreach($hashed as $hash) {
-                    if($hash == $field) {
-                        if($value) {
-                            $value = Hash::make($value);
-                        } else {
-                            $save = false;
-                        }
-                    }
-                }
-
-                # Check if it's an encrypted field
-                foreach($encrypted as $encrypt) {
-                    if($encrypt == $field) {
-                        $value = Crypt::encrypt($value);
-                    }
-                }
-
-                # Save it
-                if($save) {
-                    $role->$field = $value;
-                }
-
-            } elseif($type == 'boolean') {
-                
-                # Save it
-                if($value) {
-                    $role->$field = true;
-                } else {
-                    $role->$field = false;
-                }
-
-            } else {
-                # Save it
-                $role->$field = $value;
-            }
-        }
-
-        # Save the user
-        $role->save();
+        # Save the data
+        $data_index = 'roles';
+        require('Data/Edit/Save.php');
 
         # Return the admin to the users page with a success message
         return redirect('/admin/roles')->with('success', "The role has been edited");
@@ -284,24 +106,9 @@ class RolesController extends Controller
             return redirect('/admin/roles')->with('warning', "You are not allowed to perform this action");
         }
 
-        # Get all the permissions
-        $permissions = Permission::all();
-
-    	# Get the users table columns
-        $columns = Schema::getColumnListing('roles');
-
-        # Get the table settings
-        $data = $this->tableSettings();
-
-        # Get the table data
-        $hidden = $data['create']['hidden'];
-        $confirmed = $data['create']['confirmed'];
-        $encrypted = $data['create']['encrypted'];
-        $hashed = $data['create']['hashed'];
-        $masked = $data['create']['masked'];
-
-        # Get the available fields
-        $fields = $this->fields($columns, $hidden);
+        # Get all the data
+        $data_index = 'roles';
+    	require('Data/Create/Get.php');
 
         # All permissions
         $permissions = Permission::all();
@@ -323,6 +130,9 @@ class RolesController extends Controller
             'permissions'   =>  $permissions,
             'types'         =>  $types,
             'untyped'       =>  $untyped,
+            'table'         =>  $table,
+            'code'          =>  $code,
+            'wysiwyg'       =>  $wysiwyg,
         ]);
     }
 
@@ -333,93 +143,15 @@ class RolesController extends Controller
             return redirect('/admin/roles')->with('warning', "You are not allowed to perform this action");
         }
 
-    	# Find the user
-        $role = new Role;
+    	# create new role
+        $row = new Role;
 
-        # Get the table settings
-        $data = $this->tableSettings();
-
-        # Get the users table columns
-        $columns = Schema::getColumnListing('roles');
-
-        # Get the table data
-        $hidden = $data['create']['hidden'];
-        $default_random = $data['create']['default_random'];
-        $encrypted = $data['create']['encrypted'];
-        $hashed = $data['create']['hashed'];
-        $validator = $data['create']['validator'];
-
-        # Validate The Request
-        $this->validate($request, $validator);
-
-        # Get the available fields to update
-        $fields = $this->fields($columns, $hidden);
-
-        # Update the user
-        foreach($fields as $field) {
-
-            $save = true;
-
-            # Check the field type
-            $type = Schema::getColumnType('roles', $field);
-
-            # Get the value
-            $value = $request->input($field);
-
-            if($type == 'string' or $type == 'integer') {
-
-                # Check if it's a default_random field
-                foreach($default_random as $random) {
-                    if($random == $field) {
-                        if(!$value) {
-                            $value = str_random(10);
-                        }
-                    }
-                }
-
-                # Check if it's a hashed field
-                foreach($hashed as $hash) {
-                    if($hash == $field) {
-                        if($value) {
-                            $value = Hash::make($value);
-                        } else {
-                            $save = false;
-                        }
-                    }
-                }
-
-                # Check if it's an encrypted field
-                foreach($encrypted as $encrypt) {
-                    if($encrypt == $field) {
-                        $value = Crypt::encrypt($value);
-                    }
-                }
-
-                # Save it
-                if($save) {
-                    $role->$field = $value;
-                }
-
-            } elseif($type == 'boolean') {
-                
-                # Save it
-                if($value) {
-                    $role->$field = true;
-                } else {
-                    $role->$field = false;
-                }
-
-            } else {
-                # Save it
-                $role->$field = $value;
-            }
-        }
-
-        # Save the user
-        $role->save();
+        # Save the data
+        $data_index = 'roles';
+        require('Data/Create/Save.php');
 
         # Set the permissions
-        $this->setPermissions($role->id, $request);
+        $this->setPermissions($row->id, $request);
 
         # Return the admin to the roles page with a success message
         return redirect('/admin/roles')->with('success', "The role has been created");
@@ -476,7 +208,7 @@ class RolesController extends Controller
                     $modify = false;
                 }
             }
-            
+
             if($modify) {
                 if($request->input($perm->id)) {
                     # The admin selected that permission
@@ -518,7 +250,7 @@ class RolesController extends Controller
     }
 
     public function deletePerm($perm_id, $role_id)
-    {	
+    {
     	$rel = Permission_Role::wherePermission_idAndRole_id($perm_id, $role_id)->first();
     	if($rel) {
     		$rel->delete();
@@ -543,12 +275,17 @@ class RolesController extends Controller
             return redirect('/admin/roles')->with('warning', "You are not allowed to perform this action");
         }
 
-    	# Delete Role
+    	# Select Role
     	$role = Role::findOrFail($id);
 
         # Check if it's su
         if($role->su) {
             return redirect('/admin/roles')->with('info', "For security reaseons you can't delete this");
+        }
+
+        # Check if it's the default role
+        if($role->id == Users_Settings::first()->default_role) {
+            return redirect('/admin/roles')->with('info', "For security reaseons you can't delete the default user role");
         }
 
     	# Delete all relationships

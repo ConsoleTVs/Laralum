@@ -175,6 +175,86 @@ class CreatePermissions extends Migration
         $perm->type_id = Permission_Types::where('type', 'Permission Administration')->first()->id;
         $perm->su = true;
         $perm->save();
+
+        $perm = new Permission;
+        $perm->slug = 'admin.blogs.access';
+        $perm->name = 'Blogs Access';
+        $perm->info = 'Grants access to blogs page';
+        $perm->type_id = Permission_Types::where('type', 'Blog Administration')->first()->id;
+        $perm->su = true;
+        $perm->save();
+
+        $perm = new Permission;
+        $perm->slug = 'admin.blogs.create';
+        $perm->name = 'Create Blogs';
+        $perm->info = 'Grants access to blogs creation';
+        $perm->type_id = Permission_Types::where('type', 'Blog Administration')->first()->id;
+        $perm->su = true;
+        $perm->save();
+
+        $perm = new Permission;
+        $perm->slug = 'admin.blogs.delete';
+        $perm->name = 'Delete Blogs';
+        $perm->info = 'Grants access to blogs deletion';
+        $perm->type_id = Permission_Types::where('type', 'Blog Administration')->first()->id;
+        $perm->su = true;
+        $perm->save();
+
+        $perm = new Permission;
+        $perm->slug = 'admin.blogs.edit';
+        $perm->name = 'Edit Blogs';
+        $perm->info = 'Grants access to blog editing';
+        $perm->type_id = Permission_Types::where('type', 'Blog Administration')->first()->id;
+        $perm->su = true;
+        $perm->save();
+
+        $perm = new Permission;
+        $perm->slug = 'admin.blogs.posts';
+        $perm->name = 'Blog Posts';
+        $perm->info = 'Grants access to blog posts';
+        $perm->type_id = Permission_Types::where('type', 'Blog Administration')->first()->id;
+        $perm->su = true;
+        $perm->save();
+
+        $perm = new Permission;
+        $perm->slug = 'admin.posts.access';
+        $perm->name = 'Posts Access';
+        $perm->info = 'Grants access to posts';
+        $perm->type_id = Permission_Types::where('type', 'Post Administration')->first()->id;
+        $perm->su = true;
+        $perm->save();
+
+        $perm = new Permission;
+        $perm->slug = 'admin.posts.view';
+        $perm->name = 'View Posts';
+        $perm->info = 'Grants access to viewing posts';
+        $perm->type_id = Permission_Types::where('type', 'Post Administration')->first()->id;
+        $perm->su = true;
+        $perm->save();
+
+        $perm = new Permission;
+        $perm->slug = 'admin.posts.create';
+        $perm->name = 'Create Posts';
+        $perm->info = 'Grants access to posts creation';
+        $perm->type_id = Permission_Types::where('type', 'Post Administration')->first()->id;
+        $perm->su = true;
+        $perm->save();
+
+        $perm = new Permission;
+        $perm->slug = 'admin.posts.edit';
+        $perm->name = 'Edit Posts';
+        $perm->info = 'Grants access to posts editing';
+        $perm->type_id = Permission_Types::where('type', 'Post Administration')->first()->id;
+        $perm->su = true;
+        $perm->save();
+
+        $perm = new Permission;
+        $perm->slug = 'admin.posts.delete';
+        $perm->name = 'Posts Access';
+        $perm->info = 'Grants access to posts';
+        $perm->type_id = Permission_Types::where('type', 'Post Administration')->first()->id;
+        $perm->su = true;
+        $perm->save();
     }
 
     /**

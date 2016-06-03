@@ -24,6 +24,66 @@
 */
 
 
+Route::group(['middleware' => 'web'], function () {
+
+	# Welcome route
+	Route::get('/', function () {
+	    return view('welcome');
+	});
+
+	# Auth routes
+    Route::auth();
+
+	# Default home route
+    Route::get('/home', 'HomeController@index');
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
++---------------------------------------------------------------------------+
+| Laralum Routes															|
++---------------------------------------------------------------------------+
+|  _                     _													|
+| | |                   | |													|
+| | |     __ _ _ __ __ _| |_   _ _ __ ___									|
+| | |    / _` | '__/ _` | | | | | '_ ` _ \									|
+| | |___| (_| | | | (_| | | |_| | | | | | |									|
+| \_____/\__,_|_|  \__,_|_|\__,_|_| |_| |_| Administration Panel			|
+|																			|
++---------------------------------------------------------------------------+
+|																			|
+| This route group applies the "web" middleware group to every route		|
+| it contains. The "web" middleware group is defined in your HTTP			|
+| kernel and includes session state, CSRF protection, and more.				|
+| This routes are made to manage laralum administration panel, please		|
+| don't change anything unless you know what you're doing.					|
+|																			|
++---------------------------------------------------------------------------+
+*/
+
 Route::group(['middleware' => ['web', 'auth']], function () {
 
 	Route::get('activate/{token?}', 'Auth\ActivationController@activate');
@@ -33,26 +93,7 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     });
 });
 
-Route::group(['middleware' => 'web'], function () {
-
-	Route::get('/', function () {
-	    return view('welcome');
-	});
-    
-    Route::auth();
-
-    Route::get('/home', 'HomeController@index');
-
-    Route::get('/setup', 'Admin\SetupController@index');
-    Route::post('/setup', 'Admin\SetupController@setup');
-});
-
-
 Route::group(['middleware' => ['web', 'auth', 'admin.auth'], 'prefix' => 'admin', 'namespace' => 'Admin'], function () {
-
-	#	----------------------
-	#	- Admin Panel Routes -
-	#	----------------------
 
 	# Home Controller
     Route::get('/', 'HomeController@index');
@@ -106,7 +147,7 @@ Route::group(['middleware' => ['web', 'auth', 'admin.auth'], 'prefix' => 'admin'
     Route::post('/permissions/create', 'PermissionsController@store');
 
     Route::get('/permissions/{id}', 'PermissionsController@show');
-    
+
     Route::get('/permissions/{id}/edit', 'PermissionsController@edit');
     Route::post('/permissions/{id}/edit', 'PermissionsController@update');
 
@@ -116,11 +157,37 @@ Route::group(['middleware' => ['web', 'auth', 'admin.auth'], 'prefix' => 'admin'
     # Permission Types Routes
     Route::get('/permissions/types/create', 'PermissionsController@createType');
     Route::post('/permissions/types/create', 'PermissionsController@storeType');
-    
+
     Route::get('/permissions/types/{id}/edit', 'PermissionsController@editType');
     Route::post('/permissions/types/{id}/edit', 'PermissionsController@updateType');
 
     Route::get('/permissions/types/{id}/delete', 'SecurityController@confirm');
     Route::post('/permissions/types/{id}/delete', 'PermissionsController@destroyType');
+
+	# Blogs Routes
+	Route::get('blogs', 'BlogsController@index');
+
+	Route::get('blogs/create', 'BlogsController@create');
+	Route::post('blogs/create', 'BlogsController@store');
+
+	Route::get('blogs/{id}', 'BlogsController@posts');
+
+	Route::get('blogs/{id}/edit', 'BlogsController@edit');
+	Route::post('blogs/{id}/edit', 'BlogsController@update');
+
+	Route::get('blogs/{id}/delete', 'SecurityController@confirm');
+	Route::post('blogs/{id}/delete', 'BlogsController@destroy');
+
+	# Posts Routes
+	Route::get('posts/{id}', 'PostsController@index');
+
+	Route::get('posts/create/{id}', 'PostsController@create');
+	Route::post('posts/create/{id}', 'PostsController@store');
+
+	Route::get('posts/{id}/edit', 'PostsController@edit');
+	Route::post('posts/{id}/edit', 'PostsController@update');
+
+	Route::get('posts/{id}/delete', 'SecurityController@confirm');
+	Route::post('posts/{id}/delete', 'PostsController@destroy');
 
 });

@@ -39,6 +39,16 @@ class CreatePermissionTypes extends Migration
         $type->type = "Permission Administration";
         $type->su = true;
         $type->save();
+
+        $type = new Permission_types;
+        $type->type = "Blog Administration";
+        $type->su = true;
+        $type->save();
+
+        $type = new Permission_types;
+        $type->type = "Post Administration";
+        $type->su = true;
+        $type->save();
     }
 
     /**
