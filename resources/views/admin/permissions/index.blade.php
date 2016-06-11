@@ -35,7 +35,7 @@
 									<?php $counter = 0; ?>
 									@foreach($type->permissions as $perm)
 										<?php $counter++; ?>
-									@endforeach	
+									@endforeach
 									{{ $counter }} Permissions
 								</td>
 								<td class="text-center">
@@ -54,6 +54,11 @@
 				  </table>
 				  </div>
 			  </div>
+			</div>
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<canvas id="types"></canvas>
+				</div>
 			</div>
 		</div>
 		<div class="col-md-7">
@@ -92,7 +97,7 @@
 									<?php $counter = 0; ?>
 									@foreach($perm->roles as $role)
 										<?php $counter++; ?>
-									@endforeach	
+									@endforeach
 									{{ $counter }} Roles
 								</td>
 								<td class="text-center">
@@ -117,4 +122,34 @@
 			</div>
 		</div>
 	</div>
+@endsection
+@section('js')
+<script>
+    var ctx = document.getElementById("types");
+    var myChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            @if(count($types) > 0)
+				labels: [@foreach($types as $type) '{{ $type->type }}', @endforeach],
+				datasets: [{
+					data: [@foreach($types as $type) {{ count($type->permissions) }}, @endforeach],
+					backgroundColor: [@foreach($types as $type) '@if($type->color){{ $type->color }}@else{{ sprintf('#%06X', mt_rand(0, 0xFFFFFF)) }}@endif', @endforeach]
+				}]
+			@else
+			labels: ['No Types'],
+			datasets: [{
+				data: [100],
+				backgroundColor: ['#424242']
+			}]
+			@endif
+        },
+		options: {
+			title: {
+	            display: true,
+	            text: 'Total permissions per type',
+				fontSize: 20,
+	        }
+		}
+    });
+</script>
 @endsection

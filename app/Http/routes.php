@@ -165,29 +165,31 @@ Route::group(['middleware' => ['web', 'auth', 'admin.auth'], 'prefix' => 'admin'
     Route::post('/permissions/types/{id}/delete', 'PermissionsController@destroyType');
 
 	# Blogs Routes
-	Route::get('blogs', 'BlogsController@index');
+	Route::get('/blogs', 'BlogsController@index');
 
-	Route::get('blogs/create', 'BlogsController@create');
-	Route::post('blogs/create', 'BlogsController@store');
+	Route::get('/blogs/create', 'BlogsController@create');
+	Route::post('/blogs/create', 'BlogsController@store');
 
-	Route::get('blogs/{id}', 'BlogsController@posts');
+	Route::get('/blogs/{id}', 'BlogsController@posts');
 
-	Route::get('blogs/{id}/edit', 'BlogsController@edit');
-	Route::post('blogs/{id}/edit', 'BlogsController@update');
+	Route::get('/blogs/{id}/edit', 'BlogsController@edit');
+	Route::post('/blogs/{id}/edit', 'BlogsController@update');
 
-	Route::get('blogs/{id}/delete', 'SecurityController@confirm');
-	Route::post('blogs/{id}/delete', 'BlogsController@destroy');
+	Route::get('/blogs/{id}/delete', 'SecurityController@confirm');
+	Route::post('/blogs/{id}/delete', 'BlogsController@destroy');
 
 	# Posts Routes
-	Route::get('posts/{id}', 'PostsController@index');
+	Route::get('/posts/{id}', 'PostsController@index');
 
-	Route::get('posts/create/{id}', 'PostsController@create');
-	Route::post('posts/create/{id}', 'PostsController@store');
+	Route::get('/posts/create/{id}', 'PostsController@create');
+	Route::post('/posts/create/{id}', 'PostsController@store');
 
-	Route::get('posts/{id}/edit', 'PostsController@edit');
-	Route::post('posts/{id}/edit', 'PostsController@update');
+	Route::get('/posts/{id}/edit', 'PostsController@edit');
+	Route::post('/posts/{id}/edit', 'PostsController@update');
 
-	Route::get('posts/{id}/delete', 'SecurityController@confirm');
-	Route::post('posts/{id}/delete', 'PostsController@destroy');
+	Route::get('/posts/{id}/graphics', 'PostsController@graphics');
+
+	Route::get('/posts/{id}/delete', 'SecurityController@confirm');
+	Route::post('/posts/{id}/delete', 'PostsController@destroy');
 
 });

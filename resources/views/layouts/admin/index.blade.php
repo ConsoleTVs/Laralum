@@ -90,6 +90,7 @@
 
     <script src='{{ asset('admin_panel/tinymce/tinymce.min.js') }}'></script>
     <script src="{{ asset('admin_panel/code/ace.js') }}" type="text/javascript" charset="utf-8"></script>
+    <script src='{{ asset('admin_panel/chartjs/Chart.js') }}'></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -147,42 +148,6 @@
             </div>
           @endif
 
-          @if(session('success'))
-            <div class="spacer">
-              <div class="alert alert-success">
-                  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                  <p>{{ session('success') }}</p>
-              </div>
-            </div>
-          @endif
-
-          @if(session('error'))
-            <div class="spacer">
-              <div class="alert alert-danger">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                  <p>{{ session('error') }}</p>
-              </div>
-            </div>
-          @endif
-
-          @if(session('warning'))
-            <div class="spacer">
-              <div class="alert alert-warning">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                  <p>{{ session('warning') }}</p>
-              </div>
-            </div>
-          @endif
-
-          @if(session('info'))
-            <div class="spacer">
-              <div class="alert alert-info">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                  <p>{{ session('info') }}</p>
-              </div>
-            </div>
-          @endif
-
         @yield('content')
 
       </div>
@@ -211,6 +176,7 @@
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script type="text/javascript" src="{{ url('admin_panel/noty/jquery.noty.packaged.js') }}"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="{{ url('admin_panel/js/bootstrap.min.js') }}"></script>
     <script>
@@ -237,6 +203,30 @@
         content_css : '{{ url('admin_panel/css/roboto.css') }}'
     });
     </script>
+
+    @if(session('success'))
+        <script>
+            var n = noty({text: "{{ session('success') }}", layout: 'bottomRight',type: "success"});
+        </script>
+    @endif
+
+    @if(session('error'))
+        <script>
+            var n = noty({text: "{{ session('error') }}", layout: 'bottomRight',type: "error"});
+        </script>
+    @endif
+
+    @if(session('warning'))
+        <script>
+            var n = noty({text: "{{ session('warning') }}", layout: 'bottomRight',type: "warning"});
+        </script>
+    @endif
+
+    @if(session('info'))
+        <script>
+            var n = noty({text: "{{ session('info') }}", layout: 'bottomRight',type: "information"});
+        </script>
+    @endif
 
     @yield('js')
 

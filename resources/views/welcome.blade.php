@@ -8,7 +8,7 @@
                 <div class="panel-heading">Welcome to laralum <a href="{{ url('/login') }}" class="pull-right btn btn-primary btn-sm">Check</a></div>
 
                 <div class="panel-body">
-                    
+
 
                       <h4>Getting started</h4>
                       <p>
@@ -30,12 +30,11 @@
 APP_ENV=local
 APP_DEBUG=true
 APP_KEY={{ env('APP_KEY') }}
-APP_NAME=Laralum
-APP_VERSION='1.0.3'
 
 USER_NAME="ADMINISTRATOR_NAME"
 USER_EMAIL="my@email.com"
 USER_PASSWORD="ADMINISTRATOR_PASSWORD"
+USER_COUNTRY_CODE="ES"
 
 ADMINISTRATOR_ROLE_NAME="Administrator"
 DEFAULT_ROLE_NAME="Users"

@@ -34,6 +34,7 @@ class CreateUsersTable extends Migration
         $user->active = true;
         $user->banned = false;
         $user->password = bcrypt(env('USER_PASSWORD', 'admin123'));
+        $user->country_code = env('USER_COUNTRY_CODE', 'ES');
         $user->su = true;
         $user->save();
 

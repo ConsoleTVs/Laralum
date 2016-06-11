@@ -280,12 +280,12 @@ class RolesController extends Controller
 
         # Check if it's su
         if($role->su) {
-            return redirect('/admin/roles')->with('info', "For security reaseons you can't delete this");
+            return redirect('/admin/roles')->with('info', "For security reasons you can't delete this");
         }
 
         # Check if it's the default role
         if($role->id == Users_Settings::first()->default_role) {
-            return redirect('/admin/roles')->with('info', "For security reaseons you can't delete the default user role");
+            return redirect('/admin/roles')->with('info', "For security reasons you can't delete the default user role");
         }
 
     	# Delete all relationships

@@ -31,7 +31,7 @@
 												<input
 
 
-												<?php 
+												<?php
 													if($user->is($role->name)) {
 														echo "checked='checked' ";
 													}

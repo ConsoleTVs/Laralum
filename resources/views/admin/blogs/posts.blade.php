@@ -38,6 +38,7 @@
 					<br>
                     <p>
                         <a href="{{ url('admin/posts', [$post->id, 'edit']) }}" class="btn btn-primary" role="button">Edit Post</a>
+						<a href="{{ url('admin/posts', [$post->id, 'graphics']) }}" class="btn btn-primary" role="button">Post Graphics</a>
                         <a href="{{ url('admin/posts', $post->id) }}" class="btn btn-primary" role="button">View Post</a>
                         <a href="{{ url('admin/posts', [$post->id, 'delete']) }}" class="btn btn-danger pull-right" role="button">Delete Post</a>
                     </p>

@@ -95,7 +95,7 @@ class PermissionsController extends Controller
 
         # Check if it's su
         if($perm->su) {
-            return redirect('/admin/permissions')->with('info', "For security reaseons you can't modify this");
+            return redirect('/admin/permissions')->with('info', "For security reasons you can't modify this");
         }
 
     	# Get all types
@@ -117,7 +117,7 @@ class PermissionsController extends Controller
 
         # Check if it's su
         if($perm->su) {
-            return redirect('/admin/permissions')->with('info', "For security reaseons you can't modify this");
+            return redirect('/admin/permissions')->with('info', "For security reasons you can't modify this");
         }
 
     	# Validate Request
@@ -151,7 +151,7 @@ class PermissionsController extends Controller
 
         # Check if it's su
         if($perm->su) {
-            return redirect('/admin/permissions')->with('info', "For security reaseons you can't delete this");
+            return redirect('/admin/permissions')->with('info', "For security reasons you can't delete this");
         }
 
     	# Delete relationships
@@ -211,7 +211,7 @@ class PermissionsController extends Controller
 
         # Check if it's su
         if($type->su) {
-            return redirect('/admin/permissions')->with('info', "For security reaseons you can't modify this");
+            return redirect('/admin/permissions')->with('info', "For security reasons you can't modify this");
         }
 
     	# Retrun the form
@@ -230,7 +230,7 @@ class PermissionsController extends Controller
 
         # Check if it's su
         if($type->su) {
-            return redirect('/admin/permissions')->with('info', "For security reaseons you can't modify this");
+            return redirect('/admin/permissions')->with('info', "For security reasons you can't modify this");
         }
 
     	# Validate the request
@@ -258,7 +258,7 @@ class PermissionsController extends Controller
 
         # Check if it's su
         if($type->su) {
-            return redirect('/admin/permissions')->with('info', "For security reaseons you can't delete this");
+            return redirect('/admin/permissions')->with('info', "For security reasons you can't delete this");
         }
 
     	# Set to 'Other' all the permissions that had that type
@@ -267,7 +267,7 @@ class PermissionsController extends Controller
     		$rel->type_id = 0;
     		$rel->save();
     	}
-    	
+
     	# Delete the type
     	$type->delete();
 

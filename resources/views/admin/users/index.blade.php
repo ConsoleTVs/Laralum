@@ -8,29 +8,17 @@
 					<div class="row">
 						<div class="col-sm-4">
 							<center>
-								<?php $counter = 0; ?>
-								@foreach($users as $user)
-									<?php $counter++; ?>
-								@endforeach
-								<h3>{{ $counter }}<small><br>Total Users</small></h3>
+								<h3>{{ count($users) }}<small><br>Total Users</small></h3>
 							</center>
 						</div>
 						<div class="col-sm-4">
 							<center>
-								<?php $counter = 0; ?>
-								@foreach($active_users as $user)
-									<?php $counter++; ?>
-								@endforeach
-								<h3>{{ $counter }}<small><br>Active Users</small></h3>
+								<h3>{{ count($active_users) }}<small><br>Active Users</small></h3>
 							</center>
 						</div>
 						<div class="col-sm-4">
 							<center>
-								<?php $counter = 0; ?>
-								@foreach($banned_users as $user)
-									<?php $counter++; ?>
-								@endforeach
-								<h3>{{ $counter }}<small><br>Banned Users</small></h3>
+								<h3>{{ count($banned_users) }}<small><br>Banned Users</small></h3>
 							</center>
 						</div>
 					</div>
@@ -38,46 +26,12 @@
 			</div>
 			<div class="panel panel-default">
 				<div class="panel-body">
-					<h4>Newest Member</h4><hr>
-					<div class="row">
-						<div class="col-md-4 small-spacer">
-							<center>
-								<?php $grav_url = "https://www.gravatar.com/avatar/".md5(strtolower(trim($latest_user->email)))."?s=100";?>
-								<img data-toggle="tooltip" data-placement="bottom" title="" data-original-title="{{ $latest_user->name }}" height="100" width="100" class="img-responsive img-circle" src="{!! $grav_url !!}">
-							</center>
-						</div>
-						<div class="col-md-8 small-spacer">
-							<center>
-								<h4>{{ $latest_user->name }}</h4>
-								<h5>{{ $latest_user->email }}</h5>
-							</center>
-						</div>
-					</div>
+					<canvas id="new_users"></canvas>
 				</div>
 			</div>
 			<div class="panel panel-default">
 				<div class="panel-body">
-					<h4>Newly Registered Members</h4><hr>
-					<div class="row" >
-						<?php $counter = 6 ?>
-						@foreach($latest_users as $user)
-							<div class="col-xs-4 small-spacer">
-								<center>
-									<?php $grav_url = "https://www.gravatar.com/avatar/".md5(strtolower(trim($user->email)))."?s=100";?>
-									<img id="avatar-div" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="{{ $user->name }}" height="100" width="100" class="img-responsive img-circle" src="{!! $grav_url !!}">
-								</center>
-							</div>
-							<?php $counter--; ?>
-						@endforeach
-						@while($counter > 0)
-							<div class="col-xs-4 small-spacer">
-								<center>
-									<img height="100" width="100" class="img-responsive img-circle lower-opacity" src="{{ asset('admin_panel/img/avatar.jpg') }}">
-								</center>
-							</div>
-							<?php $counter--; ?>
-						@endwhile
-					</div>
+					<canvas id="countries"></canvas>
 				</div>
 			</div>
 		</div>
@@ -114,7 +68,7 @@
 				    </thead>
 				    <tbody>
 						@foreach($users as $user)
-							<tr 
+							<tr
 
 							<?php
 
@@ -123,9 +77,9 @@
 								} elseif(!$user->active) {
 									echo "style='color: #ff9800;'";
 								}
-								
 
-							?> 
+
+							?>
 
 							>
 								<td class="text-center">{{ $user->id }}</td>
@@ -168,4 +122,121 @@
 
 
 
+@endsection
+
+@section('js')
+<?php
+    $labels = [];
+    foreach($users as $user){
+        $add = true;
+        foreach($labels as $label) {
+            if($label == $user->country_code){
+                $add = false;
+            }
+        }
+        if($add) {
+            array_push($labels,$user->country_code);
+        }
+    }
+    $json = file_get_contents('admin_panel/assets/countries/names.json');
+    $countries = json_decode($json, true);
+?>
+<script>
+    var ctx = document.getElementById("countries");
+    var myChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            @if(count($labels) > 0)
+				labels: [@foreach($labels as $label) '{{ $countries[$label] }}', @endforeach],
+				datasets: [{
+					data: [@foreach($labels as $label) {{ count(App\User::where('country_code', $label)->get()) }}, @endforeach],
+					backgroundColor: [@foreach($labels as $label) '{{ sprintf('#%06X', mt_rand(0, 0xFFFFFF)) }}', @endforeach]
+				}]
+			@else
+			labels: ['No Users'],
+			datasets: [{
+				data: [100],
+				backgroundColor: ['#424242']
+			}]
+			@endif
+        },
+		options: {
+			title: {
+	            display: true,
+	            text: 'Total users per country',
+				fontSize: 20,
+	        }
+		}
+    });
+</script>
+<?php
+	$dates = array_reverse([
+		date("Y-m-d"),
+		date("Y-m-d", strtotime("-1 Day")),
+		date("Y-m-d", strtotime("-2 Day")),
+		date("Y-m-d", strtotime("-3 Day")),
+		date("Y-m-d", strtotime("-4 Day")),
+	]);
+	$values = array_reverse([
+		count($user->whereDate('created_at', '=', date("Y-m-d"))->get()),
+		count($user->whereDate('created_at', '=', date("Y-m-d", strtotime("-1 Day")))->get()),
+		count($user->whereDate('created_at', '=', date("Y-m-d", strtotime("-2 Day")))->get()),
+		count($user->whereDate('created_at', '=', date("Y-m-d", strtotime("-3 Day")))->get()),
+		count($user->whereDate('created_at', '=', date("Y-m-d", strtotime("-4 Day")))->get()),
+	])
+?>
+<script>
+	var ctx = document.getElementById("new_users");
+	var data = {
+	    labels: [@foreach($dates as $date) "{{ $date }}", @endforeach],
+	    datasets: [
+	        {
+	            label: "Total Users",
+	            fill: true,
+	            lineTension: 0,
+	            backgroundColor: "rgba(33, 150, 243, 0.4)",
+	            borderColor: "#2196f3",
+	            borderCapStyle: 'butt',
+	            borderDash: [],
+	            borderDashOffset: 0.0,
+	            borderJoinStyle: 'miter',
+	            pointBorderColor: "rgba(75,192,192,1)",
+	            pointBackgroundColor: "#fff",
+	            pointBorderWidth: 1,
+	            pointHoverRadius: 5,
+	            pointHoverBackgroundColor: "rgba(75,192,192,1)",
+	            pointHoverBorderColor: "rgba(220,220,220,1)",
+	            pointHoverBorderWidth: 1,
+	            pointRadius: 0,
+	            pointHitRadius: 10,
+	            data: [@foreach($values as $value) {{ $value  }}, @endforeach],
+	        }
+	    ]
+	};
+
+	var myLineChart = new Chart(ctx, {
+		type: 'line',
+		data: data,
+		options: {
+			title: {
+	            display: true,
+	            text: 'New users on the last 5 days',
+				fontSize: 20,
+	        },
+			scales: {
+	            yAxes: [{
+	                ticks: {
+						stepSize: 1,
+						padding: 20,
+	                }
+	            }],
+				xAxes: [{
+	                ticks: {
+
+	                }
+	            }]
+        	}
+	    }
+	});
+</script>
 @endsection

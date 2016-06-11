@@ -27,7 +27,21 @@ class PostsController extends Controller
         }
 
         $post = Post::findOrFail($id);
+
+        $post->addView();
+
         return view('admin/blogs/posts/index', ['post' => $post]);
+    }
+
+    public function graphics($id){
+        # Check permissions
+        if(!Auth::user()->has('admin.posts.graphics')) {
+            return redirect('/admin')->with('warning', "You are not allowed to perform this action")->send();
+        }
+
+        $post = Post::findOrFail($id);
+
+        return view('admin/blogs/posts/graphics', ['post' => $post]);
     }
 
     public function create($id)

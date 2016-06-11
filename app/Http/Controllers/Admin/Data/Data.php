@@ -1,3 +1,4 @@
+
 <?php
 /*
 +---------------------------------------------------------------------------+
@@ -92,7 +93,7 @@ $data = [
         ],
         'edit'      =>  [
             'hidden'            =>  ['id', 'su', 'created_at', 'updated_at'],
-            'su_hidden'         =>  ['color', 'name'],
+            'su_hidden'         =>  ['name'],
             'empty'             =>  [],
             'default_random'    =>  [],
             'confirmed'         =>  [],
@@ -155,6 +156,7 @@ $data = [
             'wysiwyg'           =>  ['body'],
             'validator'         =>  [
                 'title' => 'required|max:255|unique:posts',
+                'body'  => 'required',
             ],
         ],
         'edit'      =>  [
@@ -169,6 +171,7 @@ $data = [
             'wysiwyg'           =>  ['body'],
             'validator'         =>  [
                 'title' => 'sometimes|required|max:255|unique:posts,title,'.$row->id,
+                'body'  => 'required',
             ],
         ],
     ],

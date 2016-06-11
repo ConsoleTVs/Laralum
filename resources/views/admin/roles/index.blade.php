@@ -5,26 +5,23 @@
 		<div class="col-md-4">
 			<div class="panel panel-default">
 				<div class="panel-body">
-					<h4>
-						Default Users Role
-					</h4>
-					<hr>&nbsp;
-					<div class="">
-						<center>
-							<h1>
-								<span>{{ $default_role->name }}</span>
-							</h1>
-							<h4><small>{{ $default_role->color }}</small></h4>
-							<br>
-								<h4>
-									<?php $counter = 0; ?>
-									@foreach($default_role->users as $user)
-										<?php $counter++; ?>
-									@endforeach	
-									{{ $counter }} Total Users
-								</h4>
-						</center>
-					</div><br><br>
+					<div class="row">
+						<div class="col-sm-12">
+							<center>
+								<h3>{{ $default_role->name }}<small><br>Default User Role</small></h3>
+							</center>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<canvas id="roles1"></canvas>
+				</div>
+			</div>
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<canvas id="roles2"></canvas>
 				</div>
 			</div>
 		</div>
@@ -47,7 +44,6 @@
 				      <tr>
 				        <th class="text-center">#</th>
 				        <th class="text-center">Name</th>
-				        <th class="text-center">Color</th>
 				        <th class="text-center">Users</th>
 				        <th class="text-center">Permissions</th>
 						<th class="text-center">Edit</th>
@@ -60,13 +56,8 @@
 							<tr>
 								<td class="text-center">{{ $role->id }}</td>
 								<td class="text-center">{{ $role->name }}</td>
-								<td class="text-center">{{ $role->color }}</td>
 								<td class="text-center">
-									<?php $counter = 0; ?>
-									@foreach($role->users as $user)
-										<?php $counter++; ?>
-									@endforeach	
-									{{ $counter }} Users
+									{{ count($role->users) }} Users
 								</td>
 								<td class="text-center">
 									<a href="{{ url('admin/roles', [$role->id, 'permissions']) }}" class="btn btn-primary btn-sm">Permissions</a>
@@ -93,4 +84,62 @@
 			</div>
 		</div>
 	</div>
+@endsection
+@section('js')
+<script>
+    var ctx = document.getElementById("roles1");
+    var myChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            @if(count($roles) > 0)
+				labels: [@foreach($roles as $role) '{{ $role->name }}', @endforeach],
+				datasets: [{
+					data: [@foreach($roles as $role) {{ count($role->users) }}, @endforeach],
+					backgroundColor: [@foreach($roles as $role) '@if($role->color){{ $role->color }}@else{{ sprintf('#%06X', mt_rand(0, 0xFFFFFF)) }}@endif', @endforeach]
+				}]
+			@else
+			labels: ['No Roles'],
+			datasets: [{
+				data: [100],
+				backgroundColor: ['#424242']
+			}]
+			@endif
+        },
+		options: {
+			title: {
+	            display: true,
+	            text: 'Total users per role',
+				fontSize: 20,
+	        }
+		}
+    });
+</script>
+<script>
+    var ctx = document.getElementById("roles2");
+    var myChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            @if(count($roles) > 0)
+				labels: [@foreach($roles as $role) '{{ $role->name }}', @endforeach],
+				datasets: [{
+					data: [@foreach($roles as $role) {{ count($role->permissions) }}, @endforeach],
+					backgroundColor: [@foreach($roles as $role) '@if($role->color){{ $role->color }}@else{{ sprintf('#%06X', mt_rand(0, 0xFFFFFF)) }}@endif', @endforeach]
+				}]
+			@else
+			labels: ['No Roles'],
+			datasets: [{
+				data: [100],
+				backgroundColor: ['#424242']
+			}]
+			@endif
+        },
+		options: {
+			title: {
+	            display: true,
+	            text: 'Total permissions per role',
+				fontSize: 20,
+	        }
+		}
+    });
+</script>
 @endsection

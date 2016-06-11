@@ -27,34 +27,6 @@ class UsersController extends Controller
         }
     }
 
-    public function fields($columns, $hidden)
-    {
-        # Gets the fields available to edit / update
-        $final_columns = [];
-        foreach($columns as $column) {
-            $add = true;
-            foreach($hidden as $hide) {
-                if($column == $hide) {
-                    $add = false;
-                }
-            }
-            if($add) {
-                array_push($final_columns, $column);
-            }
-        }
-        return $final_columns;
-    }
-
-    public function addSuHidden($hidden, $su_hidden)
-    {
-        # Add the su_hidden fields to the hiden variable
-        foreach($su_hidden as $su_hid) {
-            array_push($hidden, $su_hid);
-        }
-
-        return $hidden;
-    }
-
     public function index()
     {
     	# Get all users
@@ -335,7 +307,7 @@ class UsersController extends Controller
 
         # Check if it's su
         if($user->su) {
-            return redirect('/admin/users')->with('info', "For security reaseons you can't delete this");
+            return redirect('/admin/users')->with('info', "For security reasons you can't delete this");
         }
 
     	# Check before deleting

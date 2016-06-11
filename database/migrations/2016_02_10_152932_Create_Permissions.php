@@ -255,6 +255,15 @@ class CreatePermissions extends Migration
         $perm->type_id = Permission_Types::where('type', 'Post Administration')->first()->id;
         $perm->su = true;
         $perm->save();
+
+        $perm = new Permission;
+        $perm->slug = 'admin.posts.graphics';
+        $perm->name = 'Posts Graphics';
+        $perm->info = 'Grants access to posts graphics';
+        $perm->type_id = Permission_Types::where('type', 'Post Administration')->first()->id;
+        $perm->su = true;
+        $perm->save();
+
     }
 
     /**
