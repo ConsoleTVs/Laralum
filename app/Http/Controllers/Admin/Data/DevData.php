@@ -2,11 +2,12 @@
 <?php
 /*
 +---------------------------------------------------------------------------+
-| Laralum Data Configuration												|
+| Laralum Developer Data Configuration  									|
 +---------------------------------------------------------------------------+
 |                                                               			|
 | * Available settings:                  									|
-|																			|
+|							                                                |
+| hide_display: Hides the field when the table is displayed                 |
 | table: The table name 												    +-------------+
 | hidden: Columns that will not be displayed in the edit form, and they won't be updated +----------------------------+
 | empty: Columns that will not have their current value when editing them (eg: password field is hidden in the model) |
@@ -19,8 +20,10 @@
 | code: Fields that can be edited using a code editor                       +-+
 | wysiwyg: Fields that can be edited using a wysiwyg editor                 |
 | validator: validator settings when executing: $this->validate();          |
+| allow: allows to create/edit the row                                      |
+| delete: allows to delete the row                                          |
 |																			|
-| Note: Do not change the first index               						|
+| Note: The first index indicates the table name    						|
 |																			|
 +---------------------------------------------------------------------------+
 |																			|
@@ -40,8 +43,10 @@ $data = [
 
     'users' =>  [
 
-        'table'     =>  'users',
+        'hide_display'  =>  ['password'],
+        'delete'    =>  false,
         'create'    =>  [
+            'allowed'           =>  true,
             'hidden'            =>  ['id', 'su', 'active', 'banned', 'register_ip', 'activation_key', 'remember_token', 'created_at', 'updated_at'],
             'default_random'    =>  ['password'],
             'confirmed'         =>  ['password'],
@@ -76,105 +81,9 @@ $data = [
         ],
     ],
 
-
-    'roles' =>  [
-
-        'table'     =>  'roles',
+    'settings'  =>  [
         'create'    =>  [
-            'hidden'            =>  ['id', 'su', 'created_at', 'updated_at'],
-            'default_random'    =>  [],
-            'confirmed'         =>  [],
-            'encrypted'         =>  [],
-            'hashed'            =>  [],
-            'masked'            =>  [],
-            'code'              =>  [],
-            'wysiwyg'           =>  [],
-            'validator'         =>  [
-                'name' => 'required|unique:roles',
-            ],
+            'allow'     =>  false,
         ],
-        'edit'      =>  [
-            'hidden'            =>  ['id', 'su', 'created_at', 'updated_at'],
-            'su_hidden'         =>  ['name'],
-            'empty'             =>  [],
-            'default_random'    =>  [],
-            'confirmed'         =>  [],
-            'encrypted'         =>  [],
-            'hashed'            =>  [],
-            'masked'            =>  [],
-            'code'              =>  [],
-            'wysiwyg'           =>  [],
-            'validator'         =>  [
-                'name' => 'sometimes|required|unique:roles,name,'.$row->id,
-            ],
-        ],
-    ],
-
-
-    'blogs'  =>  [
-
-        'table'     =>  'blogs',
-        'create'    =>  [
-            'hidden'            =>  ['id', 'user_id', 'created_at', 'updated_at'],
-            'default_random'    =>  [],
-            'confirmed'         =>  [],
-            'encrypted'         =>  [],
-            'hashed'            =>  [],
-            'masked'            =>  [],
-            'code'              =>  [],
-            'wysiwyg'           =>  [],
-            'validator'         =>  [
-                'name'  => 'required|max:255|unique:blogs',
-            ],
-        ],
-        'edit'      =>  [
-            'hidden'            =>  ['id', 'user_id', 'created_at', 'updated_at'],
-            'empty'             =>  [],
-            'default_random'    =>  [],
-            'confirmed'         =>  [],
-            'encrypted'         =>  [],
-            'hashed'            =>  [],
-            'masked'            =>  [],
-            'code'              =>  [],
-            'wysiwyg'           =>  [],
-            'validator'         =>  [
-                'name'  => 'sometimes|required|max:255|unique:blogs,name,'.$row->id,
-            ],
-        ],
-    ],
-
-
-    'posts'  =>  [
-
-        'table'     =>  'posts',
-        'create'    =>  [
-            'hidden'            =>  ['id', 'user_id', 'edited_by', 'blog_id', 'created_at', 'updated_at'],
-            'default_random'    =>  [],
-            'confirmed'         =>  [],
-            'encrypted'         =>  [],
-            'hashed'            =>  [],
-            'masked'            =>  [],
-            'code'              =>  [],
-            'wysiwyg'           =>  ['body'],
-            'validator'         =>  [
-                'title' => 'required|max:255|unique:posts',
-                'body'  => 'required',
-            ],
-        ],
-        'edit'      =>  [
-            'hidden'            =>  ['id', 'user_id', 'edited_by', 'blog_id', 'created_at', 'updated_at'],
-            'empty'             =>  [],
-            'default_random'    =>  [],
-            'confirmed'         =>  [],
-            'encrypted'         =>  [],
-            'hashed'            =>  [],
-            'masked'            =>  [],
-            'code'              =>  [],
-            'wysiwyg'           =>  ['body'],
-            'validator'         =>  [
-                'title' => 'sometimes|required|max:255|unique:posts,title,'.$row->id,
-                'body'  => 'required',
-            ],
-        ],
-    ],
+    ]
 ];

@@ -2,13 +2,12 @@
 
 /*
 +---------------------------------------------------------------------------+
-| Laralum Data Fetcher														|
+| Laralum Developer Data Fetcher											|
 +---------------------------------------------------------------------------+
 |                                                               			|
 | * Requires:                                                               |
 |																			|
 | $row - The row information                                                |
-| $data_index - The Data array index for the table configuration            |
 |																			|
 | * Available variables:                  									|
 |																			|
@@ -34,7 +33,109 @@
 +---------------------------------------------------------------------------+
 */
 
-include('SimpleGet.php');
+require('../app/Http/Controllers/Admin/Data/DevData.php');
+
+
+
+
+if(array_key_exists($name, $data)) {
+    $data = $data[$name];
+    if(!array_key_exists('create', $data)){
+        $data['create'] = [];
+    }
+    if(!array_key_exists('edit', $data)){
+        $data['edit'] = [];
+    }
+} else {
+    $data = ['create' => [], 'edit' => []];
+}
+
+
+
+
+# Get the table data
+$table = $name;
+
+
+
+if(array_key_exists('allow', $data['create'])) {
+    $allow = $data['create']['allow'];
+} else {
+    $allow = true;
+}
+
+$su_hidden = [];
+$empty = [];
+
+if(array_key_exists('hidden', $data['create'])) {
+    $hidden = $data['create']['hidden'];
+} else {
+    $hidden = [];
+}
+
+if(array_key_exists('default_random', $data['create'])) {
+    $default_random = $data['create']['default_random'];
+} else {
+    $default_random = [];
+}
+
+if(array_key_exists('confirmed', $data['create'])) {
+    $confirmed = $data['create']['confirmed'];
+} else {
+    $confirmed = [];
+}
+
+if(array_key_exists('encrypted', $data['create'])) {
+    $encrypted = $data['create']['encrypted'];
+} else {
+    $encrypted = [];
+}
+
+if(array_key_exists('hashed', $data['create'])) {
+    $hashed = $data['create']['hashed'];
+} else {
+    $hashed = [];
+}
+
+if(array_key_exists('masked', $data['create'])) {
+    $masked = $data['create']['masked'];
+} else {
+    $masked = [];
+}
+
+if(array_key_exists('validator', $data['create'])) {
+    $validator = $data['create']['validator'];
+} else {
+    $validator = [];
+}
+
+if(array_key_exists('code', $data['edit'])) {
+    $code = $data['edit']['code'];
+} else {
+    $code = [];
+}
+
+if(array_key_exists('wysiwyg', $data['create'])) {
+    $wysiwyg = $data['create']['wysiwyg'];
+} else {
+    $wysiwyg = [];
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # Get the row table columns
 $columns = Schema::getColumnListing($table);

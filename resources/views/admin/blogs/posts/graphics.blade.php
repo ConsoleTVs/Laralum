@@ -1,7 +1,7 @@
 @extends('layouts.admin.index')
 @section('title', $post->name . ' Graphics')
 @section('content')
-	<a href="{{ url('admin/blogs', [$post->blog->id]) }}" class="btn btn-primary" role="button">Back</a><br><br>
+<a href="{{ url('admin/blogs', [$post->blog->id]) }}" class="btn btn-primary" role="button">Back</a><br><br>
 <div class="row">
     <div class="col-sm-12 col-md-6">
         <div class="panel panel-default">
@@ -44,7 +44,7 @@
             @if(count($labels) > 0)
 				labels: [@foreach($labels as $label) '{{ $countries[$label] }}', @endforeach],
 				datasets: [{
-					data: [@foreach($labels as $label) {{ count(App\Post_View::where('country_code', $label)->get()) }}, @endforeach],
+					data: [@foreach($labels as $label) {{ count(App\Post_View::whereCountry_codeAndPost_id($label, $post->id)->get()) }}, @endforeach],
 					backgroundColor: [@foreach($labels as $label) '{{ sprintf('#%06X', mt_rand(0, 0xFFFFFF)) }}', @endforeach]
 				}]
 			@else
@@ -58,7 +58,7 @@
 		options: {
 			title: {
 	            display: true,
-	            text: 'Total post views on countries',
+	            text: "Total post views on countries ({{ count(App\Post_View::where('post_id', $post->id)->get()) }} Views)",
 				fontSize: 20,
 	        }
 		}

@@ -66,30 +66,6 @@
                             </div>
                         </div>
 
-
-                        <div class="form-group{{ $errors->has('country_code') ? ' has-error' : '' }}">
-                            <label class="col-md-4 control-label">Country</label>
-
-                            <div class="col-md-6">
-                                <select class="form-control" name="country_code" id="country_code">
-                                    <option disabled selected value="">Select the country</option>
-                                    <?php
-                                        $json = file_get_contents('admin_panel/assets/countries/names.json');
-                                        $countries = json_decode($json, true);
-                                    ?>
-                                    @foreach($countries as $country)
-                                        <option value="{{ array_search($country, $countries) }}">{{ $country }}</option>
-                                    @endforeach
-                                </select>
-
-                                @if ($errors->has('country_code'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('country_code') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">

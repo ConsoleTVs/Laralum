@@ -192,4 +192,18 @@ Route::group(['middleware' => ['web', 'auth', 'admin.auth'], 'prefix' => 'admin'
 	Route::get('/posts/{id}/delete', 'SecurityController@confirm');
 	Route::post('/posts/{id}/delete', 'PostsController@destroy');
 
+	# Developer Mode
+	Route::get('/developer', 'DeveloperController@index');
+
+	Route::get('/developer/{table}', 'DeveloperController@table');
+
+	Route::get('/developer/{table}/create', 'DeveloperController@create');
+	Route::post('/developer/{table}/create', 'DeveloperController@createRow');
+
+	Route::get('/developer/{table}/{id}', 'DeveloperController@row');
+	Route::post('/developer/{table}/{id}', 'DeveloperController@saveRow');
+
+	Route::get('/developer/{table}/{id}/delete', 'SecurityController@confirm');
+	Route::post('/developer/{table}/{id}/delete', 'DeveloperController@deleteRow');
+
 });

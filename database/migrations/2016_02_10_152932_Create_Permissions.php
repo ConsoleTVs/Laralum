@@ -264,6 +264,14 @@ class CreatePermissions extends Migration
         $perm->su = true;
         $perm->save();
 
+        $perm = new Permission;
+        $perm->slug = 'admin.developer.access';
+        $perm->name = 'Developer Access';
+        $perm->info = 'Grants access to developer mode';
+        $perm->type_id = Permission_Types::where('type', 'Developer Mode')->first()->id;
+        $perm->su = true;
+        $perm->save();
+
     }
 
     /**

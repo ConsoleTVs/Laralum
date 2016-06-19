@@ -11,6 +11,7 @@ use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Request;
 use Mail;
 use App\Users_Settings;
+use Location;
 
 class AuthController extends Controller
 {
@@ -115,7 +116,7 @@ class AuthController extends Controller
             'password' => bcrypt($data['password']),
             'active' => $active,
             'activation_key' => $activation_key,
-            'country_code' => $data['country_code'],
+            'country_code' => Location::get($register_ip)->countryCode,
             'register_ip' => $register_ip,
         ]);
 

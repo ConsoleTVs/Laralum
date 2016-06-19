@@ -8,6 +8,7 @@
 | * Requires:                                                               |
 |																			|
 | $row - The row information                                                |
+| $data_index - The Data array index for the table configuration            |
 |																			|
 | * Available variables:                  									|
 |																			|

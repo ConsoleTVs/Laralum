@@ -17,10 +17,9 @@ class CreateUsersSettings extends Migration
         Schema::create('users_settings', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('default_role');
-            $table->boolean('register_enabled');
+            $table->boolean('register_enabled')->comment = "0: off, 1: on";;
             $table->integer('default_active')->comment = "0: off, 1: email, 2: on";
-            $table->boolean('welcome_email');
-            $table->timestamps();
+            $table->boolean('welcome_email')->comment = "0: off, 1: on";
         });
 
         $settings = new Users_Settings;

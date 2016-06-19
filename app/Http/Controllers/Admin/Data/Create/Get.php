@@ -8,6 +8,7 @@
 | * Requires:                                                               |
 |																			|
 | $row - The row information                                                |
+| $data_index - The Data array index for the table configuration            |
 |																			|
 | * Available variables:                  									|
 |																			|
@@ -20,8 +21,7 @@
 | $hashed: Fields that will be hashed when they are saved in the database, will be empty on editing, and if saved as empty they will not be modified |
 | $masked: Fields that will be displayed as a type='password', so their content when beeing modified won't be visible +------------------------------+
 | $default_random: Fields that if no data is set, they will be randomly generated (10 characters) +-------------------+
-| $su_hidden: Columns that will be added to the hidden array if the user is su +------------------+
-| $columns: the row columns 												+--+
+| $columns: the row columns 												+---------------------+
 | $fields: get the available fields         								|
 |																			|
 +---------------------------------------------------------------------------+

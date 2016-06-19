@@ -1,4 +1,4 @@
-<fieldset>
+ <fieldset>
     @if(!$fields)
         <div class="row">
             <div class="lateral-spacer">
@@ -65,11 +65,14 @@
 
         $type = Schema::getColumnType($table, $field);
 
+
         # Set the input type
         if($type == 'string') {
             $input_type = "text";
         } elseif($type == 'integer') {
             $input_type = "number";
+        } else {
+            $input_type = "text";
         }
 
         # Check if it needs to be masked

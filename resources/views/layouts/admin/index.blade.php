@@ -120,6 +120,7 @@
             <li><a href="{{ url('admin/blogs') }}">Blog</a></li>
 	        </ul>
 	        <ul class="nav navbar-nav navbar-right">
+                <li><a href="{{ url('admin/developer') }}">Developer Mode</a></li>
 				<li class="dropdown">
 		          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a>
 		          <ul class="dropdown-menu" role="menu">
