@@ -8,6 +8,8 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Blog;
 use Auth;
+use App\Role;
+use App\Blog_Role;
 
 class BlogsController extends Controller
 {
@@ -80,6 +82,11 @@ class BlogsController extends Controller
             return redirect('/admin')->with('warning', "You are not allowed to perform this action")->send();
         }
 
+        # Check blog permissions
+        if(!Auth::user()->has_blog($id) and !Auth::user()->owns_blog($id)){
+            return redirect('/admin')->with('warning', "You are not allowed to perform this action")->send();
+        }
+
         # Find the blog
         $blog = Blog::findOrFail($id);
 
@@ -90,10 +97,103 @@ class BlogsController extends Controller
         return view('admin/blogs/posts', ['posts' => $posts, 'blog' => $blog]);
     }
 
+    public function roles($id){
+        # Check if blog owner
+        if(!Auth::user()->owns_blog($id)){
+            return redirect('/admin')->with('warning', "You are not allowed to perform this action")->send();
+        }
+
+        $blog = Blog::findOrFail($id);
+
+        $roles = Role::all();
+
+        return view('admin/blogs/roles', ['blog' => $blog, 'roles' => $roles]);
+    }
+
+
+    public function updateRoles($id, Request $request)
+    {
+        # Check if blog owner
+        if(!Auth::user()->owns_blog($id)){
+            return redirect('/admin')->with('warning', "You are not allowed to perform this action")->send();
+        }
+
+		# Find the user
+    	$blog = Blog::findOrFail($id);
+
+    	# Get all roles
+    	$roles = Role::all();
+
+    	# Change user's roles
+    	foreach($roles as $role) {
+
+            if($request->input($role->id)){
+                # The admin selected that role
+
+                # Check if the blog was already in that role
+                if($this->checkRole($blog->id, $role->id)) {
+                    # The blog is already in that role, so no change is made
+                } else {
+                    # Add the blog to the selected role
+                    $this->addRel($blog->id, $role->id);
+                }
+            } else {
+                # The admin did not select that role
+
+                # Check if the blog is in that role
+                if($this->checkRole($blog->id, $role->id)) {
+                    # The blog is that role, so as the admin did not select it, we need to delete the relationship
+                    $this->deleteRel($blog->id, $role->id);
+                } else {
+                    # The blog is not in that role and the admin did not select it
+                }
+            }
+    	}
+
+    	# Return Redirect
+        return redirect('admin/blogs')->with('success', "The blog's roles has been updated");
+    }
+
+    public function checkRole($blog_id, $role_id)
+    {
+    	# This function returns true if the specified user is found in the specified role and false if not
+
+    	if(Blog_Role::whereBlog_idAndRole_id($blog_id, $role_id)->first()) {
+    		return true;
+    	} else {
+    		return false;
+    	}
+
+    }
+
+    public function deleteRel($blog_id, $role_id)
+    {
+    	$rel = Blog_Role::whereBlog_idAndRole_id($blog_id, $role_id)->first();
+    	if($rel) {
+    		$rel->delete();
+    	}
+    }
+
+    public function addRel($blog_id, $role_id)
+    {
+    	$rel = Blog_Role::whereBlog_idAndRole_id($blog_id, $role_id)->first();
+    	if(!$rel) {
+    		$rel = new Blog_Role;
+    		$rel->blog_id = $blog_id;
+    		$rel->role_id = $role_id;
+    		$rel->save();
+    	}
+    }
+
     public function edit($id)
     {
         # Check permissions
         if(!Auth::user()->has('admin.blogs.edit')) {
+            return redirect('/admin')->with('warning', "You are not allowed to perform this action")->send();
+        }
+
+        # Check if blog owner
+        if(!Auth::user()->owns_blog($id)){
             return redirect('/admin')->with('warning', "You are not allowed to perform this action")->send();
         }
 
@@ -126,6 +226,11 @@ class BlogsController extends Controller
             return redirect('/admin')->with('warning', "You are not allowed to perform this action")->send();
         }
 
+        # Check if blog owner
+        if(!Auth::user()->owns_blog($id)){
+            return redirect('/admin')->with('warning', "You are not allowed to perform this action")->send();
+        }
+
         # Find the blog
         $row = Blog::findOrFail($id);
 
@@ -148,6 +253,11 @@ class BlogsController extends Controller
     {
         # Check permissions
         if(!Auth::user()->has('admin.blogs.delete')) {
+            return redirect('/admin')->with('warning', "You are not allowed to perform this action")->send();
+        }
+
+        # Check if blog owner
+        if(!Auth::user()->owns_blog($id)){
             return redirect('/admin')->with('warning', "You are not allowed to perform this action")->send();
         }
 

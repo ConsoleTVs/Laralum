@@ -52,6 +52,7 @@
                             <p>
                                 <a href="{{ url('admin/blogs', [$blog->id]) }}" class="btn btn-primary" role="button">Posts</a>
     	                        <a href="{{ url('admin/blogs', [$blog->id, 'edit']) }}" class="btn btn-primary" role="button">Edit Blog</a>
+                                <a href="{{ url('admin/blogs', [$blog->id, 'roles']) }}" class="btn btn-primary" role="button">Edit Roles</a>
     	                        <a href="{{ url('admin/blogs', [$blog->id, 'delete']) }}" class="btn btn-danger pull-right" role="button">Delete Blog</a>
     	                    </p>
                         </div>

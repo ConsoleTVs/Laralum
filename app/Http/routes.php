@@ -175,6 +175,9 @@ Route::group(['middleware' => ['web', 'auth', 'admin.auth'], 'prefix' => 'admin'
 	Route::get('/blogs/{id}/edit', 'BlogsController@edit');
 	Route::post('/blogs/{id}/edit', 'BlogsController@update');
 
+	Route::get('/blogs/{id}/roles', 'BlogsController@roles');
+	Route::post('/blogs/{id}/roles', 'BlogsController@updateRoles');
+
 	Route::get('/blogs/{id}/delete', 'SecurityController@confirm');
 	Route::post('/blogs/{id}/delete', 'BlogsController@destroy');
 

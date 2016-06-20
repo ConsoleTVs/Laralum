@@ -35,7 +35,7 @@ class Post extends Model
         $view->ip = Request::ip();
         $view->url = Request::url();
         $view->ref = URL::previous();
-        $view->country_code = Location::get($view->ip)->countryCode;
+        $view->country_code = Location::get($view->ip)->countryCode; #it takes some time to chech the api...
         $view->save();
 
         return True;

@@ -3,6 +3,8 @@
 namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Blog;
+use App\Post;
 
 class User extends Authenticatable
 {
@@ -49,5 +51,35 @@ class User extends Authenticatable
             }
         }
         return false;
+    }
+
+    public function has_blog($id)
+    {
+        foreach($this->roles as $role){
+            foreach(Blog::findOrFail($id)->roles as $b_role){
+                if($role->id == $b_role->id){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public function owns_blog($id)
+    {
+        if($this->id == Blog::findOrFail($id)->user->id){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function owns_post($id)
+    {
+        if($this->id == Post::findOrFail($id)->author->id){
+            return true;
+        } else {
+            return false;
+        }
     }
 }
