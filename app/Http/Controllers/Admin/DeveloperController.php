@@ -222,8 +222,10 @@ class DeveloperController extends Controller
         $row = DB::table($name)->where('id', $id)->first();
 
         # Check if su
-        if($row->su){
-            return redirect(url('admin/developer', [$name]))->with('info', "You're not allowed to delete this row");
+        if(property_exists($row, 'su')){
+            if($row->su){
+                return redirect(url('admin/developer', [$name]))->with('info', "You're not allowed to delete this row");
+            }
         }
 
         DB::table($name)->where('id', $id)->delete();

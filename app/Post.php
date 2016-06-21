@@ -35,7 +35,11 @@ class Post extends Model
         $view->ip = Request::ip();
         $view->url = Request::url();
         $view->ref = URL::previous();
-        $view->country_code = Location::get($view->ip)->countryCode; #it takes some time to chech the api...
+        if($this->blog->views_location){
+            $view->country_code = Location::get($view->ip)->countryCode; #it takes some time to chech the api...
+        } else {
+            $view->country_code = "FF"; #FF will be translated into nothing later
+        }
         $view->save();
 
         return True;

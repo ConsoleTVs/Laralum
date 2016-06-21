@@ -44,7 +44,7 @@ $data = [
     'users' =>  [
 
         'hide_display'  =>  ['password'],
-        'delete'    =>  false,
+        'delete'    =>  true,
         'create'    =>  [
             'allowed'           =>  true,
             'hidden'            =>  ['id', 'su', 'active', 'banned', 'register_ip', 'activation_key', 'remember_token', 'created_at', 'updated_at'],
@@ -82,6 +82,14 @@ $data = [
     ],
 
     'settings'  =>  [
+        'delete'    =>  false,
+        'create'    =>  [
+            'allow'     =>  false,
+        ],
+    ],
+
+    'users_settings'  =>  [
+        'delete'    =>  false,
         'create'    =>  [
             'allow'     =>  false,
         ],

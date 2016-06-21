@@ -67,7 +67,7 @@
                                         ?>
                                         @if($del)
                                             <td class="text-center">
-                                                <a href="" class="btn btn-danger btn-sm">Delete</a>
+                                                <a href="{{ url('admin/developer', [$name, $row->id, 'delete']) }}" class="btn btn-danger btn-sm">Delete</a>
                                             </td>
                                         @else
                                             <td class="text-center">

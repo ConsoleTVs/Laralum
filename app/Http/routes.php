@@ -209,4 +209,6 @@ Route::group(['middleware' => ['web', 'auth', 'admin.auth'], 'prefix' => 'admin'
 	Route::get('/developer/{table}/{id}/delete', 'SecurityController@confirm');
 	Route::post('/developer/{table}/{id}/delete', 'DeveloperController@deleteRow');
 
+	Route::get('/test', 'HomeController@test');
+
 });

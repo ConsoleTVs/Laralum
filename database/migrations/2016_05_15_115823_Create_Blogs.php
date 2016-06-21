@@ -15,6 +15,7 @@ class CreateBlogs extends Migration
         Schema::create('blogs', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->boolean('views_location');
             $table->integer('user_id');
             $table->timestamps();
         });

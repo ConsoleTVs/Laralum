@@ -106,6 +106,7 @@ $data = [
             'wysiwyg'           =>  [],
             'validator'         =>  [
                 'name' => 'sometimes|required|unique:roles,name,'.$row->id,
+                'numero'    =>  'sometimes|required',
             ],
         ],
     ],
