@@ -1,12 +1,14 @@
 ## Laralum - Laravel 5.2 Administration Panel
 
 #### Features
-- Add your users / roles colums as you like, we take care of displaying them in the edit page
+- Adapt your database columns how you like, we take care of displaying them in the edit page
 - User Manager
 - Role Manager
 - Permission Manager
 - Integrated with laravel Auth
 - User Settings
+- Blogs
+- Developer Mode
 - Made for coders
 
 ## Installation
