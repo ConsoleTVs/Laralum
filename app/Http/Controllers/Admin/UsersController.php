@@ -367,6 +367,11 @@ class UsersController extends Controller
     	} else {
     		$settings->register_enabled = false;
     	}
+        if($request->input('location')) {
+    		$settings->location = true;
+    	} else {
+    		$settings->location = false;
+    	}
     	$settings->default_role = $request->input('default_role');
     	$settings->default_active = $request->input('default_active');
     	$settings->save();

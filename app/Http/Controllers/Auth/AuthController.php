@@ -110,15 +110,26 @@ class AuthController extends Controller
         }
 
         # Create the user
-        $user = User::create([
+        $user_data = [
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
             'active' => $active,
             'activation_key' => $activation_key,
-            'country_code' => Location::get($register_ip)->countryCode,
             'register_ip' => $register_ip,
-        ]);
+        ];
+
+        if($settings->location){
+            try {
+                $user_data['country_code'] = Location::get($register_ip)->countryCode;
+            } catch (Exception $e) {
+                $user_data['country_code'] = "FF";
+            }
+        } else {
+            $user_data['country_code'] = "FF";
+        }
+
+        $user = User::create($user_data);
 
         # Add Relationshop
         $rel = new Role_User;

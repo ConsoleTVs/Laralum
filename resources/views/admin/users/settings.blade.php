@@ -27,6 +27,11 @@
 						            <input <?php if($settings->register_enabled) { echo "checked='checked'"; } ?> name="register_enabled" type="checkbox"> Allow Registrations
 						          </label>
 						        </div>
+								<div class="checkbox">
+						          <label>
+						            <input <?php if($settings->location) { echo "checked='checked'"; } ?> name="location" type="checkbox"> User Location
+						          </label>
+						        </div>
 							</div>
 							<div class="col-sm-5">
 								<label for="default_role" class="control-label">Default User Role</label>

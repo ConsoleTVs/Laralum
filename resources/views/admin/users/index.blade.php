@@ -67,6 +67,10 @@
 				      </tr>
 				    </thead>
 				    <tbody>
+						<?php
+						$json = file_get_contents('admin_panel/assets/countries/names.json');
+					    $countries = json_decode($json, true);
+						?>
 						@foreach($users as $user)
 							<tr
 
@@ -91,7 +95,7 @@
 								</td>
 								<td class="text-center">{{ $user->name }}</td>
 								<td class="text-center">{{ $user->email }}</td>
-								<td class="text-center">{{ $user->country_code }}</td>
+								<td class="text-center">@if($user->country_code == 'FF')<i>Unknown</i>@else{{ $countries[$user->country_code] }}@endif</td>
 								<td class="text-center">
 									<a href="{{ url('admin/users', [$user->id, 'roles']) }}" class="btn btn-primary btn-sm">Roles</a>
 								</td>
