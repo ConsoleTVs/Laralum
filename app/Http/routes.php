@@ -192,6 +192,9 @@ Route::group(['middleware' => ['web', 'auth', 'admin.auth'], 'prefix' => 'admin'
 
 	Route::get('/posts/{id}/graphics', 'PostsController@graphics');
 
+	Route::get('/posts/{id}/comments', 'PostsController@comments');
+	Route::post('/posts/{id}/comments/create', 'PostsController@createComment');
+
 	Route::get('/posts/{id}/delete', 'SecurityController@confirm');
 	Route::post('/posts/{id}/delete', 'PostsController@destroy');
 

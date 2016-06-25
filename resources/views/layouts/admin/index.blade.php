@@ -22,6 +22,10 @@
       margin-bottom: 25px;
     }
 
+    .more-small-spacer{
+        margin-top: 20px;
+    }
+
     .main {
       margin-left: 2%;
       margin-right: 2%;
@@ -76,6 +80,13 @@
 
     .code {
         min-height: 450px;
+    }
+
+    .comment-author{
+        font-size: 25px;
+    }
+    .comment-content{
+        font-size: 20px;
     }
     </style>
 

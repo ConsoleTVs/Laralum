@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Post;
 use Auth;
+use App\Post_Comment;
 
 class PostsController extends Controller
 {
@@ -36,7 +37,27 @@ class PostsController extends Controller
 
         $post->addView();
 
-        return view('admin/blogs/posts/index', ['post' => $post]);
+        $data_index = 'comments';
+        require('Data/Create/Get.php');
+
+        if($post->logged_in_comments){
+            $fields = array_diff($fields, array("name", "email"));
+        }
+
+        $comments = $post->comments()->orderBy('created_at', 'desc')->get();
+
+        return view('admin/blogs/posts/index', [
+            'comments'  =>  $comments,
+            'post'      =>  $post,
+            'fields'    =>  $fields,
+            'confirmed' =>  $confirmed,
+            'encrypted' =>  $encrypted,
+            'hashed'    =>  $hashed,
+            'masked'    =>  $masked,
+            'table'     =>  $table,
+            'code'      =>  $code,
+            'wysiwyg'   =>  $wysiwyg,
+        ]);
     }
 
     public function graphics($id){
@@ -162,6 +183,63 @@ class PostsController extends Controller
         $row->save();
 
         return redirect(url('/admin/blogs', [$row->blog->id]))->with('success', "The post has been updated");
+    }
+
+    public function comments($id){
+        # Check permissions
+        if(!Auth::user()->has('admin.posts.comments')) {
+            return redirect('/admin')->with('warning', "You are not allowed to perform this action")->send();
+        }
+
+        # Check blog permissions
+        if(!Auth::user()->has_blog(Post::findOrFail($id)->blog->id) and !Auth::user()->owns_blog($id)){
+            return redirect('/admin')->with('warning', "You are not allowed to perform this action")->send();
+        }
+
+        $post = Post::findOrFail($id);
+        $comments = $post->comments()->orderBy('created_at', 'desc')->get();
+
+        return view('admin/blogs/posts/comments', [
+            'comments' =>  $comments,
+            'post'  =>  $post,
+        ]);
+    }
+
+    public function createComment($id, Request $request)
+    {
+        # Check permissions
+        if(!Auth::user()->has('admin.posts.comments')) {
+            return redirect('/admin')->with('warning', "You are not allowed to perform this action")->send();
+        }
+
+        # Check blog permissions
+        if(!Auth::user()->has_blog(Post::findOrFail($id)->blog->id) and !Auth::user()->owns_blog($id)){
+            return redirect('/admin')->with('warning', "You are not allowed to perform this action")->send();
+        }
+
+        $post = Post::findOrFail($id);
+
+        # Check if comments are enabled
+        if($post->logged_in_comments or $post->anonymous_comments) {
+
+            # create the user
+            $row = new Post_Comment;
+
+            # Save the data
+            $data_index = 'comments';
+            require('Data/Create/Save.php');
+
+            $row->post_id = $post->id;
+
+            if($post->logged_in_comments) {
+                $row->user_id = Auth::user()->id;
+            }
+            $row->save();
+
+            return redirect(url('admin/posts', [$post->id]));
+        } else {
+            return redirect('/admin')->with('warning', "Comments are not enabled on this post")->send();
+        }
     }
 
     public function destroy($id)

@@ -265,6 +265,14 @@ class CreatePermissions extends Migration
         $perm->save();
 
         $perm = new Permission;
+        $perm->slug = 'admin.posts.comments';
+        $perm->name = 'Posts Comments';
+        $perm->info = 'Grants access to posts comments';
+        $perm->type_id = Permission_Types::where('type', 'Post Administration')->first()->id;
+        $perm->su = true;
+        $perm->save();
+
+        $perm = new Permission;
         $perm->slug = 'admin.developer.access';
         $perm->name = 'Developer Access';
         $perm->info = 'Grants access to developer mode';

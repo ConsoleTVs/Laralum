@@ -17,6 +17,8 @@ class CreatePosts extends Migration
              $table->string('image');
              $table->string('title');
              $table->text('description');
+             $table->boolean('logged_in_comments');
+             $table->boolean('anonymous_comments');
              $table->text('body');
              $table->integer('user_id');
              $table->integer('blog_id');

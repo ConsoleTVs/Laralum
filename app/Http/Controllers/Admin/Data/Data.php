@@ -178,4 +178,40 @@ $data = [
             ],
         ],
     ],
+
+    'comments'  =>  [
+
+        'table'     =>  'post_comments',
+        'create'    =>  [
+            'hidden'            =>  ['id', 'post_id', 'user_id', 'created_at', 'updated_at'],
+            'default_random'    =>  [],
+            'confirmed'         =>  [],
+            'encrypted'         =>  [],
+            'hashed'            =>  [],
+            'masked'            =>  [],
+            'code'              =>  [],
+            'wysiwyg'           =>  [],
+            'validator'         =>  [
+                'name' => 'sometimes|required',
+                'email' => 'sometimes|required',
+                'content'  => 'required',
+            ],
+        ],
+        'edit'      =>  [
+            'hidden'            =>  ['id', 'post_id', 'user_id', 'created_at', 'updated_at'],
+            'empty'             =>  [],
+            'default_random'    =>  [],
+            'confirmed'         =>  [],
+            'encrypted'         =>  [],
+            'hashed'            =>  [],
+            'masked'            =>  [],
+            'code'              =>  [],
+            'wysiwyg'           =>  [],
+            'validator'         =>  [
+                'name' => 'sometimes|required',
+                'email' => 'sometimes|required',
+                'content'  => 'required',
+            ],
+        ],
+    ],
 ];

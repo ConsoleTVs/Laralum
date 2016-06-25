@@ -175,11 +175,11 @@
 </script>
 <?php
 	$dates = array_reverse([
-		date("Y-m-d"),
-		date("Y-m-d", strtotime("-1 Day")),
-		date("Y-m-d", strtotime("-2 Day")),
-		date("Y-m-d", strtotime("-3 Day")),
-		date("Y-m-d", strtotime("-4 Day")),
+		date("F j, Y"),
+		date("F j, Y", strtotime("-1 Day")),
+		date("F j, Y", strtotime("-2 Day")),
+		date("F j, Y", strtotime("-3 Day")),
+		date("F j, Y", strtotime("-4 Day")),
 	]);
 	$values = array_reverse([
 		count($user->whereDate('created_at', '=', date("Y-m-d"))->get()),

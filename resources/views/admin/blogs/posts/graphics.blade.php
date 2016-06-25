@@ -1,5 +1,5 @@
 @extends('layouts.admin.index')
-@section('title', $post->name . ' Graphics')
+@section('title', $post->title . ' Graphics')
 @section('content')
 <a href="{{ url('admin/blogs', [$post->blog->id]) }}" class="btn btn-primary" role="button">Back</a><br><br>
 <div class="row">
@@ -66,11 +66,11 @@
 </script>
 <?php
 	$dates = array_reverse([
-		date("Y-m-d"),
-		date("Y-m-d", strtotime("-1 Day")),
-		date("Y-m-d", strtotime("-2 Day")),
-		date("Y-m-d", strtotime("-3 Day")),
-		date("Y-m-d", strtotime("-4 Day")),
+        date("F j, Y"),
+		date("F j, Y", strtotime("-1 Day")),
+		date("F j, Y", strtotime("-2 Day")),
+		date("F j, Y", strtotime("-3 Day")),
+		date("F j, Y", strtotime("-4 Day")),
 	]);
 	$values = array_reverse([
 		count($post->views()->whereDate('created_at', '=', date("Y-m-d"))->get()),
