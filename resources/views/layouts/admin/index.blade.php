@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>@yield('title')</title>
+    <title>@yield('title') - {{ Laralum::settings()->website_title }}</title>
     <style>
 
     </style>
@@ -88,6 +88,37 @@
     .comment-content{
         font-size: 20px;
     }
+
+    .logo {
+        margin-top: 7px;
+        margin-right: 10px;
+    }
+    .logo-text {
+        margin-top: 3px;
+        margin-right: 10px;
+    }
+
+    @if(Laralum::settings()->menu_color)
+    .menu-drop {
+        background-color: {{ Laralum::settings()->menu_color }} !important;
+    }
+    @else
+    .menu-drop {
+        background-color:white !important;
+    }
+    @endif
+
+    @if(Laralum::settings()->menu_color_to_buttons)
+    .btn-primary {
+        background-color: {{ Laralum::settings()->menu_color }} !important;
+    }
+    @endif
+
+    @if(Laralum::settings()->light_menu_text)
+    .menu-text {
+        color: white !important;
+    }
+    @endif
     </style>
 
     @yield('css')
@@ -110,8 +141,8 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-  <body style="background-color: #eeeeee;">
-	  <nav class="navbar navbar-default navbar-fixed-top">
+  <body style="@if(Laralum::settings()->background_color) background-color: {{ Laralum::settings()->background_color }}; @else background-color: #eeeeee; @endif">
+	  <nav style="@if(Laralum::settings()->menu_color) background-color: {{ Laralum::settings()->menu_color }};@endif" class="navbar navbar-default navbar-fixed-top">
 	    <div class="container-fluid">
 	      <div class="navbar-header">
 	        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -120,37 +151,88 @@
 	          <span class="icon-bar"></span>
 	          <span class="icon-bar"></span>
 	        </button>
-	        <a class="navbar-brand" href="{{ url('/admin') }}">Laralum</a>
+            <a>
+                <img class="logo" src="{{ url('admin_panel/img/laralum-logo.png') }}" height="50">
+            </a>
+            <a>
+                @if(Laralum::settings()->light_menu_text)
+                    <img class="logo-text" src="{{ url('admin_panel/img/7.png') }}" height="20">
+                @else
+                    <img class="logo-text" src="{{ url('admin_panel/img/6.png') }}" height="30">
+                @endif
+            </a>
 	      </div>
 
 	      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	        <ul class="nav navbar-nav">
+                <li><a class="menu-text" href="{{ url('admin') }}">Dashboard</a></li>
                 @if(Auth::user()->has('admin.users.access'))
-                    <li><a href="{{ url('admin/users') }}">Users</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="menu-text dropdown-toggle menu-drop" data-toggle="dropdown" role="button" aria-expanded="false">Users</a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="{{ url('admin/users') }}">Users</a></li>
+                            @if(Auth::user()->has('admin.users.create'))
+                                <li><a href="{{ url('admin/users/create') }}">New User</a></li>
+                            @endif
+                            @if(Auth::user()->has('admin.users.settings'))
+                                <li><a href="{{ url('admin/users/settings') }}">Settings</a></li>
+                            @endif
+                        </ul>
+                    </li>
                 @endif
                 @if(Auth::user()->has('admin.roles.access'))
-                    <li><a href="{{ url('admin/roles') }}">Roles</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="menu-text dropdown-toggle menu-drop" data-toggle="dropdown" role="button" aria-expanded="false">Roles</a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="{{ url('admin/roles') }}">Roles</a></li>
+                            @if(Auth::user()->has('admin.roles.create'))
+                                <li><a href="{{ url('admin/roles/create') }}">New Role</a></li>
+                            @endif
+                        </ul>
+                    </li>
                 @endif
                 @if(Auth::user()->has('admin.permissions.access'))
-                    <li><a href="{{ url('admin/permissions') }}">Permissions</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="menu-text dropdown-toggle menu-drop" data-toggle="dropdown" role="button" aria-expanded="false">Permissions</a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="{{ url('admin/permissions') }}">Permissions</a></li>
+                            @if(Auth::user()->has('admin.permissions.create'))
+                                <li><a href="{{ url('admin/permissions/create') }}">New Permission</a></li>
+                            @endif
+                            @if(Auth::user()->has('admin.permissions.type.create'))
+                                <li><a href="{{ url('admin/permissions/types/create') }}">New Permission Type</a></li>
+                            @endif
+                        </ul>
+                    </li>
                 @endif
                 @if(Auth::user()->has('admin.blogs.access'))
-                    <li><a href="{{ url('admin/blogs') }}">Blogs</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="menu-text dropdown-toggle menu-drop" data-toggle="dropdown" role="button" aria-expanded="false">Blogs</a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="{{ url('admin/blogs') }}">Blogs</a></li>
+                            @if(Auth::user()->has('admin.blogs.create'))
+                                <li><a href="{{ url('admin/blogs/create') }}">New Blog</a></li>
+                            @endif
+                        </ul>
+                    </li>
+                @endif
+                @if(Auth::user()->has('admin.settings.access'))
+                    <li><a class="menu-text" href="{{ url('admin/settings') }}">Settings</a></li>
                 @endif
 	        </ul>
 	        <ul class="nav navbar-nav navbar-right">
                 @if(Auth::user()->has('admin.developer.access'))
-                    <li><a href="{{ url('admin/developer') }}">Developer Mode</a></li>
+                    <li><a class="menu-text" href="{{ url('admin/developer') }}">Developer Mode</a></li>
                 @endif
-				<li class="dropdown">
-		          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a>
-		          <ul class="dropdown-menu" role="menu">
-		            <li><a href="{{ url('/admin/users', Auth::user()->id) }}">Profile</a></li>
-                <li><a href="{{ url('/') }}">Visit Website</a></li>
-		            <li class="divider"></li>
-		            <li><a href="{{ url('/logout') }}">Logout</a></li>
-		          </ul>
-		        </li>
+                <li class="dropdown">
+                    <a href="#" class="menu-text dropdown-toggle menu-drop" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->name }}</a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="{{ url('/admin/users', Auth::user()->id) }}">Profile</a></li>
+                        <li><a href="{{ url('/') }}">Visit Website</a></li>
+                        <li class="divider"></li>
+                        <li><a href="{{ url('/logout') }}">Logout</a></li>
+                    </ul>
+                </li>
 	        </ul>
 	      </div>
 	    </div>
@@ -205,6 +287,8 @@
       $(function () {
         $('[data-toggle="tooltip"]').tooltip();
         $( "#admin-content" ).fadeIn(500);
+        $( ".logo" ).fadeIn(500);
+        $( ".logo-text" ).fadeIn(500);
       })
       $(window).bind('beforeunload', function(){
         $( "#admin-content" ).fadeOut(250);

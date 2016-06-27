@@ -11,8 +11,10 @@
 <div class="row">
 	<div class="col-lg-12 spacer">
 		<center>
-			<h1 class="title-color">Laralum</h1>
-			<h1 class="title-color"><small>Laravel Administration Panel by <a href="http://erik.cat">erik.cat</a></small></h1>
+			<img height="150" src="{{ url('admin_panel/img/laralum-logo.png') }}">
+			<br><br>
+			<img height="100" src="{{ url('admin_panel/img/6.png') }}">
+			<br><br>
 			<h4 class="title-color"><small>{{ App\Settings::first()->laralum_version }}</small></h4>
 		</center>
 	</div>

@@ -179,6 +179,7 @@ $data = [
         ],
     ],
 
+
     'comments'  =>  [
 
         'table'     =>  'post_comments',
@@ -212,6 +213,35 @@ $data = [
                 'email' => 'sometimes|required',
                 'content'  => 'required',
             ],
+        ],
+    ],
+
+
+    'settings'  =>  [
+
+        'table'     =>  'settings',
+        'create'    =>  [
+            'hidden'            =>  ['id', 'laralum_version', 'created_at', 'updated_at'],
+            'default_random'    =>  [],
+            'confirmed'         =>  [],
+            'encrypted'         =>  [],
+            'hashed'            =>  [],
+            'masked'            =>  [],
+            'code'              =>  [],
+            'wysiwyg'           =>  [],
+            'validator'         =>  [],
+        ],
+        'edit'      =>  [
+            'hidden'            =>  ['id', 'laralum_version', 'created_at', 'updated_at'],
+            'empty'             =>  [],
+            'default_random'    =>  [],
+            'confirmed'         =>  [],
+            'encrypted'         =>  [],
+            'hashed'            =>  [],
+            'masked'            =>  [],
+            'code'              =>  [],
+            'wysiwyg'           =>  [],
+            'validator'         =>  [],
         ],
     ],
 ];

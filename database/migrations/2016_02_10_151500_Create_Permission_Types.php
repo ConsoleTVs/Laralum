@@ -54,6 +54,11 @@ class CreatePermissionTypes extends Migration
         $type->type = "Developer Mode";
         $type->su = true;
         $type->save();
+
+        $type = new Permission_types;
+        $type->type = "Settings";
+        $type->su = true;
+        $type->save();
     }
 
     /**

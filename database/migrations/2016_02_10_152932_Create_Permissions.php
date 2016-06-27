@@ -280,6 +280,22 @@ class CreatePermissions extends Migration
         $perm->su = true;
         $perm->save();
 
+        $perm = new Permission;
+        $perm->slug = 'admin.settings.access';
+        $perm->name = 'Developer Access';
+        $perm->info = 'Grants access to settings';
+        $perm->type_id = Permission_Types::where('type', 'Settings')->first()->id;
+        $perm->su = true;
+        $perm->save();
+
+        $perm = new Permission;
+        $perm->slug = 'admin.settings.edit';
+        $perm->name = 'Edit Settings';
+        $perm->info = 'Grants access to settings editing';
+        $perm->type_id = Permission_Types::where('type', 'Settings')->first()->id;
+        $perm->su = true;
+        $perm->save();
+
     }
 
     /**

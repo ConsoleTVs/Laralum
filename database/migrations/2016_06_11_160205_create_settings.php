@@ -16,11 +16,21 @@ class CreateSettings extends Migration
         Schema::create('settings', function (Blueprint $table) {
             $table->increments('id');
             $table->string('laralum_version');
+            $table->string('website_title');
+            $table->string('menu_color');
+            $table->string('background_color');
+            $table->boolean('light_menu_text')
+            $table->boolean('menu_color_to_buttons')
             $table->timestamps();
         });
 
         $settings = new Settings;
-        $settings->laralum_version = "1.2";
+        $settings->laralum_version = "1.4";
+        $settings->website_title = "Laralum";
+        $settings->menu_color = "#5c6bc0";
+        $settings->background_color = "#e8eaf6";
+        $settings->light_menu_text = true;
+        $settings->menu_color_to_buttons = true;
         $settings->save();
     }
 

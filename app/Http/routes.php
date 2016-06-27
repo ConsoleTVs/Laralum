@@ -212,6 +212,10 @@ Route::group(['middleware' => ['web', 'auth', 'admin.auth'], 'prefix' => 'admin'
 	Route::get('/developer/{table}/{id}/delete', 'SecurityController@confirm');
 	Route::post('/developer/{table}/{id}/delete', 'DeveloperController@deleteRow');
 
+	# Settings
+	Route::get('settings', 'SettingsController@edit');
+	Route::post('settings', 'SettingsController@update');
+
 	Route::get('/test', 'HomeController@test');
 
 });

@@ -11,6 +11,7 @@ use App\Role;
 use App\Permission;
 use App\Blog;
 use App\Post;
+use App\Settings;
 
 class Laralum extends Controller
 {
@@ -63,6 +64,11 @@ class Laralum extends Controller
     public static function post($id)
     {
         return Post::findOrFail($id);
+    }
+
+    public static function settings()
+    {
+        return Settings::first();
     }
 
 }
