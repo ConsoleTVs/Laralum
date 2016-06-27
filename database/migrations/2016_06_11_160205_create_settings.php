@@ -19,8 +19,8 @@ class CreateSettings extends Migration
             $table->string('website_title');
             $table->string('menu_color');
             $table->string('background_color');
-            $table->boolean('light_menu_text')
-            $table->boolean('menu_color_to_buttons')
+            $table->boolean('light_menu_text');
+            $table->boolean('menu_color_to_buttons');
             $table->timestamps();
         });
 
