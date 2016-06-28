@@ -7,6 +7,7 @@ use App\Post_View;
 use Request;
 use URL;
 use Location;
+use Laralum;
 
 class Post extends Model
 {
@@ -30,9 +31,9 @@ class Post extends Model
     public function addView()
     {
         $view = new Post_View;
-
+        
         $view->post_id = $this->id;
-        $view->ip = Request::ip();
+        $view->ip = Laralum::getIP();
         $view->url = Request::url();
         $view->ref = URL::previous();
         if($this->blog->views_location){
