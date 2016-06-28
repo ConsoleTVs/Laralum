@@ -28,7 +28,7 @@ class PostsController extends Controller
         }
 
         # Check blog permissions
-        if(!Auth::user()->has_blog(Post::findOrFail($id)->blog->id) and !Auth::user()->owns_blog($id)){
+        if(!Auth::user()->has_blog(Post::findOrFail($id)->blog->id) and !Auth::user()->owns_blog(Post::findOrFail($id)->blog->id)){
             return redirect('/admin')->with('warning', "You are not allowed to perform this action")->send();
         }
 
@@ -67,7 +67,7 @@ class PostsController extends Controller
         }
 
         # Check blog permissions
-        if(!Auth::user()->has_blog(Post::findOrFail($id)->blog->id) and !Auth::user()->owns_blog($id)){
+        if(!Auth::user()->has_blog(Post::findOrFail($id)->blog->id) and !Auth::user()->owns_blog(Post::findOrFail($id)->blog->id)){
             return redirect('/admin')->with('warning', "You are not allowed to perform this action")->send();
         }
 
@@ -78,16 +78,17 @@ class PostsController extends Controller
 
     public function create($id)
     {
-
+        
         # Check permissions
         if(!Auth::user()->has('admin.posts.create')) {
             return redirect('/admin')->with('warning', "You are not allowed to perform this action")->send();
         }
 
         # Check blog permissions
-        if(!Auth::user()->has_blog(Post::findOrFail($id)->blog->id) and !Auth::user()->owns_blog($id)){
+        if(!Auth::user()->has_blog($id) and !Auth::user()->owns_blog($id)){
             return redirect('/admin')->with('warning', "You are not allowed to perform this action")->send();
         }
+        
 
         $data_index = 'posts';
         require('Data/Create/Get.php');
@@ -112,7 +113,7 @@ class PostsController extends Controller
         }
 
         # Check blog permissions
-        if(!Auth::user()->has_blog(Post::findOrFail($id)->blog->id) and !Auth::user()->owns_blog($id)){
+        if(!Auth::user()->has_blog($id) and !Auth::user()->owns_blog($id)){
             return redirect('/admin')->with('warning', "You are not allowed to perform this action")->send();
         }
 
@@ -139,7 +140,7 @@ class PostsController extends Controller
         }
 
         # Check blog permissions
-        if(!Auth::user()->has_blog(Post::findOrFail($id)->blog->id) and !Auth::user()->owns_blog($id)){
+        if(!Auth::user()->has_blog(Post::findOrFail($id)->blog->id) and !Auth::user()->owns_blog(Post::findOrFail($id)->blog->id)){
             return redirect('/admin')->with('warning', "You are not allowed to perform this action")->send();
         }
 
@@ -170,7 +171,7 @@ class PostsController extends Controller
         }
 
         # Check blog permissions
-        if(!Auth::user()->has_blog(Post::findOrFail($id)->blog->id) and !Auth::user()->owns_blog($id)){
+        if(!Auth::user()->has_blog(Post::findOrFail($id)->blog->id) and !Auth::user()->owns_blog(Post::findOrFail($id)->blog->id)){
             return redirect('/admin')->with('warning', "You are not allowed to perform this action")->send();
         }
 
@@ -192,7 +193,7 @@ class PostsController extends Controller
         }
 
         # Check blog permissions
-        if(!Auth::user()->has_blog(Post::findOrFail($id)->blog->id) and !Auth::user()->owns_blog($id)){
+        if(!Auth::user()->has_blog(Post::findOrFail($id)->blog->id) and !Auth::user()->owns_blog(Post::findOrFail($id)->blog->id)){
             return redirect('/admin')->with('warning', "You are not allowed to perform this action")->send();
         }
 
@@ -213,7 +214,7 @@ class PostsController extends Controller
         }
 
         # Check blog permissions
-        if(!Auth::user()->has_blog(Post::findOrFail($id)->blog->id) and !Auth::user()->owns_blog($id)){
+        if(!Auth::user()->has_blog(Post::findOrFail($id)->blog->id) and !Auth::user()->owns_blog(Post::findOrFail($id)->blog->id)){
             return redirect('/admin')->with('warning', "You are not allowed to perform this action")->send();
         }
 
@@ -250,7 +251,7 @@ class PostsController extends Controller
         }
 
         # Check blog permissions
-        if(!Auth::user()->has_blog(Post::findOrFail($id)->blog->id) and !Auth::user()->owns_blog($id)){
+        if(!Auth::user()->has_blog(Post::findOrFail($id)->blog->id) and !Auth::user()->owns_blog(Post::findOrFail($id)->blog->id)){
             return redirect('/admin')->with('warning', "You are not allowed to perform this action")->send();
         }
 
