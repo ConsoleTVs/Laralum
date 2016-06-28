@@ -237,7 +237,7 @@
 	      </div>
 	    </div>
 	  </nav>
-    <div id='admin-content' style="display: none;">
+    <div id='admin-content' >
       <div class="main spacer">
           @if (count($errors) > 0)
             <div class="spacer">
@@ -286,18 +286,19 @@
     <script>
       $(function () {
         $('[data-toggle="tooltip"]').tooltip();
-        $( "#admin-content" ).fadeIn(500);
-        $( ".logo" ).fadeIn(500);
-        $( ".logo-text" ).fadeIn(500);
+        //$( "#admin-content" ).fadeIn(500);
+        //$( ".logo" ).fadeIn(500);
+        //$( ".logo-text" ).fadeIn(500);
       })
       $(window).bind('beforeunload', function(){
-        $( "#admin-content" ).fadeOut(250);
+        //$( "#admin-content" ).fadeOut(250);
         $( ".modal-backdrop" ).fadeOut(250);
       });
       $(function () {
         $( "#avatar-div" ).fadeIn(2500);
       })
       $("form").submit(function(){
+          $( "#admin-content" ).fadeOut(250);
           $( "#load" ).fadeIn(750);
       });
     </script>
