@@ -12,6 +12,7 @@ use Request;
 use Mail;
 use App\Users_Settings;
 use Location;
+use Laralum;
 
 class AuthController extends Controller
 {
@@ -80,7 +81,7 @@ class AuthController extends Controller
         $activation_key = str_random(25);
 
         # Get the register IP
-        $register_ip = Request::ip();
+        $register_ip = Laralum::getIP();
 
         # Setup the activation method
         if($settings->default_active == 0) {
