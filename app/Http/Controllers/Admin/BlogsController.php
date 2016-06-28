@@ -17,9 +17,7 @@ class BlogsController extends Controller
     public function __construct()
     {
         # Check permissions
-        if(!Auth::user()->has('admin.blogs.access')) {
-            return redirect('/admin')->with('warning', "You are not allowed to perform this action")->send();
-        }
+        Laralum::permissionToAccess('admin.blogs.access');
     }
 
     public function index() {
@@ -33,9 +31,7 @@ class BlogsController extends Controller
     public function create()
     {
         # Check permissions
-        if(!Auth::user()->has('admin.blogs.create')) {
-            return redirect('/admin')->with('warning', "You are not allowed to perform this action")->send();
-        }
+        Laralum::permissionToAccess('admin.blogs.create', '/admin/blogs');
 
         # Get all the data
         $data_index = 'blogs';
@@ -57,9 +53,7 @@ class BlogsController extends Controller
     public function store(Request $request)
     {
         # Check permissions
-        if(!Auth::user()->has('admin.blogs.create')) {
-            return redirect('/admin')->with('warning', "You are not allowed to perform this action")->send();
-        }
+        Laralum::permissionToAccess('admin.blogs.create', '/admin/blogs');
 
         # create the user
         $row = new Blog;
@@ -78,13 +72,11 @@ class BlogsController extends Controller
     public function posts($id)
     {
         # Check permissions
-        if(!Auth::user()->has('admin.blogs.posts')) {
-            return redirect('/admin')->with('warning', "You are not allowed to perform this action")->send();
-        }
+        Laralum::permissionToAccess('admin.blogs.posts', '/admin/blogs');
 
         # Check blog permissions
         if(!Auth::user()->has_blog($id) and !Auth::user()->owns_blog($id)){
-            return redirect('/admin')->with('warning', "You are not allowed to perform this action")->send();
+            return redirect('/admin/blogs')->with('warning', "You are not allowed to perform this action")->send();
         }
 
         # Find the blog
@@ -100,7 +92,7 @@ class BlogsController extends Controller
     public function roles($id){
         # Check if blog owner
         if(!Auth::user()->owns_blog($id)){
-            return redirect('/admin')->with('warning', "You are not allowed to perform this action")->send();
+            return redirect('/admin/blogs')->with('warning', "You are not allowed to perform this action")->send();
         }
 
         $blog = Blog::findOrFail($id);
@@ -115,7 +107,7 @@ class BlogsController extends Controller
     {
         # Check if blog owner
         if(!Auth::user()->owns_blog($id)){
-            return redirect('/admin')->with('warning', "You are not allowed to perform this action")->send();
+            return redirect('/admin/blogs')->with('warning', "You are not allowed to perform this action")->send();
         }
 
 		# Find the user
@@ -188,13 +180,11 @@ class BlogsController extends Controller
     public function edit($id)
     {
         # Check permissions
-        if(!Auth::user()->has('admin.blogs.edit')) {
-            return redirect('/admin')->with('warning', "You are not allowed to perform this action")->send();
-        }
+        Laralum::permissionToAccess('admin.blogs.edit', '/admin/blogs');
 
         # Check if blog owner
         if(!Auth::user()->owns_blog($id)){
-            return redirect('/admin')->with('warning', "You are not allowed to perform this action")->send();
+            return redirect('/admin/blogs')->with('warning', "You are not allowed to perform this action")->send();
         }
 
         # Find the blog
@@ -222,13 +212,11 @@ class BlogsController extends Controller
     public function update($id, Request $request)
     {
         # Check permissions
-        if(!Auth::user()->has('admin.blogs.edit')) {
-            return redirect('/admin')->with('warning', "You are not allowed to perform this action")->send();
-        }
+        Laralum::permissionToAccess('admin.blogs.edit', '/admin/blogs');
 
         # Check if blog owner
         if(!Auth::user()->owns_blog($id)){
-            return redirect('/admin')->with('warning', "You are not allowed to perform this action")->send();
+            return redirect('/admin/blogs')->with('warning', "You are not allowed to perform this action")->send();
         }
 
         # Find the blog
@@ -252,13 +240,11 @@ class BlogsController extends Controller
     public function destroy($id)
     {
         # Check permissions
-        if(!Auth::user()->has('admin.blogs.delete')) {
-            return redirect('/admin')->with('warning', "You are not allowed to perform this action")->send();
-        }
+        Laralum::permissionToAccess('admin.blogs.delete', '/admin/blogs');
 
         # Check if blog owner
         if(!Auth::user()->owns_blog($id)){
-            return redirect('/admin')->with('warning', "You are not allowed to perform this action")->send();
+            return redirect('/admin/blogs')->with('warning', "You are not allowed to perform this action")->send();
         }
 
         # Find The Blog

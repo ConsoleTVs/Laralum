@@ -212,6 +212,12 @@ Route::group(['middleware' => ['web', 'auth', 'admin.auth'], 'prefix' => 'admin'
 	Route::get('/developer/{table}/{id}/delete', 'SecurityController@confirm');
 	Route::post('/developer/{table}/{id}/delete', 'DeveloperController@deleteRow');
 
+	# File Manager
+	Route::get('/files', 'FilesController@files');
+
+	Route::get('/files/upload', 'FilesController@showUpload');
+	Route::post('/files/upload', 'FilesController@upload');
+
 	# Settings
 	Route::get('settings', 'SettingsController@edit');
 	Route::post('settings', 'SettingsController@update');

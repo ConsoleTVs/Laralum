@@ -10,15 +10,14 @@ use App\Permission;
 use App\Permission_Role;
 use App\Permission_Types;
 use Auth;
+use Laralum;
 
 class PermissionsController extends Controller
 {
     public function __construct()
     {
         # Check permissions
-        if(!Auth::user()->has('admin.permissions.access')) {
-            return redirect('/admin')->with('warning', "You are not allowed to perform this action")->send();
-        }
+        Laralum::permissionToAccess('admin.permissions.access');
     }
 
     public function index()
@@ -45,9 +44,7 @@ class PermissionsController extends Controller
     public function create()
     {
         # Check permissions
-        if(!Auth::user()->has('admin.permissions.create')) {
-            return redirect('/admin/permissions')->with('warning', "You are not allowed to perform this action");
-        }
+        Laralum::permissionToAccess('admin.permissions.create', '/admin/permissions');
 
     	# Get all types
     	$types = Permission_Types::all();
@@ -59,9 +56,7 @@ class PermissionsController extends Controller
     public function store(Request $request)
     {
         # Check permissions
-        if(!Auth::user()->has('admin.permissions.create')) {
-            return redirect('/admin/permissions')->with('warning', "You are not allowed to perform this action");
-        }
+        Laralum::permissionToAccess('admin.permissions.create', '/admin/permissions');
 
 		# Validate Request
 		$this->validate($request, [
@@ -86,9 +81,7 @@ class PermissionsController extends Controller
     public function edit($id)
     {
         # Check permissions
-        if(!Auth::user()->has('admin.permissions.edit')) {
-            return redirect('/admin/permissions')->with('warning', "You are not allowed to perform this action");
-        }
+        Laralum::permissionToAccess('admin.permissions.edit', '/admin/permissions');
 
     	# Get the permission
     	$perm = Permission::findOrFail($id);
@@ -108,9 +101,7 @@ class PermissionsController extends Controller
     public function update($id, Request $request)
     {
         # Check permissions
-        if(!Auth::user()->has('admin.permissions.edit')) {
-            return redirect('/admin/permissions')->with('warning', "You are not allowed to perform this action");
-        }
+        Laralum::permissionToAccess('admin.permissions.edit', '/admin/permissions');
 
     	# Get the permission
     	$perm = Permission::findOrFail($id);
@@ -142,9 +133,7 @@ class PermissionsController extends Controller
     public function destroy($id)
     {
         # Check permissions
-        if(!Auth::user()->has('admin.permissions.delete')) {
-            return redirect('/admin/permissions')->with('warning', "You are not allowed to perform this action");
-        }
+        Laralum::permissionToAccess('admin.permissions.delete', '/admin/permissions');
 
     	# Get the permission
     	$perm = Permission::findOrFail($id);
@@ -170,9 +159,7 @@ class PermissionsController extends Controller
     public function createType()
     {
         # Check permissions
-        if(!Auth::user()->has('admin.permissions.type.create')) {
-            return redirect('/admin/permissions')->with('warning', "You are not allowed to perform this action");
-        }
+        Laralum::permissionToAccess('admin.permissions.type.create', '/admin/permissions');
 
     	# Return the creation form
     	return view('admin/permissions/types/create');
@@ -181,9 +168,7 @@ class PermissionsController extends Controller
     public function storeType(Request $request)
     {
         # Check permissions
-        if(!Auth::user()->has('admin.permissions.type.create')) {
-            return redirect('/admin/permissions')->with('warning', "You are not allowed to perform this action");
-        }
+        Laralum::permissionToAccess('admin.permissions.type.create', '/admin/permissions');
 
     	# Validate the request
     	$this->validate($request, [
@@ -202,9 +187,7 @@ class PermissionsController extends Controller
     public function editType($id)
     {
         # Check permissions
-        if(!Auth::user()->has('admin.permissions.type.edit')) {
-            return redirect('/admin/permissions')->with('warning', "You are not allowed to perform this action");
-        }
+        Laralum::permissionToAccess('admin.permissions.type.edit', '/admin/permissions');
 
     	# Get the type
     	$type = Permission_Types::findOrFail($id);
@@ -221,9 +204,7 @@ class PermissionsController extends Controller
     public function updateType($id, Request $request)
     {
         # Check permissions
-        if(!Auth::user()->has('admin.permissions.type.edit')) {
-            return redirect('/admin/permissions')->with('warning', "You are not allowed to perform this action");
-        }
+        Laralum::permissionToAccess('admin.permissions.type.edit', '/admin/permissions');
 
     	# Get the type
     	$type = Permission_Types::findOrFail($id);
@@ -249,9 +230,7 @@ class PermissionsController extends Controller
     public function destroyType($id)
     {
         # Check permissions
-        if(!Auth::user()->has('admin.permissions.type.delete')) {
-            return redirect('/admin/permissions')->with('warning', "You are not allowed to perform this action");
-        }
+        Laralum::permissionToAccess('admin.permissions.type.delete', '/admin/permissions');
 
     	# Get the type
     	$type = Permission_Types::findOrFail($id);

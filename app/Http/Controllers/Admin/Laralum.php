@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 
+use Auth;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\User;
@@ -70,7 +71,7 @@ class Laralum extends Controller
     {
         return Settings::first();
     }
-    
+
     public static function getIP()
     {
         # Get Real IP
@@ -86,8 +87,19 @@ class Laralum extends Controller
         {
           $ip=$_SERVER['REMOTE_ADDR'];
         }
-        
+
         return $ip;
+    }
+
+    public static function permissionToAccess($slug, $url = null)
+    {
+        if(!Auth::user()->has($slug)) {
+            if($url) {
+                return redirect($url)->with('warning', "You are not allowed to perform this action")->send();
+            } else {
+                return redirect('/admin')->with('warning', "You are not allowed to perform this action")->send();
+            }
+        }
     }
 
 }

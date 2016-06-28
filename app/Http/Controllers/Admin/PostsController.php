@@ -9,23 +9,20 @@ use App\Http\Controllers\Controller;
 use App\Post;
 use Auth;
 use App\Post_Comment;
+use Laralum;
 
 class PostsController extends Controller
 {
     public function __construct()
     {
         # Check permissions
-        if(!Auth::user()->has('admin.posts.access')) {
-            return redirect('/admin')->with('warning', "You are not allowed to perform this action")->send();
-        }
+        Laralum::permissionToAccess('admin.posts.access');
     }
 
     public function index($id)
     {
         # Check permissions
-        if(!Auth::user()->has('admin.posts.view')) {
-            return redirect('/admin')->with('warning', "You are not allowed to perform this action")->send();
-        }
+        Laralum::permissionToAccess('admin.posts.view');
 
         # Check blog permissions
         if(!Auth::user()->has_blog(Post::findOrFail($id)->blog->id) and !Auth::user()->owns_blog(Post::findOrFail($id)->blog->id)){
@@ -62,9 +59,7 @@ class PostsController extends Controller
 
     public function graphics($id){
         # Check permissions
-        if(!Auth::user()->has('admin.posts.graphics')) {
-            return redirect('/admin')->with('warning', "You are not allowed to perform this action")->send();
-        }
+        Laralum::permissionToAccess('admin.posts.graphics');
 
         # Check blog permissions
         if(!Auth::user()->has_blog(Post::findOrFail($id)->blog->id) and !Auth::user()->owns_blog(Post::findOrFail($id)->blog->id)){
@@ -78,17 +73,14 @@ class PostsController extends Controller
 
     public function create($id)
     {
-        
         # Check permissions
-        if(!Auth::user()->has('admin.posts.create')) {
-            return redirect('/admin')->with('warning', "You are not allowed to perform this action")->send();
-        }
+        Laralum::permissionToAccess('admin.posts.create');
 
         # Check blog permissions
         if(!Auth::user()->has_blog($id) and !Auth::user()->owns_blog($id)){
             return redirect('/admin')->with('warning', "You are not allowed to perform this action")->send();
         }
-        
+
 
         $data_index = 'posts';
         require('Data/Create/Get.php');
@@ -108,9 +100,7 @@ class PostsController extends Controller
     public function store($id, Request $request)
     {
         # Check permissions
-        if(!Auth::user()->has('admin.posts.create')) {
-            return redirect('/admin')->with('warning', "You are not allowed to perform this action")->send();
-        }
+        Laralum::permissionToAccess('admin.posts.create');
 
         # Check blog permissions
         if(!Auth::user()->has_blog($id) and !Auth::user()->owns_blog($id)){
@@ -135,9 +125,7 @@ class PostsController extends Controller
     public function edit($id)
     {
         # Check permissions
-        if(!Auth::user()->has('admin.posts.edit')) {
-            return redirect('/admin')->with('warning', "You are not allowed to perform this action")->send();
-        }
+        Laralum::permissionToAccess('admin.posts.edit');
 
         # Check blog permissions
         if(!Auth::user()->has_blog(Post::findOrFail($id)->blog->id) and !Auth::user()->owns_blog(Post::findOrFail($id)->blog->id)){
@@ -166,9 +154,7 @@ class PostsController extends Controller
     public function update($id, Request $request)
     {
         # Check permissions
-        if(!Auth::user()->has('admin.posts.edit')) {
-            return redirect('/admin')->with('warning', "You are not allowed to perform this action")->send();
-        }
+        Laralum::permissionToAccess('admin.posts.edit');
 
         # Check blog permissions
         if(!Auth::user()->has_blog(Post::findOrFail($id)->blog->id) and !Auth::user()->owns_blog(Post::findOrFail($id)->blog->id)){
@@ -188,9 +174,7 @@ class PostsController extends Controller
 
     public function comments($id){
         # Check permissions
-        if(!Auth::user()->has('admin.posts.comments')) {
-            return redirect('/admin')->with('warning', "You are not allowed to perform this action")->send();
-        }
+        Laralum::permissionToAccess('admin.posts.comments');
 
         # Check blog permissions
         if(!Auth::user()->has_blog(Post::findOrFail($id)->blog->id) and !Auth::user()->owns_blog(Post::findOrFail($id)->blog->id)){
@@ -209,9 +193,7 @@ class PostsController extends Controller
     public function createComment($id, Request $request)
     {
         # Check permissions
-        if(!Auth::user()->has('admin.posts.comments')) {
-            return redirect('/admin')->with('warning', "You are not allowed to perform this action")->send();
-        }
+        Laralum::permissionToAccess('admin.posts.comments');
 
         # Check blog permissions
         if(!Auth::user()->has_blog(Post::findOrFail($id)->blog->id) and !Auth::user()->owns_blog(Post::findOrFail($id)->blog->id)){
@@ -246,9 +228,7 @@ class PostsController extends Controller
     public function destroy($id)
     {
         # Check permissions
-        if(!Auth::user()->has('admin.posts.delete')) {
-            return redirect('/admin')->with('warning', "You are not allowed to perform this action")->send();
-        }
+        Laralum::permissionToAccess('admin.posts.delete');
 
         # Check blog permissions
         if(!Auth::user()->has_blog(Post::findOrFail($id)->blog->id) and !Auth::user()->owns_blog(Post::findOrFail($id)->blog->id)){

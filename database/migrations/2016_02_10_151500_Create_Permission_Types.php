@@ -20,45 +20,25 @@ class CreatePermissionTypes extends Migration
             $table->timestamps();
         });
 
-        $type = new Permission_types;
-        $type->type = "Administration Panel";
-        $type->su = true;
-        $type->save();
+        $types = [
+            'Administration Panel',
+            'User Administration',
+            'Role Administration',
+            'Permission Administration',
+            'Blog Administration',
+            'Post Administration',
+            'Developer Mode',
+            'File Manager',
+            'Settings',
+        ];
 
-        $type = new Permission_types;
-        $type->type = "User Administration";
-        $type->su = true;
-        $type->save();
-
-        $type = new Permission_types;
-        $type->type = "Role Administration";
-        $type->su = true;
-        $type->save();
-
-        $type = new Permission_types;
-        $type->type = "Permission Administration";
-        $type->su = true;
-        $type->save();
-
-        $type = new Permission_types;
-        $type->type = "Blog Administration";
-        $type->su = true;
-        $type->save();
-
-        $type = new Permission_types;
-        $type->type = "Post Administration";
-        $type->su = true;
-        $type->save();
-
-        $type = new Permission_types;
-        $type->type = "Developer Mode";
-        $type->su = true;
-        $type->save();
-
-        $type = new Permission_types;
-        $type->type = "Settings";
-        $type->su = true;
-        $type->save();
+        foreach($types as $t) {
+            $type = new Permission_types;
+            $type->type = $t;
+            $type->su = true;
+            $type->save();
+        }
+        
     }
 
     /**

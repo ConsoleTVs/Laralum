@@ -7,11 +7,19 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Settings;
+use Laralum;
 
 class SettingsController extends Controller
 {
+    public function __construct()
+    {
+        # Check permissions
+        Laralum::permissionToAccess('admin.settings.access');
+    }
+
     public function edit()
     {
+        # Check permissions
         $row = Settings::first();
 
         $data_index = 'settings';
@@ -33,6 +41,9 @@ class SettingsController extends Controller
 
     public function update(Request $request)
     {
+        # Check permissions
+        Laralum::permissionToAccess('admin.settings.edit', '/admin/settings');
+
         $row = Settings::first();
 
         $data_index = 'settings';

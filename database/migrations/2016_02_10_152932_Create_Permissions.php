@@ -281,8 +281,24 @@ class CreatePermissions extends Migration
         $perm->save();
 
         $perm = new Permission;
+        $perm->slug = 'admin.files.access';
+        $perm->name = 'File Manager Access';
+        $perm->info = 'Grants access to file manager';
+        $perm->type_id = Permission_Types::where('type', 'File Manager')->first()->id;
+        $perm->su = true;
+        $perm->save();
+
+        $perm = new Permission;
+        $perm->slug = 'admin.files.upload';
+        $perm->name = 'Upload Files';
+        $perm->info = 'Grants access to the file uploader';
+        $perm->type_id = Permission_Types::where('type', 'File Manager')->first()->id;
+        $perm->su = true;
+        $perm->save();
+
+        $perm = new Permission;
         $perm->slug = 'admin.settings.access';
-        $perm->name = 'Developer Access';
+        $perm->name = 'Settings Access';
         $perm->info = 'Grants access to settings';
         $perm->type_id = Permission_Types::where('type', 'Settings')->first()->id;
         $perm->su = true;

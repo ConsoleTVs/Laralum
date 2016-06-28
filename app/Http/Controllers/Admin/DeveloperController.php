@@ -9,15 +9,14 @@ use App\Http\Controllers\Controller;
 use DB;
 use Schema;
 use Auth;
+use Laralum;
 
 class DeveloperController extends Controller
 {
     public function __construct()
     {
         # Check permissions
-        if(!Auth::user()->has('admin.developer.access')) {
-            return redirect('/admin')->with('warning', "You are not allowed to perform this action")->send();
-        }
+        Laralum::permissionToAccess('admin.developer.access');
     }
 
     public function index()

@@ -18,6 +18,7 @@ use Auth;
 use Hash;
 use Crypt;
 use Mail;
+use Laralum;
 
 class RolesController extends Controller
 {
@@ -25,9 +26,7 @@ class RolesController extends Controller
     public function __construct()
     {
         # Check permissions
-        if(!Auth::user()->has('admin.roles.access')) {
-            return redirect('/admin')->with('warning', "You are not allowed to perform this action")->send();
-        }
+        Laralum::permissionToAccess('admin.roles.access');
     }
 
     public function index()
@@ -54,9 +53,7 @@ class RolesController extends Controller
     public function edit($id)
     {
         # Check permissions
-        if(!Auth::user()->has('admin.roles.edit')) {
-            return redirect('/admin/roles')->with('warning', "You are not allowed to perform this action");
-        }
+        Laralum::permissionToAccess('admin.roles.edit', '/admin/roles');
 
         # Find the role
         $row = Role::findOrFail($id);
@@ -84,9 +81,7 @@ class RolesController extends Controller
     {
 
         # Check permissions
-        if(!Auth::user()->has('admin.roles.edit')) {
-            return redirect('/admin/roles')->with('warning', "You are not allowed to perform this action");
-        }
+        Laralum::permissionToAccess('admin.roles.edit', '/admin/roles');
 
         # Find the row
         $row = Role::findOrFail($id);
@@ -102,9 +97,7 @@ class RolesController extends Controller
     public function create()
     {
         # Check permissions
-        if(!Auth::user()->has('admin.roles.create')) {
-            return redirect('/admin/roles')->with('warning', "You are not allowed to perform this action");
-        }
+        Laralum::permissionToAccess('admin.roles.create', '/admin/roles');
 
         # Get all the data
         $data_index = 'roles';
@@ -139,9 +132,7 @@ class RolesController extends Controller
     public function store(Request $request)
     {
         # Check permissions
-        if(!Auth::user()->has('admin.roles.create')) {
-            return redirect('/admin/roles')->with('warning', "You are not allowed to perform this action");
-        }
+        Laralum::permissionToAccess('admin.roles.create', '/admin/roles');
 
     	# create new role
         $row = new Role;
@@ -160,9 +151,7 @@ class RolesController extends Controller
     public function editPermissions($id)
     {
         # Check permissions
-        if(!Auth::user()->has('admin.roles.permissions')) {
-            return redirect('/admin/roles')->with('warning', "You are not allowed to perform this action");
-        }
+        Laralum::permissionToAccess('admin.roles.permissions', '/admin/roles');
 
     	# Find the role
     	$role = Role::findOrFail($id);
@@ -188,9 +177,7 @@ class RolesController extends Controller
     public function setPermissions($id, Request $request)
     {
         # Check permissions
-        if(!Auth::user()->has('admin.roles.permissions')) {
-            return redirect('/admin/roles')->with('warning', "You are not allowed to perform this action");
-        }
+        Laralum::permissionToAccess('admin.roles.permissions', '/admin/roles');
 
     	# Find the role
     	$role = Role::findOrFail($id);
@@ -271,9 +258,7 @@ class RolesController extends Controller
     public function destroy($id)
     {
         # Check permissions
-        if(!Auth::user()->has('admin.roles.delete')) {
-            return redirect('/admin/roles')->with('warning', "You are not allowed to perform this action");
-        }
+        Laralum::permissionToAccess('admin.roles.delete', '/admin/roles');
 
     	# Select Role
     	$role = Role::findOrFail($id);

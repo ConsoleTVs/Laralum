@@ -15,6 +15,7 @@ use Crypt;
 use Mail;
 use Auth;
 use Schema;
+use Laralum;
 
 class UsersController extends Controller
 {
@@ -22,9 +23,7 @@ class UsersController extends Controller
     public function __construct()
     {
         # Check permissions
-        if(!Auth::user()->has('admin.users.access')) {
-            return redirect('/admin')->with('warning', "You are not allowed to perform this action")->send();
-        }
+        Laralum::permissionToAccess('admin.users.access');
     }
 
     public function index()
@@ -70,9 +69,7 @@ class UsersController extends Controller
     public function create()
     {
         # Check permissions
-        if(!Auth::user()->has('admin.users.create')) {
-            return redirect('/admin/users')->with('warning', "You are not allowed to perform this action");
-        }
+        Laralum::permissionToAccess('admin.users.create', '/admin/users');
 
         # Get all roles
         $roles = Role::all();
@@ -99,9 +96,7 @@ class UsersController extends Controller
     {
 
         # Check permissions
-        if(!Auth::user()->has('admin.users.create')) {
-            return redirect('/admin/users')->with('warning', "You are not allowed to perform this action");
-        }
+        Laralum::permissionToAccess('admin.users.create', '/admin/users');
 
         # create the user
         $row = new User;
@@ -149,9 +144,7 @@ class UsersController extends Controller
     public function edit($id)
     {
         # Check permissions
-        if(!Auth::user()->has('admin.users.edit')) {
-            return redirect('/admin/users')->with('warning', "You are not allowed to perform this action");
-        }
+        Laralum::permissionToAccess('admin.users.edit', '/admin/users');
 
         # Find the user
         $row = User::findOrFail($id);
@@ -179,9 +172,7 @@ class UsersController extends Controller
     {
 
         # Check permissions
-        if(!Auth::user()->has('admin.users.edit')) {
-            return redirect('/admin/users')->with('warning', "You are not allowed to perform this action");
-        }
+        Laralum::permissionToAccess('admin.users.edit', '/admin/users');
 
         # Find the user
         $row = User::findOrFail($id);
@@ -197,9 +188,7 @@ class UsersController extends Controller
     public function editRoles($id)
     {
         # Check permissions
-        if(!Auth::user()->has('admin.users.roles')) {
-            return redirect('/admin/users')->with('warning', "You are not allowed to perform this action");
-        }
+        Laralum::permissionToAccess('admin.users.roles', '/admin/users');
 
     	# Find the user
     	$user = User::findOrFail($id);
@@ -214,9 +203,7 @@ class UsersController extends Controller
     public function setRoles($id, Request $request)
     {
         # Check permissions
-        if(!Auth::user()->has('admin.users.roles')) {
-            return redirect('/admin/users')->with('warning', "You are not allowed to perform this action");
-        }
+        Laralum::permissionToAccess('admin.users.roles', '/admin/users');
 
 		# Find the user
     	$user = User::findOrFail($id);
@@ -298,9 +285,7 @@ class UsersController extends Controller
     public function destroy($id)
     {
         # Check permissions
-        if(!Auth::user()->has('admin.users.delete')) {
-            return redirect('/admin/users')->with('warning', "You are not allowed to perform this action");
-        }
+        Laralum::permissionToAccess('admin.users.delete', '/admin/users');
 
         # Find The User
         $user = User::findOrFail($id);
@@ -333,9 +318,7 @@ class UsersController extends Controller
     {
 
         # Check permissions
-        if(!Auth::user()->has('admin.users.settings')) {
-            return redirect('/admin/users')->with('warning', "You are not allowed to perform this action");
-        }
+        Laralum::permissionToAccess('admin.users.settings', '/admin/users');
 
     	# Get the user settings
     	$settings = Users_Settings::first();
@@ -349,9 +332,7 @@ class UsersController extends Controller
     public function updateSettings(Request $request)
     {
         # Check permissions
-        if(!Auth::user()->has('admin.users.settings')) {
-            return redirect('/admin/users')->with('warning', "You are not allowed to perform this action");
-        }
+        Laralum::permissionToAccess('admin.users.settings', '/admin/users');
 
     	# Get the user settings
     	$settings = Users_Settings::first();
