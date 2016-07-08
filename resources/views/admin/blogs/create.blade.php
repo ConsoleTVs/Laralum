@@ -22,7 +22,7 @@
 					    <br>
 						<div class="form-group ">
 							<a href="{{ url('admin/blogs') }}" class="btn btn-primary">Back</a>
-							<button type="submit" class="btn btn-primary pull-right">Save changes</button>
+							<button type="submit" class="btn btn-primary pull-right">Create</button>
 						</div>
 					</form>
 				</div>

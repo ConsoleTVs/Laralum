@@ -244,4 +244,32 @@ $data = [
             'validator'         =>  [],
         ],
     ],
+
+    'documents'  =>  [
+
+        'table'     =>  'documents',
+        'create'    =>  [
+            'hidden'            =>  ['id', 'slug', 'downloads', 'name', 'user_id', 'created_at', 'updated_at'],
+            'default_random'    =>  [],
+            'confirmed'         =>  [],
+            'encrypted'         =>  ['password'],
+            'hashed'            =>  [],
+            'masked'            =>  [],
+            'code'              =>  [],
+            'wysiwyg'           =>  [],
+            'validator'         =>  [],
+        ],
+        'edit'      =>  [
+            'hidden'            =>  ['id', 'slug', 'downloads', 'name', 'user_id', 'created_at', 'updated_at'],
+            'default_random'    =>  [],
+            'default_random'    =>  [],
+            'confirmed'         =>  [],
+            'encrypted'         =>  ['password'],
+            'hashed'            =>  [],
+            'masked'            =>  [],
+            'code'              =>  [],
+            'wysiwyg'           =>  [],
+            'validator'         =>  [],
+        ],
+    ],
 ];

@@ -69,7 +69,7 @@ class UsersController extends Controller
     public function create()
     {
         # Check permissions
-        Laralum::permissionToAccess('admin.users.create', '/admin/users');
+        Laralum::permissionToAccess('admin.users.create');
 
         # Get all roles
         $roles = Role::all();
@@ -96,7 +96,7 @@ class UsersController extends Controller
     {
 
         # Check permissions
-        Laralum::permissionToAccess('admin.users.create', '/admin/users');
+        Laralum::permissionToAccess('admin.users.create');
 
         # create the user
         $row = new User;
@@ -144,7 +144,7 @@ class UsersController extends Controller
     public function edit($id)
     {
         # Check permissions
-        Laralum::permissionToAccess('admin.users.edit', '/admin/users');
+        Laralum::permissionToAccess('admin.users.edit');
 
         # Find the user
         $row = User::findOrFail($id);
@@ -172,7 +172,7 @@ class UsersController extends Controller
     {
 
         # Check permissions
-        Laralum::permissionToAccess('admin.users.edit', '/admin/users');
+        Laralum::permissionToAccess('admin.users.edit');
 
         # Find the user
         $row = User::findOrFail($id);
@@ -188,7 +188,7 @@ class UsersController extends Controller
     public function editRoles($id)
     {
         # Check permissions
-        Laralum::permissionToAccess('admin.users.roles', '/admin/users');
+        Laralum::permissionToAccess('admin.users.roles');
 
     	# Find the user
     	$user = User::findOrFail($id);
@@ -203,7 +203,7 @@ class UsersController extends Controller
     public function setRoles($id, Request $request)
     {
         # Check permissions
-        Laralum::permissionToAccess('admin.users.roles', '/admin/users');
+        Laralum::permissionToAccess('admin.users.roles');
 
 		# Find the user
     	$user = User::findOrFail($id);
@@ -285,7 +285,7 @@ class UsersController extends Controller
     public function destroy($id)
     {
         # Check permissions
-        Laralum::permissionToAccess('admin.users.delete', '/admin/users');
+        Laralum::permissionToAccess('admin.users.delete');
 
         # Find The User
         $user = User::findOrFail($id);
@@ -318,7 +318,7 @@ class UsersController extends Controller
     {
 
         # Check permissions
-        Laralum::permissionToAccess('admin.users.settings', '/admin/users');
+        Laralum::permissionToAccess('admin.users.settings');
 
     	# Get the user settings
     	$settings = Users_Settings::first();
@@ -332,7 +332,7 @@ class UsersController extends Controller
     public function updateSettings(Request $request)
     {
         # Check permissions
-        Laralum::permissionToAccess('admin.users.settings', '/admin/users');
+        Laralum::permissionToAccess('admin.users.settings');
 
     	# Get the user settings
     	$settings = Users_Settings::first();

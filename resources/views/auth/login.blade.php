@@ -2,6 +2,16 @@
 
 @section('content')
 <div class="container">
+    @if(Laralum::checkInstalled())
+        <div class="spacer">
+          <div class="alert alert-success">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <p>Laralum seems to be installed in your database, you should now be able to login with the admin credentials.</p>
+          </div>
+        </div>
+    @endif
+</div>
+<div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">

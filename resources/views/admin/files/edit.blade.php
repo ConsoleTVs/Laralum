@@ -1,5 +1,5 @@
 @extends('layouts.admin.index')
-@section('title', "Create Post")
+@section('title', "Create Document")
 @section('content')
 	<div class="row">
 
@@ -10,7 +10,7 @@
 					<br>
 					<center>
 						<h3>
-							<span>Create Post</span>
+							<span>Edit Document ({{ $file->name }})</span>
 						</h3>
 					</center>
 					<br>
@@ -21,8 +21,8 @@
 
 					    <br>
 						<div class="form-group ">
-							<a href="{{ url('admin/blogs') }}" class="btn btn-primary">Back</a>
-							<button type="submit" class="btn btn-primary pull-right">Create</button>
+							<a href="{{ url('admin/files') }}" class="btn btn-primary">Back</a>
+							<button type="submit" class="btn btn-primary pull-right">Save Changes</button>
 						</div>
 					</form>
 				</div>

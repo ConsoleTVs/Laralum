@@ -1,11 +1,11 @@
-@extends('layouts.admin.welcome')
+@extends('layouts.admin.public')
 
 @section('content')
 <div class="container">
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
-                <div class="panel-heading">Welcome to laralum <a href="{{ url('/login') }}" class="pull-right btn btn-primary btn-sm">Check</a></div>
+                <div class="panel-heading">Welcome to laralum <a href="{{ url('/home') }}" class="pull-right btn btn-primary btn-sm">Check</a></div>
 
                 <div class="panel-body">
 
@@ -28,7 +28,7 @@
                       <h3><small>.env example (it uses your generated key)</small></h3>
                       <pre>
 APP_ENV=local
-APP_DEBUG=true
+APP_DEBUG=false
 APP_KEY={{ env('APP_KEY') }}
 
 USER_NAME="ADMINISTRATOR_NAME"

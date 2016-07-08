@@ -250,8 +250,8 @@ class CreatePermissions extends Migration
 
         $perm = new Permission;
         $perm->slug = 'admin.posts.delete';
-        $perm->name = 'Posts Access';
-        $perm->info = 'Grants access to posts';
+        $perm->name = 'Delete Posts';
+        $perm->info = 'Grants access to posts deletion';
         $perm->type_id = Permission_Types::where('type', 'Post Administration')->first()->id;
         $perm->su = true;
         $perm->save();
@@ -297,6 +297,46 @@ class CreatePermissions extends Migration
         $perm->save();
 
         $perm = new Permission;
+        $perm->slug = 'admin.files.download';
+        $perm->name = 'Download Files';
+        $perm->info = 'Grants access to direct file downloads';
+        $perm->type_id = Permission_Types::where('type', 'File Manager')->first()->id;
+        $perm->su = true;
+        $perm->save();
+
+        $perm = new Permission;
+        $perm->slug = 'admin.files.delete';
+        $perm->name = 'Delete Files';
+        $perm->info = 'Grants access to direct file deletion';
+        $perm->type_id = Permission_Types::where('type', 'File Manager')->first()->id;
+        $perm->su = true;
+        $perm->save();
+
+        $perm = new Permission;
+        $perm->slug = 'admin.documents.create';
+        $perm->name = 'Create Documents';
+        $perm->info = 'Grants access to the document creator';
+        $perm->type_id = Permission_Types::where('type', 'File Manager')->first()->id;
+        $perm->su = true;
+        $perm->save();
+
+        $perm = new Permission;
+        $perm->slug = 'admin.documents.edit';
+        $perm->name = 'Edit Documents';
+        $perm->info = 'Grants access to the document editing';
+        $perm->type_id = Permission_Types::where('type', 'File Manager')->first()->id;
+        $perm->su = true;
+        $perm->save();
+
+        $perm = new Permission;
+        $perm->slug = 'admin.documents.delete';
+        $perm->name = 'Delete Documents';
+        $perm->info = 'Grants access to the document deletion';
+        $perm->type_id = Permission_Types::where('type', 'File Manager')->first()->id;
+        $perm->su = true;
+        $perm->save();
+
+        $perm = new Permission;
         $perm->slug = 'admin.settings.access';
         $perm->name = 'Settings Access';
         $perm->info = 'Grants access to settings';
@@ -311,6 +351,7 @@ class CreatePermissions extends Migration
         $perm->type_id = Permission_Types::where('type', 'Settings')->first()->id;
         $perm->su = true;
         $perm->save();
+
 
     }
 

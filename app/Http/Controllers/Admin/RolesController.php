@@ -53,7 +53,7 @@ class RolesController extends Controller
     public function edit($id)
     {
         # Check permissions
-        Laralum::permissionToAccess('admin.roles.edit', '/admin/roles');
+        Laralum::permissionToAccess('admin.roles.edit');
 
         # Find the role
         $row = Role::findOrFail($id);
@@ -81,7 +81,7 @@ class RolesController extends Controller
     {
 
         # Check permissions
-        Laralum::permissionToAccess('admin.roles.edit', '/admin/roles');
+        Laralum::permissionToAccess('admin.roles.edit');
 
         # Find the row
         $row = Role::findOrFail($id);
@@ -97,7 +97,7 @@ class RolesController extends Controller
     public function create()
     {
         # Check permissions
-        Laralum::permissionToAccess('admin.roles.create', '/admin/roles');
+        Laralum::permissionToAccess('admin.roles.create');
 
         # Get all the data
         $data_index = 'roles';
@@ -132,7 +132,7 @@ class RolesController extends Controller
     public function store(Request $request)
     {
         # Check permissions
-        Laralum::permissionToAccess('admin.roles.create', '/admin/roles');
+        Laralum::permissionToAccess('admin.roles.create');
 
     	# create new role
         $row = new Role;
@@ -151,7 +151,7 @@ class RolesController extends Controller
     public function editPermissions($id)
     {
         # Check permissions
-        Laralum::permissionToAccess('admin.roles.permissions', '/admin/roles');
+        Laralum::permissionToAccess('admin.roles.permissions');
 
     	# Find the role
     	$role = Role::findOrFail($id);
@@ -177,7 +177,7 @@ class RolesController extends Controller
     public function setPermissions($id, Request $request)
     {
         # Check permissions
-        Laralum::permissionToAccess('admin.roles.permissions', '/admin/roles');
+        Laralum::permissionToAccess('admin.roles.permissions');
 
     	# Find the role
     	$role = Role::findOrFail($id);
@@ -258,7 +258,7 @@ class RolesController extends Controller
     public function destroy($id)
     {
         # Check permissions
-        Laralum::permissionToAccess('admin.roles.delete', '/admin/roles');
+        Laralum::permissionToAccess('admin.roles.delete');
 
     	# Select Role
     	$role = Role::findOrFail($id);

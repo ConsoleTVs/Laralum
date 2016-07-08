@@ -98,6 +98,15 @@
         margin-right: 10px;
     }
 
+    .margins {
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+
+    .file-icon {
+        font-size: 75px !important;
+    }
+
     @if(Laralum::settings()->menu_color)
     .menu-drop {
         background-color: {{ Laralum::settings()->menu_color }} !important;
@@ -133,6 +142,8 @@
     <script src='{{ asset('admin_panel/tinymce/tinymce.min.js') }}'></script>
     <script src="{{ asset('admin_panel/code/ace.js') }}" type="text/javascript" charset="utf-8"></script>
     <script src='{{ asset('admin_panel/chartjs/Chart.js') }}'></script>
+    <link href="{{ asset('admin_panel/dropzone/dropzone.css') }}" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/basic.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -294,6 +305,7 @@
     <script type="text/javascript" src="{{ url('admin_panel/noty/jquery.noty.packaged.js') }}"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="{{ url('admin_panel/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('admin_panel/dropzone/dropzone.js') }}"></script>
     <script>
       $(function () {
         $('[data-toggle="tooltip"]').tooltip();

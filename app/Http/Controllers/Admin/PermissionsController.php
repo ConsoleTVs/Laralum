@@ -44,7 +44,7 @@ class PermissionsController extends Controller
     public function create()
     {
         # Check permissions
-        Laralum::permissionToAccess('admin.permissions.create', '/admin/permissions');
+        Laralum::permissionToAccess('admin.permissions.create');
 
     	# Get all types
     	$types = Permission_Types::all();
@@ -56,7 +56,7 @@ class PermissionsController extends Controller
     public function store(Request $request)
     {
         # Check permissions
-        Laralum::permissionToAccess('admin.permissions.create', '/admin/permissions');
+        Laralum::permissionToAccess('admin.permissions.create');
 
 		# Validate Request
 		$this->validate($request, [
@@ -81,7 +81,7 @@ class PermissionsController extends Controller
     public function edit($id)
     {
         # Check permissions
-        Laralum::permissionToAccess('admin.permissions.edit', '/admin/permissions');
+        Laralum::permissionToAccess('admin.permissions.edit');
 
     	# Get the permission
     	$perm = Permission::findOrFail($id);
@@ -101,7 +101,7 @@ class PermissionsController extends Controller
     public function update($id, Request $request)
     {
         # Check permissions
-        Laralum::permissionToAccess('admin.permissions.edit', '/admin/permissions');
+        Laralum::permissionToAccess('admin.permissions.edit');
 
     	# Get the permission
     	$perm = Permission::findOrFail($id);
@@ -133,7 +133,7 @@ class PermissionsController extends Controller
     public function destroy($id)
     {
         # Check permissions
-        Laralum::permissionToAccess('admin.permissions.delete', '/admin/permissions');
+        Laralum::permissionToAccess('admin.permissions.delete');
 
     	# Get the permission
     	$perm = Permission::findOrFail($id);
@@ -159,7 +159,7 @@ class PermissionsController extends Controller
     public function createType()
     {
         # Check permissions
-        Laralum::permissionToAccess('admin.permissions.type.create', '/admin/permissions');
+        Laralum::permissionToAccess('admin.permissions.type.create');
 
     	# Return the creation form
     	return view('admin/permissions/types/create');
@@ -168,7 +168,7 @@ class PermissionsController extends Controller
     public function storeType(Request $request)
     {
         # Check permissions
-        Laralum::permissionToAccess('admin.permissions.type.create', '/admin/permissions');
+        Laralum::permissionToAccess('admin.permissions.type.create');
 
     	# Validate the request
     	$this->validate($request, [
@@ -187,7 +187,7 @@ class PermissionsController extends Controller
     public function editType($id)
     {
         # Check permissions
-        Laralum::permissionToAccess('admin.permissions.type.edit', '/admin/permissions');
+        Laralum::permissionToAccess('admin.permissions.type.edit');
 
     	# Get the type
     	$type = Permission_Types::findOrFail($id);
@@ -204,7 +204,7 @@ class PermissionsController extends Controller
     public function updateType($id, Request $request)
     {
         # Check permissions
-        Laralum::permissionToAccess('admin.permissions.type.edit', '/admin/permissions');
+        Laralum::permissionToAccess('admin.permissions.type.edit');
 
     	# Get the type
     	$type = Permission_Types::findOrFail($id);
@@ -230,7 +230,7 @@ class PermissionsController extends Controller
     public function destroyType($id)
     {
         # Check permissions
-        Laralum::permissionToAccess('admin.permissions.type.delete', '/admin/permissions');
+        Laralum::permissionToAccess('admin.permissions.type.delete');
 
     	# Get the type
     	$type = Permission_Types::findOrFail($id);

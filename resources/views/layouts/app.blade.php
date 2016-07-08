@@ -24,6 +24,8 @@
             margin-right: 6px;
         }
     </style>
+
+    @yield('css')
 </head>
 <body id="app-layout">
     <nav class="navbar navbar-default">
@@ -78,16 +80,6 @@
             </div>
         </div>
     </nav>
-    <div class="container">
-        @if(Schema::hasTable('users') and Schema::hasTable('roles') and Schema::hasTable('permissions'))
-            <div class="spacer">
-              <div class="alert alert-success">
-                  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                  <p>Laralum seems to be installed in your database, you should now be able to login with the admin credentials.</p>
-              </div>
-            </div>
-        @endif
-    </div>
 
     @yield('content')
 
@@ -95,5 +87,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
+
+    @yield('js')
 </body>
 </html>

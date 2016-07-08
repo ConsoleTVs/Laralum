@@ -14,7 +14,7 @@
                 margin: 0;
                 padding: 0;
                 width: 100%;
-                color: #B0BEC5;
+                color: #9e9e9e;
                 display: table;
                 font-weight: 100;
                 font-family: 'Lato';

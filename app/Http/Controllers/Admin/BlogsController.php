@@ -10,6 +10,7 @@ use App\Blog;
 use Auth;
 use App\Role;
 use App\Blog_Role;
+use Laralum;
 
 class BlogsController extends Controller
 {
@@ -31,7 +32,7 @@ class BlogsController extends Controller
     public function create()
     {
         # Check permissions
-        Laralum::permissionToAccess('admin.blogs.create', '/admin/blogs');
+        Laralum::permissionToAccess('admin.blogs.create');
 
         # Get all the data
         $data_index = 'blogs';
@@ -53,7 +54,7 @@ class BlogsController extends Controller
     public function store(Request $request)
     {
         # Check permissions
-        Laralum::permissionToAccess('admin.blogs.create', '/admin/blogs');
+        Laralum::permissionToAccess('admin.blogs.create');
 
         # create the user
         $row = new Blog;
@@ -72,7 +73,7 @@ class BlogsController extends Controller
     public function posts($id)
     {
         # Check permissions
-        Laralum::permissionToAccess('admin.blogs.posts', '/admin/blogs');
+        Laralum::permissionToAccess('admin.blogs.posts');
 
         # Check blog permissions
         if(!Auth::user()->has_blog($id) and !Auth::user()->owns_blog($id)){
@@ -180,7 +181,7 @@ class BlogsController extends Controller
     public function edit($id)
     {
         # Check permissions
-        Laralum::permissionToAccess('admin.blogs.edit', '/admin/blogs');
+        Laralum::permissionToAccess('admin.blogs.edit');
 
         # Check if blog owner
         if(!Auth::user()->owns_blog($id)){
@@ -212,7 +213,7 @@ class BlogsController extends Controller
     public function update($id, Request $request)
     {
         # Check permissions
-        Laralum::permissionToAccess('admin.blogs.edit', '/admin/blogs');
+        Laralum::permissionToAccess('admin.blogs.edit');
 
         # Check if blog owner
         if(!Auth::user()->owns_blog($id)){
@@ -240,7 +241,7 @@ class BlogsController extends Controller
     public function destroy($id)
     {
         # Check permissions
-        Laralum::permissionToAccess('admin.blogs.delete', '/admin/blogs');
+        Laralum::permissionToAccess('admin.blogs.delete');
 
         # Check if blog owner
         if(!Auth::user()->owns_blog($id)){

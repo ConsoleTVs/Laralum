@@ -58,7 +58,9 @@ foreach($fields as $field) {
         # Check if it's an encrypted field
         foreach($encrypted as $encrypt) {
             if($encrypt == $field) {
-                $value = Crypt::encrypt($value);
+                if($value != '') {
+                    $value = Crypt::encrypt($value);
+                }
             }
         }
 

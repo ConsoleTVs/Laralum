@@ -91,6 +91,15 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::get('/banned', function() {
         return view('auth/banned');
     });
+
+});
+
+Route::group(['middleware' => ['web']], function () {
+
+	# Public document downloads
+	Route::get('/document/{slug}', 'Admin\DownloadsController@downloader');
+	Route::post('/document/{slug}', 'Admin\DownloadsController@download');
+
 });
 
 Route::group(['middleware' => ['web', 'auth', 'admin.auth'], 'prefix' => 'admin', 'namespace' => 'Admin'], function () {
@@ -218,10 +227,22 @@ Route::group(['middleware' => ['web', 'auth', 'admin.auth'], 'prefix' => 'admin'
 	Route::get('/files/upload', 'FilesController@showUpload');
 	Route::post('/files/upload', 'FilesController@upload');
 
+	Route::get('/documents/{file}/create', 'DocumentsController@showCreate');
+	Route::post('/documents/{file}/create', 'DocumentsController@createDocument');
+
+	Route::get('/documents/{slug}/edit', 'DocumentsController@edit');
+	Route::post('/documents/{slug}/edit', 'DocumentsController@update');
+
+	Route::get('/documents/{slug}/delete', 'SecurityController@confirm');
+	Route::post('/documents/{slug}/delete', 'DocumentsController@delete');
+
+	Route::get('/files/{file}/delete', 'SecurityController@confirm');
+	Route::post('/files/{file}/delete', 'FilesController@delete');
+
+	Route::get('/files/{file}/download', 'FilesController@fileDownload');
+
 	# Settings
 	Route::get('settings', 'SettingsController@edit');
 	Route::post('settings', 'SettingsController@update');
-
-	Route::get('/test', 'HomeController@test');
 
 });

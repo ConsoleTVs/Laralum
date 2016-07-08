@@ -42,7 +42,7 @@ class SettingsController extends Controller
     public function update(Request $request)
     {
         # Check permissions
-        Laralum::permissionToAccess('admin.settings.edit', '/admin/settings');
+        Laralum::permissionToAccess('admin.settings.edit');
 
         $row = Settings::first();
 

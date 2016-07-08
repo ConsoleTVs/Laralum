@@ -25,7 +25,7 @@ class CreateSettings extends Migration
         });
 
         $settings = new Settings;
-        $settings->laralum_version = "1.4";
+        $settings->laralum_version = "1.5";
         $settings->website_title = "Laralum";
         $settings->menu_color = "#5c6bc0";
         $settings->background_color = "#e8eaf6";
