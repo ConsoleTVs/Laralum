@@ -28,8 +28,8 @@ class CreateSettings extends Migration
         });
 
         $settings = new Settings;
-        $settings->laralum_version = "2.0";
-        $settings->website_title = "My Website";
+        $settings->laralum_version = "2.0.4";
+        $settings->website_title = env('APP_NAME', 'My Application');
         $settings->logo = ''; //Default logo will load
         $settings->button_color = "blue";
         $settings->header_color = "#1678c2";
