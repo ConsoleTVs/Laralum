@@ -1,7 +1,7 @@
 {
-    "name": "laravel/laravel",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "name": "erik/laralum",
+    "description": "The Laravel Framework with Laralum administration panel.",
+    "keywords": ["framework", "laravel", "laralum"],
     "license": "MIT",
     "type": "project",
     "require": {
