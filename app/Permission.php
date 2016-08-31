@@ -12,9 +12,4 @@ class Permission extends Model
     {
     	return $this->belongsToMany('App\Role');
     }
-
-    public function type()
-    {
-    	return $this->belongsTo('App\Permission_types');
-    }
 }

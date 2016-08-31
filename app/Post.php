@@ -3,9 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Post_View;
 use Request;
-use URL;
 use Location;
 use Laralum;
 
@@ -23,22 +21,57 @@ class Post extends Model
         return $this->belongsTo('App\User', 'user_id');
     }
 
+    public function edited()
+    {
+        if($this->edited_by) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function editor()
+    {
+        if($this->edited()){
+            return $this->belongsTo('App\User', 'edited_by');
+        } else {
+            return null;
+        }
+    }
+
     public function views()
     {
         return $this->hasMany('App\Post_View');
     }
 
+    public function commentsEnabled()
+    {
+        if($this->logged_in_comments or $this->anonymous_comments) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public function addView()
     {
-        $view = new Post_View;
-        
+        # Check if view exists
+        if($this->limit_views_per_ip) {
+            $views = Laralum::postViews('post_id', $this->id);
+            foreach($views as $view){
+                if($view->ip == Laralum::getIP()){
+                    return false;
+                }
+            }
+        }
+        $view = Laralum::newPostView();
         $view->post_id = $this->id;
         $view->ip = Laralum::getIP();
-        $view->url = Request::url();
-        $view->ref = URL::previous();
+        $view->url = Laralum::currentURL();;
+        $view->ref = Laralum::previousURL();
         if($this->blog->views_location){
             try {
-                $view->country_code = Location::get($view->ip)->countryCode; #it takes some time to chech the api...
+                $view->country_code = Location::get($view->ip)->countryCode; #it takes some time to check the api...
             } catch (Exception $e) {
                 $view->country_code = "FF"; #FF will be translated into nothing later
             }
@@ -47,7 +80,7 @@ class Post extends Model
         }
         $view->save();
 
-        return True;
+        return true;
     }
 
     public function comments()

@@ -3,7 +3,6 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 use App\Users_Settings;
-use App\Role;
 
 class CreateUsersSettings extends Migration
 {
@@ -24,7 +23,7 @@ class CreateUsersSettings extends Migration
         });
 
         $settings = new Users_Settings;
-        $settings->default_role = Role::where('name', env('DEFAULT_ROLE_NAME', 'Administrator'))->first()->id;
+        $settings->default_role = \Laralum::role('name', env('DEFAULT_ROLE_NAME', 'User'))->id;
         $settings->register_enabled = true;
         $settings->default_active = 2;
         $settings->welcome_email = false;

@@ -4,7 +4,7 @@
  * Laravel - A PHP Framework For Web Artisans
  *
  * @package  Laravel
- * @author   Taylor Otwell <taylorotwell@gmail.com>
+ * @author   Taylor Otwell <taylor@laravel.com>
  */
 
 /*
@@ -18,8 +18,6 @@
 | loading any of our classes later on. It feels nice to relax.
 |
 */
-
-ini_set('memory_limit', '-1');
 
 require __DIR__.'/../bootstrap/autoload.php';
 

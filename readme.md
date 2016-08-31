@@ -1,100 +1,27 @@
-## Laralum - Laravel 5.2 Administration Panel
+# Laravel PHP Framework
 
-#### Features
-- Adapt your database columns how you like, we take care of displaying them in the edit page
-- User Manager
-- Role Manager
-- Permission Manager
-- Integrated with laravel Auth
-- User Settings
-- Blogs
-- Developer Mode
-- Made for coders
+[![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
+[![Total Downloads](https://poser.pugx.org/laravel/framework/d/total.svg)](https://packagist.org/packages/laravel/framework)
+[![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)
+[![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
+[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
 
-## Installation
-Install it using composer
-```
-composer create-project erik/laralum ProjectName
-```
+Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, queueing, and caching.
 
-## Simple instructions
-To make things simple while i try to build a site and start a documentation, i will tell small and usefull details here.
+Laravel is accessible, yet powerful, providing tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
 
-- Check if a user belongs to a role (Response: true / false):
-Example (check if the logged in user is in the role 'Administrator'):
-```
-$user = Auth::user();
-$user->is('Administrator');
-```
+## Official Documentation
 
-- Check if a user has a permission in any of his roles (Response: true / false):
-Example (check if the logged in user has the permission 'admin.access'):
-```
-$user = Auth::user();
-$user->has('admin.access');
-```
+Documentation for the framework can be found on the [Laravel website](http://laravel.com/docs).
 
-- Get all the user's roles (Response: Object):
-Example (Get all the roles of the logged in user and display their names):
-```
-$user = Auth::user();
-$roles = $user->roles;
-foreach($roles as $role){
-  echo $role->name . '<br>';
-}
-```
+## Contributing
 
-- Check if a role has a specific permission (Response: true / false):
-Example (Check if the role with an id of 1 have the permission 'admin.access'):
-```
-$role = Role::findOrFail(1);
-$role->has('admin.access');
-```
+Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
 
-- Get all the role's users (Response: Object):
-Example (Get all the users of the role with an id of 1 and display their names):
-```
-$role = Role::findOrFail(1);
-$users = $role->users;
-foreach($users as $user){
-  echo $user->name . '<br>';
-}
-```
+## Security Vulnerabilities
 
-- Get all the role's permissions (Response: Object):
-Example (Get all the permissions of the role with an id of 1 and display their names):
-```
-$role = Role::findOrFail(1);
-$permissions = $role->permissions;
-foreach($permissions as $perm){
-  echo $perm->name . '<br>';
-}
-```
+If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
 
-- Get all the roles that use a permission (Response: Object):
-Example (Get all the roles of the permission 'admin.access' and display their names):
-```
-$permission = Permission::where('slug', 'admin.access')->first();
-$roles = $permission->roles;
-foreach($roles as $role){
-  echo $role->name . '<br>';
-}
-```
+## License
 
-- Get the type of the permission (Response: Object):
-Example (Get the type of the permission 'admin.access'):
-```
-$permission = Permission::where('slug', 'admin.access')->first();
-$type = $permission->type;
-```
-
-- Get the permissions from a type (Response: Object):
-Example (Get the permissions from the type 'Administration Panel'):
-```
-$type = Permission_Types::where('type', 'Administration Panel')->first();
-$permissions = $type->permissions;
-```
-
-## Screenshots
-
-![alt text](http://puu.sh/n3awr/cbb7ad607d.png "Logo Title Text 1")
+The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).

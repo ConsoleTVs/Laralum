@@ -1,0 +1,83 @@
+.logo-box {
+	min-height: 100px;
+	max-height: 100px;
+	position:relavitve;
+}
+.logo-container {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.logo-image {
+	max-height: 100px;
+}
+
+.version-color {
+	color: #757575;
+	font-size: 30px;
+}
+
+.menu-margin {
+	margin-top: 49px;
+}
+
+.left-menu {
+	max-width: 210px;
+}
+
+.top-padding {
+	padding-top: 100px;
+}
+
+.content-title {
+	padding-top: 75px;
+	padding-bottom: 75px;
+}
+
+.page-content {
+	padding-top: 50px;
+}
+
+.white-text {
+	color: white;
+}
+
+.back {
+	background-color: #eeeeee !important;
+}
+
+.code {
+	min-height: 400px;
+}
+
+#menu {
+	display: none;
+}
+
+#menu-div {
+	min-height: 49px;
+}
+#vertical-menu {
+	overflow-y:auto;
+}
+
+#vertical-menu::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	background-color: #F5F5F5;
+}
+
+#vertical-menu::-webkit-scrollbar
+{
+	width: 6px;
+	background-color: #F5F5F5;
+}
+
+#vertical-menu::-webkit-scrollbar-thumb
+{
+
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #bdbdbd;
+}

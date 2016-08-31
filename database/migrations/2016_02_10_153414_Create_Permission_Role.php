@@ -2,9 +2,7 @@
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use App\Permission;
 use App\Permission_Role;
-use App\Role;
 
 class CreatePermissionRole extends Migration
 {
@@ -22,10 +20,10 @@ class CreatePermissionRole extends Migration
             $table->timestamps();
         });
 
-        foreach(Permission::all() as $perm) {
+        foreach(Laralum::permissions() as $perm) {
             $rel = new Permission_Role;
-            $rel->permission_id = Permission::where('id', $perm->id)->first()->id;
-            $rel->role_id = Role::where('name', env('ADMINISTRATOR_ROLE_NAME', 'Administrator'))->first()->id;
+            $rel->permission_id = \Laralum::permission('id', $perm->id)->id;
+            $rel->role_id = \Laralum::role('name', env('ADMINISTRATOR_ROLE_NAME', 'Administrator'))->id;
             $rel->save();
         }
     }

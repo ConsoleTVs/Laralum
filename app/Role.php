@@ -16,7 +16,7 @@ class Role extends Model
     	return $this->belongsToMany('App\Permission');
     }
 
-    public function has($slug)
+    public function hasPermission($slug)
     {
         foreach($this->permissions as $perm) {
             if($perm->slug == $slug) {

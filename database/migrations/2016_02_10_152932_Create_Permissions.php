@@ -2,8 +2,6 @@
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use App\Permission;
-use App\Permission_Types;
 
 class CreatePermissions extends Migration
 {
@@ -16,341 +14,60 @@ class CreatePermissions extends Migration
     {
         Schema::create('permissions', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('type_id');
             $table->string('slug')->unique();
-            $table->string('name');
-            $table->text('info');
+            $table->boolean('assignable');
             $table->boolean('su');
             $table->timestamps();
         });
 
-        $perm = new Permission;
-        $perm->slug = "admin.access";
-        $perm->name = "Administration Access";
-        $perm->info = "Grants access to the administration panel";
-        $perm->type_id = Permission_Types::where('type', 'Administration Panel')->first()->id;
-        $perm->su = true;
-        $perm->save();
+        $permissions = [
+            'laralum.access',
+            'laralum.users.access',
+            'laralum.users.create',
+            'laralum.users.edit',
+            'laralum.users.roles',
+            'laralum.users.delete',
+            'laralum.users.settings',
+            'laralum.roles.access',
+            'laralum.roles.create',
+            'laralum.roles.edit',
+            'laralum.roles.permissions',
+            'laralum.roles.delete',
+            'laralum.permissions.access',
+            'laralum.permissions.create',
+            'laralum.permissions.edit',
+            'laralum.permissions.delete',
+            'laralum.blogs.access',
+            'laralum.blogs.create',
+            'laralum.blogs.edit',
+            'laralum.blogs.posts',
+            'laralum.blogs.delete',
+            'laralum.posts.access',
+            'laralum.posts.create',
+            'laralum.posts.edit',
+            'laralum.posts.view',
+            'laralum.posts.comments',
+            'laralum.posts.graphics',
+            'laralum.posts.delete',
+            'laralum.files.access',
+            'laralum.files.upload',
+            'laralum.files.download',
+            'laralum.files.delete',
+            'laralum.documents.create',
+            'laralum.documents.edit',
+            'laralum.documents.delete',
+            'laralum.settings.access',
+            'laralum.settings.edit',
+            'laralum.CRUD.access',
+        ];
 
-        $perm = new Permission;
-        $perm->slug = 'admin.users.access';
-        $perm->name = 'Users Access';
-        $perm->info = 'Grants acces to user page';
-        $perm->type_id = Permission_Types::where('type', 'User Administration')->first()->id;
-        $perm->su = true;
-        $perm->save();
-
-        $perm = new Permission;
-        $perm->slug = 'admin.users.create';
-        $perm->name = 'Create Users';
-        $perm->info = 'Grants acces to user creation';
-        $perm->type_id = Permission_Types::where('type', 'User Administration')->first()->id;
-        $perm->su = true;
-        $perm->save();
-
-        $perm = new Permission;
-        $perm->slug = 'admin.users.edit';
-        $perm->name = 'Edit Users';
-        $perm->info = 'Gives access to user editing';
-        $perm->type_id = Permission_Types::where('type', 'User Administration')->first()->id;
-        $perm->su = true;
-        $perm->save();
-
-        $perm = new Permission;
-        $perm->slug = 'admin.users.roles';
-        $perm->name = 'Edit User Roles';
-        $perm->info = 'Grants access to users role editor';
-        $perm->type_id = Permission_Types::where('type', 'User Administration')->first()->id;
-        $perm->su = true;
-        $perm->save();
-
-        $perm = new Permission;
-        $perm->slug = 'admin.users.delete';
-        $perm->name = 'Delete Users';
-        $perm->info = 'Grants access to user deletion';
-        $perm->type_id = Permission_Types::where('type', 'User Administration')->first()->id;
-        $perm->su = true;
-        $perm->save();
-
-        $perm = new Permission;
-        $perm->slug = 'admin.users.settings';
-        $perm->name = 'User Settings';
-        $perm->info = 'Grants access to user settings';
-        $perm->type_id = Permission_Types::where('type', 'User Administration')->first()->id;
-        $perm->su = true;
-        $perm->save();
-
-        $perm = new Permission;
-        $perm->slug = 'admin.roles.access';
-        $perm->name = 'Roles Access';
-        $perm->info = 'Grants access to roles page';
-        $perm->type_id = Permission_Types::where('type', 'Role Administration')->first()->id;
-        $perm->su = true;
-        $perm->save();
-
-        $perm = new Permission;
-        $perm->slug = 'admin.roles.create';
-        $perm->name = 'Create Roles';
-        $perm->info = 'Grants access to role creation';
-        $perm->type_id = Permission_Types::where('type', 'Role Administration')->first()->id;
-        $perm->su = true;
-        $perm->save();
-
-        $perm = new Permission;
-        $perm->slug = 'admin.roles.edit';
-        $perm->name = 'Edit Roles';
-        $perm->info = 'Grants access to role editing';
-        $perm->type_id = Permission_Types::where('type', 'Role Administration')->first()->id;
-        $perm->su = true;
-        $perm->save();
-
-        $perm = new Permission;
-        $perm->slug = 'admin.roles.permissions';
-        $perm->name = 'Edit Role Permissions';
-        $perm->info = 'Grants access to role permission editing.';
-        $perm->type_id = Permission_Types::where('type', 'Role Administration')->first()->id;
-        $perm->su = true;
-        $perm->save();
-
-        $perm = new Permission;
-        $perm->slug = 'admin.roles.delete';
-        $perm->name = 'Delete Roles';
-        $perm->info = 'Grants access to roles deletion';
-        $perm->type_id = Permission_Types::where('type', 'Role Administration')->first()->id;
-        $perm->su = true;
-        $perm->save();
-
-        $perm = new Permission;
-        $perm->slug = 'admin.permissions.access';
-        $perm->name = 'Permissions Access';
-        $perm->info = 'Grants access to permissions page';
-        $perm->type_id = Permission_Types::where('type', 'Permission Administration')->first()->id;
-        $perm->su = true;
-        $perm->save();
-
-        $perm = new Permission;
-        $perm->slug = 'admin.permissions.create';
-        $perm->name = 'Create Permissions';
-        $perm->info = 'Grants access to permissions creation';
-        $perm->type_id = Permission_Types::where('type', 'Permission Administration')->first()->id;
-        $perm->su = true;
-        $perm->save();
-
-        $perm = new Permission;
-        $perm->slug = 'admin.permissions.edit';
-        $perm->name = 'Edit Permissions';
-        $perm->info = 'Grants access to permissions editing';
-        $perm->type_id = Permission_Types::where('type', 'Permission Administration')->first()->id;
-        $perm->su = true;
-        $perm->save();
-
-        $perm = new Permission;
-        $perm->slug = 'admin.permissions.type.create';
-        $perm->name = 'Create Permissions Types';
-        $perm->info = 'Grants access to permissions type creation';
-        $perm->type_id = Permission_Types::where('type', 'Permission Administration')->first()->id;
-        $perm->su = true;
-        $perm->save();
-
-        $perm = new Permission;
-        $perm->slug = 'admin.permissions.type.edit';
-        $perm->name = 'Edit Permission Types';
-        $perm->info = 'Grants access to permission type editing';
-        $perm->type_id = Permission_Types::where('type', 'Permission Administration')->first()->id;
-        $perm->su = true;
-        $perm->save();
-
-        $perm = new Permission;
-        $perm->slug = 'admin.permissions.delete';
-        $perm->name = 'Delete Permissions';
-        $perm->info = 'Grants access to permission deletion';
-        $perm->type_id = Permission_Types::where('type', 'Permission Administration')->first()->id;
-        $perm->su = true;
-        $perm->save();
-
-        $perm = new Permission;
-        $perm->slug = 'admin.permissions.type.delete';
-        $perm->name = 'Delete Permission Types';
-        $perm->info = 'Grants access to permission types deletion';
-        $perm->type_id = Permission_Types::where('type', 'Permission Administration')->first()->id;
-        $perm->su = true;
-        $perm->save();
-
-        $perm = new Permission;
-        $perm->slug = 'admin.blogs.access';
-        $perm->name = 'Blogs Access';
-        $perm->info = 'Grants access to blogs page';
-        $perm->type_id = Permission_Types::where('type', 'Blog Administration')->first()->id;
-        $perm->su = true;
-        $perm->save();
-
-        $perm = new Permission;
-        $perm->slug = 'admin.blogs.create';
-        $perm->name = 'Create Blogs';
-        $perm->info = 'Grants access to blogs creation';
-        $perm->type_id = Permission_Types::where('type', 'Blog Administration')->first()->id;
-        $perm->su = true;
-        $perm->save();
-
-        $perm = new Permission;
-        $perm->slug = 'admin.blogs.delete';
-        $perm->name = 'Delete Blogs';
-        $perm->info = 'Grants access to blogs deletion';
-        $perm->type_id = Permission_Types::where('type', 'Blog Administration')->first()->id;
-        $perm->su = true;
-        $perm->save();
-
-        $perm = new Permission;
-        $perm->slug = 'admin.blogs.edit';
-        $perm->name = 'Edit Blogs';
-        $perm->info = 'Grants access to blog editing';
-        $perm->type_id = Permission_Types::where('type', 'Blog Administration')->first()->id;
-        $perm->su = true;
-        $perm->save();
-
-        $perm = new Permission;
-        $perm->slug = 'admin.blogs.posts';
-        $perm->name = 'Blog Posts';
-        $perm->info = 'Grants access to blog posts';
-        $perm->type_id = Permission_Types::where('type', 'Blog Administration')->first()->id;
-        $perm->su = true;
-        $perm->save();
-
-        $perm = new Permission;
-        $perm->slug = 'admin.posts.access';
-        $perm->name = 'Posts Access';
-        $perm->info = 'Grants access to posts';
-        $perm->type_id = Permission_Types::where('type', 'Post Administration')->first()->id;
-        $perm->su = true;
-        $perm->save();
-
-        $perm = new Permission;
-        $perm->slug = 'admin.posts.view';
-        $perm->name = 'View Posts';
-        $perm->info = 'Grants access to viewing posts';
-        $perm->type_id = Permission_Types::where('type', 'Post Administration')->first()->id;
-        $perm->su = true;
-        $perm->save();
-
-        $perm = new Permission;
-        $perm->slug = 'admin.posts.create';
-        $perm->name = 'Create Posts';
-        $perm->info = 'Grants access to posts creation';
-        $perm->type_id = Permission_Types::where('type', 'Post Administration')->first()->id;
-        $perm->su = true;
-        $perm->save();
-
-        $perm = new Permission;
-        $perm->slug = 'admin.posts.edit';
-        $perm->name = 'Edit Posts';
-        $perm->info = 'Grants access to posts editing';
-        $perm->type_id = Permission_Types::where('type', 'Post Administration')->first()->id;
-        $perm->su = true;
-        $perm->save();
-
-        $perm = new Permission;
-        $perm->slug = 'admin.posts.delete';
-        $perm->name = 'Delete Posts';
-        $perm->info = 'Grants access to posts deletion';
-        $perm->type_id = Permission_Types::where('type', 'Post Administration')->first()->id;
-        $perm->su = true;
-        $perm->save();
-
-        $perm = new Permission;
-        $perm->slug = 'admin.posts.graphics';
-        $perm->name = 'Posts Graphics';
-        $perm->info = 'Grants access to posts graphics';
-        $perm->type_id = Permission_Types::where('type', 'Post Administration')->first()->id;
-        $perm->su = true;
-        $perm->save();
-
-        $perm = new Permission;
-        $perm->slug = 'admin.posts.comments';
-        $perm->name = 'Posts Comments';
-        $perm->info = 'Grants access to posts comments';
-        $perm->type_id = Permission_Types::where('type', 'Post Administration')->first()->id;
-        $perm->su = true;
-        $perm->save();
-
-        $perm = new Permission;
-        $perm->slug = 'admin.developer.access';
-        $perm->name = 'Developer Access';
-        $perm->info = 'Grants access to developer mode';
-        $perm->type_id = Permission_Types::where('type', 'Developer Mode')->first()->id;
-        $perm->su = true;
-        $perm->save();
-
-        $perm = new Permission;
-        $perm->slug = 'admin.files.access';
-        $perm->name = 'File Manager Access';
-        $perm->info = 'Grants access to file manager';
-        $perm->type_id = Permission_Types::where('type', 'File Manager')->first()->id;
-        $perm->su = true;
-        $perm->save();
-
-        $perm = new Permission;
-        $perm->slug = 'admin.files.upload';
-        $perm->name = 'Upload Files';
-        $perm->info = 'Grants access to the file uploader';
-        $perm->type_id = Permission_Types::where('type', 'File Manager')->first()->id;
-        $perm->su = true;
-        $perm->save();
-
-        $perm = new Permission;
-        $perm->slug = 'admin.files.download';
-        $perm->name = 'Download Files';
-        $perm->info = 'Grants access to direct file downloads';
-        $perm->type_id = Permission_Types::where('type', 'File Manager')->first()->id;
-        $perm->su = true;
-        $perm->save();
-
-        $perm = new Permission;
-        $perm->slug = 'admin.files.delete';
-        $perm->name = 'Delete Files';
-        $perm->info = 'Grants access to direct file deletion';
-        $perm->type_id = Permission_Types::where('type', 'File Manager')->first()->id;
-        $perm->su = true;
-        $perm->save();
-
-        $perm = new Permission;
-        $perm->slug = 'admin.documents.create';
-        $perm->name = 'Create Documents';
-        $perm->info = 'Grants access to the document creator';
-        $perm->type_id = Permission_Types::where('type', 'File Manager')->first()->id;
-        $perm->su = true;
-        $perm->save();
-
-        $perm = new Permission;
-        $perm->slug = 'admin.documents.edit';
-        $perm->name = 'Edit Documents';
-        $perm->info = 'Grants access to the document editing';
-        $perm->type_id = Permission_Types::where('type', 'File Manager')->first()->id;
-        $perm->su = true;
-        $perm->save();
-
-        $perm = new Permission;
-        $perm->slug = 'admin.documents.delete';
-        $perm->name = 'Delete Documents';
-        $perm->info = 'Grants access to the document deletion';
-        $perm->type_id = Permission_Types::where('type', 'File Manager')->first()->id;
-        $perm->su = true;
-        $perm->save();
-
-        $perm = new Permission;
-        $perm->slug = 'admin.settings.access';
-        $perm->name = 'Settings Access';
-        $perm->info = 'Grants access to settings';
-        $perm->type_id = Permission_Types::where('type', 'Settings')->first()->id;
-        $perm->su = true;
-        $perm->save();
-
-        $perm = new Permission;
-        $perm->slug = 'admin.settings.edit';
-        $perm->name = 'Edit Settings';
-        $perm->info = 'Grants access to settings editing';
-        $perm->type_id = Permission_Types::where('type', 'Settings')->first()->id;
-        $perm->su = true;
-        $perm->save();
+        foreach($permissions as $permission) {
+            $perm = \Laralum::newPermission();
+            $perm->slug = $permission;
+            $perm->assignable = true;
+            $perm->su = true;
+            $perm->save();
+        }
 
 
     }

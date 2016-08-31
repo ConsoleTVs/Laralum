@@ -3,8 +3,6 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 use App\Role_User;
-use App\User;
-use App\Role;
 
 class CreateRoleUser extends Migration
 {
@@ -22,9 +20,10 @@ class CreateRoleUser extends Migration
             $table->timestamps();
         });
 
+
         $rel = new Role_User;
-        $rel->user_id = User::where('email', env('USER_EMAIL', 'admin@admin.com'))->first()->id;
-        $rel->role_id = Role::where('name', env('ADMINISTRATOR_ROLE_NAME', 'Administration'))->first()->id;
+        $rel->user_id = \Laralum::user('email', env('USER_EMAIL', 'admin@admin.com'))->id;
+        $rel->role_id = \Laralum::role('name', env('ADMINISTRATOR_ROLE_NAME', 'Administrator'))->id;
         $rel->save();
 
     }

@@ -19,6 +19,7 @@ class CreatePosts extends Migration
              $table->text('description');
              $table->boolean('logged_in_comments');
              $table->boolean('anonymous_comments');
+             $table->boolean('limit_views_per_ip');
              $table->text('body');
              $table->integer('user_id');
              $table->integer('blog_id');

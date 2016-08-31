@@ -17,20 +17,26 @@ class CreateSettings extends Migration
             $table->increments('id');
             $table->string('laralum_version');
             $table->string('website_title');
-            $table->string('menu_color');
-            $table->string('background_color');
-            $table->boolean('light_menu_text');
-            $table->boolean('menu_color_to_buttons');
+            $table->string('logo');
+            $table->string('button_color');
+            $table->string('header_color');
+            $table->string('pie_chart_source');
+            $table->string('bar_chart_source');
+            $table->string('line_chart_source');
+            $table->string('geo_chart_source');
             $table->timestamps();
         });
 
         $settings = new Settings;
-        $settings->laralum_version = "1.5.1";
-        $settings->website_title = "Laralum";
-        $settings->menu_color = "#5c6bc0";
-        $settings->background_color = "#e8eaf6";
-        $settings->light_menu_text = true;
-        $settings->menu_color_to_buttons = true;
+        $settings->laralum_version = "2.0";
+        $settings->website_title = "My Website";
+        $settings->logo = ''; //Default logo will load
+        $settings->button_color = "blue";
+        $settings->header_color = "#1678c2";
+        $settings->pie_chart_source = "highcharts";
+        $settings->bar_chart_source = "highcharts";
+        $settings->line_chart_source = "highcharts";
+        $settings->geo_chart_source = "highcharts";
         $settings->save();
     }
 
