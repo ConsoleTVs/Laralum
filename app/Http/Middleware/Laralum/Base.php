@@ -18,33 +18,35 @@ class Base
      */
     public function handle($request, Closure $next)
     {
-        # Check if the user is activated
-        if(Auth::check()) {
+        if(Laralum::checkInstalled()) {
+            # Check if the user is activated
+            if(Auth::check()) {
 
-            $user = Laralum::loggedInuser();
+                $user = Laralum::loggedInuser();
 
-            if(!$user->active) {
-                if(Laralum::currentURL() != url('/logout')) {
-                    if (strpos(Laralum::currentURL(), route('Laralum::activate_form')) !== false) {
-                        // Seems to be ok
-                    } else {
-                        return redirect()->route('Laralum::activate_form');
+                if(!$user->active) {
+                    if(Laralum::currentURL() != url('/logout')) {
+                        if (strpos(Laralum::currentURL(), route('Laralum::activate_form')) !== false) {
+                            // Seems to be ok
+                        } else {
+                            return redirect()->route('Laralum::activate_form');
+                        }
+                    }
+
+                }
+
+                if($user->banned and Laralum::currentURL() != route('Laralum::banned')) {
+                    if(Laralum::currentURL() != url('/logout')) {
+                        return redirect()->route('Laralum::banned');
                     }
                 }
 
-            }
-
-            if($user->banned and Laralum::currentURL() != route('Laralum::banned')) {
-                if(Laralum::currentURL() != url('/logout')) {
-                    return redirect()->route('Laralum::banned');
+                # Set App Locale
+                if($user->locale) {
+                    App::setLocale($user->locale);
                 }
-            }
 
-            # Set App Locale
-            if($user->locale) {
-                App::setLocale($user->locale);
             }
-
         }
 
         return $next($request);

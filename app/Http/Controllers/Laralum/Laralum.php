@@ -35,7 +35,7 @@ class Laralum extends Controller
     {
         return Laralum::settings()->laralum_version;
     }
-    
+
     public static function websiteTitle()
     {
         return Laralum::settings()->website_title;
@@ -337,11 +337,10 @@ class Laralum extends Controller
 
     public static function checkInstalled()
     {
-        if(Schema::hasTable('users') and Schema::hasTable('roles') and Schema::hasTable('permissions') and Schema::hasTable('settings') and Schema::hasTable('blogs') and Schema::hasTable('posts') and Schema::hasTable('documents')) {
+        if(env('LARALUM_INSTALLED', false)){
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
     public static function checkDocumentOwner($type, $data){

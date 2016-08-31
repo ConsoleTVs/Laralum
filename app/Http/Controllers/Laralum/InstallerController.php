@@ -44,7 +44,7 @@ class InstallerController extends Controller
 
             $this->validate($request, [
                 'USER_NAME' => 'required',
-                'USER_PASSWORD' => 'required|confirmed',
+                'USER_PASSWORD' => 'required|min:6|confirmed',
                 'USER_EMAIL' => 'required',
                 'USER_COUNTRY_CODE' => 'required',
                 'USER_LOCALE' => 'required',
@@ -76,11 +76,16 @@ class InstallerController extends Controller
     public function install($locale)
     {
         if(!Laralum::checkInstalled()){
-            
+
             $exitCode = Artisan::call('migrate');
 
             if (Auth::attempt(['email' => env('USER_EMAIL'), 'password' => env('USER_PASSWORD')])) {
                 // Authentication passed...
+
+                $file_location = base_path() . '/.env';
+                $default = "\nLARALUM_INSTALLED=true";
+                file_put_contents($file_location,$default, FILE_APPEND);
+
                 $url = route('Laralum::dashboard');
                 return redirect()->intended($url)->with('success', trans('laralum.welcome_to_laralum'));
             } else{

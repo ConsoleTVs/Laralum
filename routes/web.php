@@ -58,11 +58,6 @@ Route::group(['middleware' => ['auth', 'laralum.base']], function () {
 
 
 
-
-
-
-
-
 /*
 +---------------------------------------------------------------------------+
 | Laralum Routes															|

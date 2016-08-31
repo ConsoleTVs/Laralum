@@ -17,12 +17,13 @@ class Authenticate
      */
     public function handle($request, Closure $next)
     {
-        if(Auth::check()) {
-            Laralum::mustBeAdmin(Laralum::loggedInUser());
-            return $next($request);
-
-        } else {
-            return redirect('/')->with('error', 'You are not logged in');
+        if(Laralum::checkInstalled()) {
+            if(Auth::check()) {
+                Laralum::mustBeAdmin(Laralum::loggedInUser());
+            } else {
+                return redirect('/')->with('error', 'You are not logged in');
+            }
         }
+        return $next($request);
     }
 }
