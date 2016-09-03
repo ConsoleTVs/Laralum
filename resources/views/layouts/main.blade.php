@@ -10,7 +10,7 @@
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
 
-        {!! Laralum::include('header') !!}
+        {!! Laralum::includeAssets('header') !!}
 
         <!-- Styles -->
         <style>

@@ -1006,7 +1006,7 @@ class Laralum extends Controller
         return URL::previous();
     }
 
-    public static function include($name)
+    public static function includeAssets($name)
     {
         require('Data/Includes.php');
         if($includes){

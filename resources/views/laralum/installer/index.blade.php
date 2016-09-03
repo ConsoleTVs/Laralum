@@ -8,7 +8,7 @@
 	<meta name="description" content="Laralum - Laravel administration panel">
 	<meta name="author" content="Èrik Campobadal Forés">
 
-	{!! Laralum::include('laralum_header') !!}
+	{!! Laralum::includeAssets('laralum_header') !!}
 
 
   <!--[if lt IE 9]>
@@ -233,7 +233,7 @@
         </div>
 
 
-	{!! Laralum::include('laralum_bottom') !!}
+	{!! Laralum::includeAssets('laralum_bottom') !!}
 
 	<script>
 		$('#welcome').fadeIn(1000, function(){

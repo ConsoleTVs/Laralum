@@ -8,9 +8,9 @@
 	<meta name="description" content="Laralum - Laravel administration panel">
 	<meta name="author" content="Èrik Campobadal Forés">
 
-	{!! Laralum::include('laralum_header') !!}
+	{!! Laralum::includeAssets('laralum_header') !!}
 
-	{!! Laralum::include('charts') !!}
+	{!! Laralum::includeAssets('charts') !!}
 
   @yield('css')
 
@@ -263,7 +263,7 @@
 	</div>
 
 
-	{!! Laralum::include('laralum_bottom') !!}
+	{!! Laralum::includeAssets('laralum_bottom') !!}
 
 	@yield('js')
 

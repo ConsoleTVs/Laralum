@@ -63,7 +63,7 @@ return [
     |
     */
 
-    'selected_driver' => 'FreeGeoIp',
+    'selected_driver' => 'GeoPlugin',
 
     /*
     |--------------------------------------------------------------------------

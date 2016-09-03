@@ -94,7 +94,9 @@
                                             <i class="configure icon"></i>
                                             Options
                                             <div class="menu">
-                                                <a href="{{ route('Laralum::posts_graphics', ['id' => $post->id]) }}" class="item">{{ trans('laralum.statistics') }}</a>
+                                                @if(count($post->views) > 0)
+                                                    <a href="{{ route('Laralum::posts_graphics', ['id' => $post->id]) }}" class="item">{{ trans('laralum.statistics') }}</a>
+                                                @endif
                                                 <a href="{{ route('Laralum::posts_edit', ['id' => $post->id]) }}" class="item">{{ trans('laralum.posts_edit') }}</a>
                                                 <a href="{{ route('Laralum::posts_delete', ['id' => $post->id]) }}" class="item">{{ trans('laralum.posts_delete') }}</a>
                                             </div>

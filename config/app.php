@@ -179,6 +179,7 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         Stevebauman\Location\LocationServiceProvider::class,
+        GrahamCampbell\Markdown\MarkdownServiceProvider::class,
 
     ],
 
@@ -228,6 +229,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Location'  => Stevebauman\Location\Facades\Location::class,
         'Laralum'   => App\Http\Controllers\Laralum\Laralum::class,
+        'Markdown' => GrahamCampbell\Markdown\Facades\Markdown::class,
 
     ],
 
