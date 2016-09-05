@@ -22,6 +22,7 @@ return [
     'options'   => "Options",
     'continue'  => "Continue",
     'back'  => "Back",
+    'create' => "Create",
     'confirmation'  => "Confirmation",
     'submit'    => "Submit",
     'super_user'    => "Super User",
@@ -252,7 +253,7 @@ return [
     'install_app_info'  => "Application Information",
     'install_app_name'  => "Application Name",
 
-    'install_personal_info'    => "Personal information",
+    'install_personal_info'    => "Personal Information",
     'install_your_name' => "Your name",
     'install_your_email' => "Your email",
     'install_your_password' => "Password",
@@ -468,7 +469,7 @@ return [
     */
 
     'files_title'   => "Files & Documents List",
-    'files_subtitle'    => "List of all the Files & documents",
+    'files_subtitle'    => "List of all the files & documents",
 
     'files_upload_title'    => "Upload File",
     'files_upload_subtitle' => "Upload a new file",

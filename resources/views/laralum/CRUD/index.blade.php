@@ -27,7 +27,7 @@
                         <td>{{ count(\Schema::getColumnListing($table)) }}</td>
                         <td>{{ count(\DB::table($table)->get()) }}</td>
                         <td>
-                            <a href="{{ route('Laralum::CRUD_table', ['table' => $table]) }}" class="ui {{ Laralum::settings()->button_color }} button">Edit</a>
+                            <a href="{{ route('Laralum::CRUD_table', ['table' => $table]) }}" class="ui {{ Laralum::settings()->button_color }} button">{{ trans('laralum.edit') }}</a>
                         </td>
                     </tr>
 				@endforeach

@@ -16,9 +16,9 @@
     <div class="column">
         <div class="ui very padded segment">
             @if($allow and Schema::hasColumn($name, 'id'))
-                <a href="{{ route('Laralum::CRUD_create', ['table' => $name]) }}" class="ui {{ Laralum::settings()->button_color }} button">Create</a><br>
+                <a href="{{ route('Laralum::CRUD_create', ['table' => $name]) }}" class="ui {{ Laralum::settings()->button_color }} button">{{ trans('laralum.create') }}</a><br>
             @else
-                <a class="ui disabled {{ Laralum::settings()->button_color }} button">Create</a><br>
+                <a class="ui disabled {{ Laralum::settings()->button_color }} button">{{ trans('laralum.create') }}</a><br>
             @endif
             <br>
             <div style="overflow-x:auto;">
