@@ -17,6 +17,7 @@ return [
     |--------------------------------------------------------------------------
     */
 
+    'welcome_user' => "Welcome back, :name",
     'dashboard' => "Dashboard",
     'options'   => "Options",
     'continue'  => "Continue",
@@ -27,10 +28,10 @@ return [
     'super_user_desc'   => "The user is a webmaster",
     'super_user_role'   => "Super Role",
     'super_user_role_desc'  => "Reserved role for webmasters",
-    'admin_access_role' => "Admin Access",
-    'admin_access_role_desc'    => "The role users have access to the admin panel",
-    'admin_access'  => " Admin Access",
-    'admin_access_desc' => "The user have access to the admin panel",
+    'admin_access_role' => "Laralum Access",
+    'admin_access_role_desc'    => "The role users have access to the Laralum admin panel",
+    'admin_access'  => "Laralum Access",
+    'admin_access_desc' => "The user have access to the Laralum admin panel",
     'name'  => "Name",
     'email' => "Email",
     'users' => "Users",
@@ -231,7 +232,7 @@ return [
     'blog_list' => "Blog List",
     'create_blog'   => "Create Blog",
     'file_document_list'    => "File & Document List",
-    'upload_file'   => "Uplaod File",
+    'upload_file'   => "Upload File",
     'database_CRUD'  => "Database CRUD",
     'general_settings'   => "General Settings",
     'about' => "About",
@@ -257,7 +258,7 @@ return [
     'install_your_password' => "Password",
     'install_your_password_r' => "Repeat password",
     'install_country_code'  => "Select your country",
-    'install_default_locale'    => "Select your preferred locale",
+    'install_default_locale' => "Select your preferred locale",
 
     'install_roles_info'    => "Roles Information",
     'install_default_admin_role_name' => "Default Admin Role",
@@ -413,7 +414,7 @@ return [
     'blogs_edit_access_roles_subtitle'  => "Editing blog: :name",
 
     'blogs_posts_title' => "Blog Posts",
-    'blogs_posts_subtitle'  => "Post list of the blog: :name",
+    'blogs_posts_subtitle'  => "Posts list of the blog: :name",
 
     'blogs_posts_graph1'    => "Posts comments in the last 2 days",
 
@@ -436,7 +437,7 @@ return [
 
     'posts_views'   => ":number Views",
     'posts_comments'    => ":number Comments",
-    'posts_post_comment'  => "Post a comment",
+    'posts_post_comment'  => "Post a Comment",
 
     'posts_edit'    => "Edit Post",
     'posts_delete'  => "Delete Post",
@@ -502,7 +503,7 @@ return [
     |--------------------------------------------------------------------------
     */
 
-    'CRUD_title'    => "Databse CRUD",
+    'CRUD_title'    => "Database CRUD",
     'CRUD_subtitle' => "Create, Read, Update, Delete",
 
     'CRUD_table_title'    => "Edit Table",

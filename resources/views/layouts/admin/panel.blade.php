@@ -241,9 +241,10 @@
 								<a href="{{ url('/') }}" class="ui tiny header">
 									{{ Laralum::websiteTitle() }}
 								</a>
-									<?php
+									 <?php
 										$locales = Laralum::locales();
-										if(Laralum::loggedInUser()->locale) {
+										$locale = Laralum::loggedInUser()->locale;
+										if($locale) {
 											$locale = $locales[$locale];
 										} else {
 											$locale = $locales['en'];

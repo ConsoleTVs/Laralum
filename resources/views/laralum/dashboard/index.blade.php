@@ -6,7 +6,9 @@
 @endsection
 @section('title', trans('laralum.dashboard'))
 @section('icon', "dashboard")
-@section('subtitle', "Welcome back, " . Laralum::loggedInUser()->name )
+@section('subtitle')
+{{ trans('laralum.welcome_user', ['name' => Laralum::loggedInUser()->name]) }}
+@endsection
 @section('content')
 <div class="ui doubling stackable two column grid container">
     <div class="column">
