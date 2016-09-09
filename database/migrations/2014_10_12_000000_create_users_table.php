@@ -37,7 +37,7 @@ class CreateUsersTable extends Migration
         $user->banned = false;
         $user->register_ip = "";
         $user->country_code = env('USER_COUNTRY_CODE', 'ES');
-        $user->locale = "en";
+        $user->locale = env('USER_LOCALE', 'en');
         $user->activation_key = str_random(25);
         $user->su = true;
         $user->save();
