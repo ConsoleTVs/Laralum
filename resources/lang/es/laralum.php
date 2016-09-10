@@ -549,8 +549,28 @@ return [
     | VERSION 2.1.X
     |--------------------------------------------------------------------------
     */
+
     'laralum_API'  => "API de Laralum",
     'API_subtitle'  => "API pública de Laralum (Tendrá códigos de API en breves)",
     'API_url'   => "URL de la API",
     'API_show'  => "Columnas que se mostraran",
+
+    /*
+    |--------------------------------------------------------------------------
+    | Profile Language Lines
+    |--------------------------------------------------------------------------
+    */
+
+    'profile_settings' => 'Ajustes del Perfil',
+    'search_image' => 'Buscar Imagen',
+    'profile_image_changed' => 'La imagen de perfil ha sido cambiada!',
+    'change_profile_image_title' => 'Cambiar Imagen',
+    'change_profile_image_subtitle' => 'Cambiar imagen de perfil',
+    'change_profile_password_title' => 'Cambiar contraseña',
+    'change_profile_password_subtitle' => 'Cambiar contraseña del perfil',
+    'current_password' => 'Contraseña actual',
+    'new_password' => 'Nueva Contraseña',
+    'profile_password_changed' => 'La contraseña ha sido cambiada!',
+    'incorrect_password' => 'La contraseña actual es incorrecta',
+    'profile_image_max_upload_size' => "Tamaño máximo de imagen: :size",
 ];

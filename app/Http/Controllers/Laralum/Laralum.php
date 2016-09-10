@@ -249,6 +249,10 @@ class Laralum extends Controller
             abort(401, "You don't have permissions to access this area");
         }
     }
+    
+    public static function scanFiles($directory){
+        return scandir($directory);
+    }
 
     public static function files()
     {

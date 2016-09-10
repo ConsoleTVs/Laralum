@@ -159,13 +159,24 @@ class User extends Authenticatable
     * @param number $size
     */
     public function avatar($size = null){
-        $grav_url = "https://www.gravatar.com/avatar/".md5(strtolower(trim($this->email)));
-        if($size) {
-            $grav_url = $grav_url . '?s=' . $size;
+        $file_found = false;         
+        $files = Laralum::scanFiles('avatars');
+        foreach($files as $file) {
+         if ($file == md5(Laralum::loggedInUser()->email)){
+            $image_url = asset('/avatars/'.$file);
+            $file_found = true;
+         }
+         else
+         {
+            if ($file_found == false){
+                $image_url = Laralum::defaultAvatar();          
+            }
+         }
         }
-        return $grav_url;
-    }
 
+        return $image_url;
+
+    }
     /**
     * Returns all the documents from the user
     *
