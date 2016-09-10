@@ -555,22 +555,8 @@ return [
     'API_url'   => "API URL",
     'API_show'  => "Columns that will be shown",
 
-    /*
-    |--------------------------------------------------------------------------
-    | Profile Language Lines
-    |--------------------------------------------------------------------------
-    */
+    'current_password'  => "Enter current password",
+    'profile_updated'   => "Your profile has been updated",
+    'incorrect_password'    => 'The current password is incorrect',
 
-    'profile_settings' => 'Profile Settings',
-    'search_image' => 'Search Image',
-    'profile_image_changed' => 'Profile image has been changed!',
-    'change_profile_image_title' => 'Change Image',
-    'change_profile_image_subtitle' => 'Change profile image',
-    'change_profile_password_title' => 'Change Password',
-    'change_profile_password_subtitle' => 'Change profile password',
-    'current_password' => 'Current password',
-    'new_password' => 'New password',
-    'profile_password_changed' => 'Password has been changed!',
-    'incorrect_password' => 'The current password is incorrect',
-    'profile_image_max_upload_size' => "Max image size: :size",
 ];

@@ -555,22 +555,7 @@ return [
     'API_url'   => "URL de l'API",
     'API_show'  => "Columnes que es mostraran",
 
-    /*
-    |--------------------------------------------------------------------------
-    | Profile Language Lines
-    |--------------------------------------------------------------------------
-    */
-
-    'profile_settings' => 'Ajustos del Perfil',
-    'search_image' => 'Buscar Imatge',
-    'profile_image_changed' => 'La imatge de perfil ha estat canviada!',
-    'change_profile_image_title' => 'Cambiar Imatge',
-    'change_profile_image_subtitle' => 'Cambiar imatge de perfil',
-    'change_profile_password_title' => 'Cambiar contrasenya',
-    'change_profile_password_subtitle' => 'Cambiar contrasenya del perfil',
-    'current_password' => 'Contrasenya actual',
-    'new_password' => 'Nova contrasenya',
-    'profile_password_changed' => 'La contrasenya ha estat canviada!',
-    'incorrect_password' => 'La contrasenya actual és incorrecte',
-    'profile_image_max_upload_size' => "Tamany màxim d'imatge: :size",
+    'current_password'  => "Escriu la contrasenya actual",
+    'profile_updated'   => "El teu perfil s'ha actualitzat",
+    'incorrect_password'    => 'La contrasenya actual no és correcte',
 ];

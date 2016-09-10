@@ -131,8 +131,6 @@
 						<div class="header">{{ trans('laralum.developer_tools') }}</div>
 						<div class="menu">
 							<a href="{{ route('Laralum::CRUD') }}" class="item">{{ trans('laralum.database_CRUD') }}</a>
-						</div>
-						<div class="menu">
 							<a href="{{ route('Laralum::API') }}" class="item">{{ trans('laralum.laralum_API') }}</a>
 						</div>
 					</div>
@@ -188,7 +186,7 @@
 				  <i class="user icon"></i>
 				  <span class="text responsive-text">{{ Auth::user()->name }}</span>
 				  <div class="menu">
-				  	<a href="{{ route('Laralum::users_profile', ['id' => Laralum::loggedInUser()->id]) }}" class="item">
+				  	<a href="{{ route('Laralum::profile') }}" class="item">
 						{{ trans('laralum.profile') }}
   					</a>
 					<a href="{{ url('/') }}" class="item">

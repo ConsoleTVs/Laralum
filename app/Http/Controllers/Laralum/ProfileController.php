@@ -16,67 +16,58 @@ class ProfileController extends Controller
     /**
      * Show the profile edit page
      */
-    public function profile()
+    public function edit()
     {
-        return view('laralum/profile/index');
-    }
+        $row = Laralum::loggedInUser();
+        # Get all the data
+        $data_index = 'profile';
+        require('Data/Edit/Get.php');
 
-    /**
-     * Show the image edit page
-     */
-    public function image()
-    {
-        return view('laralum/profile/image');
-    }
-
-    /**
-     * Update the user image
-     *
-     * @param $request
-     */
-    public function updateImage(Request $request)
-    {
-
-        $this->validate($request, [
-            'image' => 'required|image|max:5120',
+        return view('laralum/profile/index', [
+            'row'       =>  $row,
+            'fields'    =>  $fields,
+            'confirmed' =>  $confirmed,
+            'empty'     =>  $empty,
+            'encrypted' =>  $encrypted,
+            'hashed'    =>  $hashed,
+            'masked'    =>  $masked,
+            'table'     =>  $table,
+            'code'      =>  $code,
+            'wysiwyg'   =>  $wysiwyg,
+            'relations' =>  $relations,
         ]);
-
-        $request->file('image')->move('avatars', md5(Laralum::loggedInUser()->email));
-
-        return redirect()->route('Laralum::profile')->with('success',trans('laralum.profile_image_changed'));
     }
 
-    /**
-     * Show the change password page
-     */
-    public function password()
-    {
-        return view('laralum/profile/password');
-    }
 
     /**
-     * Update the user password
+     * Update the user profile
      *
      * @param $request
      */
-    public function updatePassword(Request $request)
+    public function update(Request $request)
     {
-
         $this->validate($request, [
+            'image'             => 'image|max:5120',
             'current_password'  => 'required',
-            'password'          => 'required|confirmed|min:6|max:50',
         ]);
 
-        $user = Laralum::loggedInUser();
+        $row = Laralum::loggedInUser();
 
-        if (Hash::check($request->current_password, $user->password )){
+
+        if (Hash::check($request->current_password, $row->password )){
             # Password correct, setup the new password and redirect with confirmation
-            $user->password = bcrypt($request->password);
 
-            return redirect()->route('Laralum::profile')->with('success', trans('laralum.profile_password_changed'));
+            # Save the data
+            $data_index = 'profile';
+            require('Data/Edit/Save.php');
+            if(array_key_exists('image', $request->all())){
+                $request->file('image')->move('avatars', md5($row->email));
+            }
+
+            return redirect()->route('Laralum::profile')->with('success', trans('laralum.profile_updated'));
         } else {
             # Password not correct, redirect back with error
-            return redirect()->route('Laralum::profile_password')->with('error', trans('laralum.incorrect_password'));
+            return redirect()->route('Laralum::profile')->with('error', trans('laralum.incorrect_password'));
         }
     }
 }

@@ -159,13 +159,12 @@ class User extends Authenticatable
     *
     * @param number $size
     */
-    public function avatar($size = null){
-
-        $avatars_location = Laralum::avatarsLocation();
-        $file = asset( $avatars_location . '/' . md5(Laralum::loggedInUser()->email) );
-
+    public function avatar($size = null)
+    {
+        $file = Laralum::avatarsLocation() . '/' . md5(Laralum::loggedInUser()->email);
+        $file_url = asset($file);
         if(File::exists($file)){
-            return $file;
+            return $file_url;
         } else {
             return Laralum::defaultAvatar();
         }

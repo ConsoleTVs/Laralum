@@ -79,6 +79,27 @@ $data = [
         ],
     ],
 
+    'profile' =>  [
+
+        'table'     =>  'users',
+        'edit'      =>  [
+            'hidden'            =>  ['id', 'su', 'email', 'register_ip', 'active', 'banned', 'activation_key', 'locale', 'remember_token', 'created_at', 'updated_at'],
+            'empty'             =>  ['password'],
+            'default_random'    =>  [],
+            'confirmed'         =>  ['password'],
+            'encrypted'         =>  [],
+            'hashed'            =>  ['password'],
+            'masked'            =>  ['password'],
+            'code'              =>  [],
+            'wysiwyg'           =>  [],
+            'validator'         =>  [
+                'name'              => 'sometimes|required|max:255',
+                'password'          => 'sometimes|confirmed|min:6',
+                'country_code'      => 'sometimes|required',
+            ],
+        ],
+    ],
+
 
     'users_settings' => [
 

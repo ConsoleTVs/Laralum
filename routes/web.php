@@ -250,15 +250,11 @@ Route::group(['middleware' => ['auth', 'laralum.base', 'laralum.auth'], 'prefix'
 	Route::post('/settings', 'SettingsController@update');
 
 	# Profile
-    Route::get('/profile', 'ProfileController@profile')->name('profile');
-
-    Route::get('/profile/image', 'ProfileController@image')->name('profile_image');
-    Route::post('/profile/image', 'ProfileController@updateImage');
-
-	Route::get('profile/password', 'ProfileController@password')->name('profile_password');
-	Route::post('profile/password', 'ProfileController@updatePassword');
+    Route::get('/profile', 'ProfileController@edit')->name('profile');
+	Route::post('/profile', 'ProfileController@update');
 
 	# About
     Route::get('/about', 'AboutController@index')->name('about');
+
 
 });
