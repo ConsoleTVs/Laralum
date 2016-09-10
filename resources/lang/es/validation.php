@@ -48,8 +48,8 @@ return [
     "json"                 => "El campo :attribute debe ser un string JSON válido.",
     "max"                  => [
         "numeric" => "El campo :attribute no puede ser mayor que :max.",
-        "file"    => "El campo :attribute puede ser de más de :max kilobytes.",
-        "string"  => "El campo :attribute puede ser de más de :max caracteres.",
+        "file"    => "El campo :attribute no puede ser de más de :max kilobytes.",
+        "string"  => "El campo :attribute no puede ser de más de :max caracteres.",
         "array"   => "El campo :attribute no puede contener más de :max elementos.",
     ],
     "mimes"                => "El campo :attribute debe ser un fichero del tipo: :values.",
@@ -62,7 +62,7 @@ return [
     "not_in"               => "El campo :attribute seleccionado és inválido.",
     "numeric"              => "El campo :attribute debe ser un número.",
     "regex"                => "El formato del campo :attribute és inválido.",
-    "required"             => "El campo :attribute es requerido.",           /* IIIIIIIIIIIIIIIIII Translate before here IIIIIIIIIIIIIIIIIIIiii*/
+    "required"             => "El campo :attribute es requerido.",
     "required_if"          => "El campo :attribute es requerido cuando el campo :other es :value.",
     "required_unless"      => "El campo :attribute es requerido a no ser que el campo :other esté en :values.",
     "required_with"        => "El campo :attribute es requerido cuando :values está presente.",
