@@ -1053,5 +1053,13 @@ class Laralum extends Controller
         return app_path() . '/Http/Controllers/Laralum/Data';
     }
 
+    public static function apiData()
+    {
+        require('Data/API.php');
+        if($api){
+            return $api;
+        }
+    }
+
 
 }

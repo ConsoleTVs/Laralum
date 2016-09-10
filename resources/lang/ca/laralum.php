@@ -298,9 +298,9 @@ return [
 
     'security_description_title'    => "Què és aquesta pàgina?",
     'security_description'  => "Aquesta pàgina és una pàgina de confirmació per evitar
-                                coses que és possible que no vulguis fer, o simplement 
-                                per fer-li saber que aquesta acció no es pot desfer i 
-                                és per això que requereix quelcom més que un sol clic 
+                                coses que és possible que no vulguis fer, o simplement
+                                per fer-li saber que aquesta acció no es pot desfer i
+                                és per això que requereix quelcom més que un sol clic
                                 per a ser executada.",
 
     /*
@@ -543,4 +543,14 @@ return [
     'activation_not_valid'  => "El codi d'activació no és vàlid",
     'activation_account'    => "Activació de compte",
     'activation_key'    => "Clau d'activació",
+
+    /*
+    |--------------------------------------------------------------------------
+    | VERSION 2.1.X
+    |--------------------------------------------------------------------------
+    */
+    'laralum_API'   => "API de Laralum",
+    'API_subtitle'  => "API pública de Laralum (Tindrà codis d'API aviat)",
+    'API_url'   => "URL de l'API",
+    'API_show'  => "Columnes que es mostraran",
 ];

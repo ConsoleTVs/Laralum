@@ -300,7 +300,7 @@ return [
     'security_description'  => "Esta página es una página de confirmación para evitar
                                 cosas que no quieras hacer, o simplemente para hacerle
                                 saber que esta acción no se puede deshacer y es por ello
-                                que requiere algo mas que un solo click para ser 
+                                que requiere algo mas que un solo click para ser
                                 ejecutada.",
 
     /*
@@ -543,4 +543,14 @@ return [
     'activation_not_valid'  => "El código de activación no és válido",
     'activation_account'    => "Activación de cuenta",
     'activation_key'    => "Clave de activación",
+
+    /*
+    |--------------------------------------------------------------------------
+    | VERSION 2.1.X
+    |--------------------------------------------------------------------------
+    */
+    'laralum_API'  => "API de Laralum",
+    'API_subtitle'  => "API pública de Laralum (Tendrá códigos de API en breves)",
+    'API_url'   => "URL de la API",
+    'API_show'  => "Columnas que se mostraran",
 ];

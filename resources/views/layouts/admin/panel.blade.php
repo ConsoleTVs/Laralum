@@ -132,6 +132,9 @@
 						<div class="menu">
 							<a href="{{ route('Laralum::CRUD') }}" class="item">{{ trans('laralum.database_CRUD') }}</a>
 						</div>
+						<div class="menu">
+							<a href="{{ route('Laralum::API') }}" class="item">{{ trans('laralum.laralum_API') }}</a>
+						</div>
 					</div>
 					<div class="item">
 						<div class="header">{{ trans('laralum.settings') }}</div>

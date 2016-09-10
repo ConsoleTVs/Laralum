@@ -90,14 +90,14 @@ Route::group(['middleware' => ['auth', 'laralum.base'], 'as' => 'Laralum::'], fu
 
 });
 
-Route::group(['middleware' => ['laralum.base'], 'as' => 'Laralum::'], function () {
+Route::group(['middleware' => ['laralum.base'], 'namespace' => 'Laralum', 'as' => 'Laralum::'], function () {
 
 	# Public document downloads
-	Route::get('/document/{slug}', 'Laralum\DownloadsController@downloader')->name('document_downloader');
-	Route::post('/document/{slug}', 'Laralum\DownloadsController@download');
+	Route::get('/document/{slug}', 'DownloadsController@downloader')->name('document_downloader');
+	Route::post('/document/{slug}', 'DownloadsController@download');
 
 	# Public language changer
-	Route::get('/locale/{locale}', 'Laralum\LocaleController@set')->name('locale');
+	Route::get('/locale/{locale}', 'LocaleController@set')->name('locale');
 
 });
 
@@ -221,6 +221,9 @@ Route::group(['middleware' => ['auth', 'laralum.base', 'laralum.auth'], 'prefix'
 
 	Route::get('/CRUD/{table}/{id}/delete', 'SecurityController@confirm')->name('CRUD_delete');
 	Route::post('/CRUD/{table}/{id}/delete', 'CRUDController@deleteRow');
+
+	# API
+	Route::get('/API', 'APIController@index')->name('API');
 
 	# File Manager
 	Route::get('/files', 'FilesController@files')->name('files');

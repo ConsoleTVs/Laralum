@@ -28,12 +28,10 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token', 'activation_key',
     ];
 
     /**
-    * setNameAttribute
-    *
     * Mutator to capitalize the name
     *
     * @param mixed $value
@@ -43,8 +41,6 @@ class User extends Authenticatable
     }
 
     /**
-    * roles
-    *
     * Returns all the roles from the user
     *
     */
@@ -54,8 +50,6 @@ class User extends Authenticatable
     }
 
     /**
-    * isAdmin
-    *
     * Returns true if the user has access to laralum
     *
     */
@@ -65,8 +59,6 @@ class User extends Authenticatable
     }
 
     /**
-    * hasPermission
-    *
     * Returns true if the user has the permission slug
     *
     * @param string $slug
@@ -84,8 +76,6 @@ class User extends Authenticatable
     }
 
     /**
-    * hasRole
-    *
     * Returns true if the user has the role
     *
     * @param string $name
@@ -101,8 +91,6 @@ class User extends Authenticatable
     }
 
     /**
-    * blogs
-    *
     * Returns all the blogs owned by the user
     *
     */
@@ -112,8 +100,6 @@ class User extends Authenticatable
     }
 
     /**
-    * has_blog
-    *
     * Returns true if the user has blog access
     *
     * @param number $id
@@ -131,8 +117,6 @@ class User extends Authenticatable
     }
 
     /**
-    * owns_blog
-    *
     * Returns true if the user owns the blog
     *
     * @param number $id
@@ -147,8 +131,6 @@ class User extends Authenticatable
     }
 
     /**
-    * posts
-    *
     * Returns all the posts from the user
     *
     */
@@ -158,8 +140,6 @@ class User extends Authenticatable
     }
 
     /**
-    * owns_post
-    *
     * Returns true if the users owns the post
     *
     * @param number $id
@@ -174,8 +154,6 @@ class User extends Authenticatable
     }
 
     /**
-    * avatar
-    *
     * Returns the user avatar from Gavatar
     *
     * @param number $size
@@ -189,8 +167,6 @@ class User extends Authenticatable
     }
 
     /**
-    * documents
-    *
     * Returns all the documents from the user
     *
     */
@@ -200,8 +176,6 @@ class User extends Authenticatable
     }
 
     /**
-    * sendWelcomeEmail
-    *
     * Sends the welcome email notification to the user
     *
     */
@@ -211,8 +185,6 @@ class User extends Authenticatable
     }
 
     /**
-    * sendActivationEmail
-    *
     * Sends the activation email notification to the user
     *
     */

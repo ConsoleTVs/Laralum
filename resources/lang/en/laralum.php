@@ -543,4 +543,14 @@ return [
     'activation_not_valid'  => "The activation code is not valid",
     'activation_account'    => "Account Activation",
     'activation_key'    => "Activation Key",
+
+    /*
+    |--------------------------------------------------------------------------
+    | VERSION 2.1.X
+    |--------------------------------------------------------------------------
+    */
+    'laralum_API'  => "Laralum API",
+    'API_subtitle'  => "Laralum Public API (Will soon have API keys)",
+    'API_url'   => "API URL",
+    'API_show'  => "Columns that will be shown",
 ];
