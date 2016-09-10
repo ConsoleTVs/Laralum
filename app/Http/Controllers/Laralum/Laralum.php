@@ -249,7 +249,7 @@ class Laralum extends Controller
             abort(401, "You don't have permissions to access this area");
         }
     }
-    
+
     public static function scanFiles($directory){
         return scandir($directory);
     }
@@ -1063,6 +1063,11 @@ class Laralum extends Controller
         if($api){
             return $api;
         }
+    }
+
+    public static function avatarsLocation()
+    {
+        return 'avatars';
     }
 
 

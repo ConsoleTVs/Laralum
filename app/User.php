@@ -6,6 +6,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laralum;
 use Mail;
+use File;
 use App\Notifications\WelcomeMessage;
 use App\Notifications\AccountActivation;
 
@@ -159,23 +160,14 @@ class User extends Authenticatable
     * @param number $size
     */
     public function avatar($size = null){
-        $file_found = false;         
-        $files = Laralum::scanFiles('avatars');
-        foreach($files as $file) {
-         if ($file == md5(Laralum::loggedInUser()->email)){
-            $image_url = asset('/avatars/'.$file);
-            $file_found = true;
-         }
-         else
-         {
-            if ($file_found == false){
-                $image_url = Laralum::defaultAvatar();          
-            }
-         }
+
+        $avatars_location = Laralum::avatarsLocation();
+        
+        if(File::exists(asset($avatars_location . '/' . md5(Laralum::loggedInUser()->email)))){
+            return asset($avatars_location . '/' . $file);
+        } else {
+            return Laralum::defaultAvatar();
         }
-
-        return $image_url;
-
     }
     /**
     * Returns all the documents from the user
