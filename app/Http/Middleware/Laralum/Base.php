@@ -47,6 +47,12 @@ class Base
                 }
 
             }
+            else{
+                if ($request->session()->has('locale')) {
+                    $lang = session('locale');
+                    App::setLocale($lang);
+                }
+            }
         }
 
         return $next($request);
