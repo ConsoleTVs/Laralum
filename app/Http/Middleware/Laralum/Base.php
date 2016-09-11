@@ -46,11 +46,9 @@ class Base
                     App::setLocale($user->locale);
                 }
 
-            }
-            else{
+            } else {
                 if ($request->session()->has('locale')) {
-                    $lang = session('locale');
-                    App::setLocale($lang);
+                	App::setLocale(session('locale'));
                 }
             }
         }
