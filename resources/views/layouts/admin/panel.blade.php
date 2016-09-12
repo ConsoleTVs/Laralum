@@ -91,55 +91,82 @@
 							<img class="logo-image ui fluid small image" src="@if(Laralum::settings()->logo) {{ Laralum::settings()->logo }} @else {{ Laralum::laralumLogo() }} @endif">
 						</div>
 					</a>
+										@if(Laralum::loggedInUser()->hasPermission('laralum.users.access'))
 					<div class="item">
 						<div class="header">{{ trans('laralum.user_manager') }}</div>
 						<div class="menu">
 							<a href="{{ route('Laralum::users') }}" class="item">{{ trans('laralum.user_list') }}</a>
+							@if(Laralum::loggedInUser()->hasPermission('laralum.users.create'))
 							<a href="{{ route('Laralum::users_create') }}" class="item">{{ trans('laralum.create_user') }}</a>
+							@endif
+							@if(Laralum::loggedInUser()->hasPermission('laralum.users.settings'))
 							<a href="{{ route('Laralum::users_settings') }}" class="item">{{ trans('laralum.users_settings') }}</a>
+							@endif
 						</div>
 					</div>
+					@endif
+					@if(Laralum::loggedInUser()->hasPermission('laralum.roles.access'))
 					<div class="item">
 						<div class="header">{{ trans('laralum.role_manager') }}</div>
 						<div class="menu">
 							<a href="{{ route('Laralum::roles') }}" class="item">{{ trans('laralum.role_list') }}</a>
+							@if(Laralum::loggedInUser()->hasPermission('laralum.roles.create'))
 							<a href="{{ route('Laralum::roles_create') }}" class="item">{{ trans('laralum.create_role') }}</a>
+							@endif
 						</div>
 					</div>
+					@endif
+					@if(Laralum::loggedInUser()->hasPermission('laralum.permissions.access'))
 					<div class="item">
 						<div class="header">{{ trans('laralum.permission_manager') }}</div>
 						<div class="menu">
 							<a href="{{ route('Laralum::permissions') }}" class="item">{{ trans('laralum.permission_list') }}</a>
+							@if(Laralum::loggedInUser()->hasPermission('laralum.permissions.create'))
 							<a href="{{ route('Laralum::permissions_create') }}" class="item">{{ trans('laralum.create_permission') }}</a>
+							@endif
 						</div>
 					</div>
+					@endif
+					@if(Laralum::loggedInUser()->hasPermission('laralum.blogs.access'))
 					<div class="item">
 						<div class="header">{{ trans('laralum.blog_manager') }}</div>
 						<div class="menu">
 							<a href="{{ route('Laralum::blogs') }}" class="item">{{ trans('laralum.blog_list') }}</a>
+							@if(Laralum::loggedInUser()->hasPermission('laralum.blogs.create'))
 							<a href="{{ route('Laralum::blogs_create') }}" class="item">{{ trans('laralum.create_blog') }}</a>
+							@endif
 						</div>
 					</div>
+					@endif
+					@if(Laralum::loggedInUser()->hasPermission('laralum.files.access'))
 					<div class="item">
 						<div class="header">{{ trans('laralum.file_manager') }}</div>
 						<div class="menu">
 							<a href="{{ route('Laralum::files') }}" class="item">{{ trans('laralum.file_document_list') }}</a>
+							@if(Laralum::loggedInUser()->hasPermission('laralum.files.upload'))
 							<a href="{{ route('Laralum::files_upload') }}" class="item">{{ trans('laralum.upload_file') }}</a>
+							@endif
 						</div>
 					</div>
+					@endif
 					<div class="item">
 						<div class="header">{{ trans('laralum.developer_tools') }}</div>
 						<div class="menu">
+							@if(Laralum::loggedInUser()->hasPermission('laralum.CRUD.access'))
 							<a href="{{ route('Laralum::CRUD') }}" class="item">{{ trans('laralum.database_CRUD') }}</a>
+							@endif
 							<a href="{{ route('Laralum::API') }}" class="item">{{ trans('laralum.laralum_API') }}</a>
 						</div>
 					</div>
+					@if(Laralum::loggedInUser()->hasPermission('laralum.settings.access'))
 					<div class="item">
 						<div class="header">{{ trans('laralum.settings') }}</div>
 						<div class="menu">
 							<a href="{{ route('Laralum::settings') }}" class="item">{{ trans('laralum.general_settings') }}</a>
 						</div>
 					</div>
+					@endif
+
 					<div class="item">
 						<div class="header">Laralum</div>
 						<div class="menu">
