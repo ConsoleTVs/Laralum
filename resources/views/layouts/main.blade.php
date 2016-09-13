@@ -162,6 +162,10 @@
                 color: white;
             }
 
+            .social{
+                font-weight: bold;
+            }
+
         </style>
     </head>
     <body>

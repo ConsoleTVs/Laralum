@@ -180,6 +180,7 @@ return [
 
         Stevebauman\Location\LocationServiceProvider::class,
         GrahamCampbell\Markdown\MarkdownServiceProvider::class,
+        Laravel\Socialite\SocialiteServiceProvider::class,
 
     ],
 
@@ -230,6 +231,7 @@ return [
         'Location'  => Stevebauman\Location\Facades\Location::class,
         'Laralum'   => App\Http\Controllers\Laralum\Laralum::class,
         'Markdown' => GrahamCampbell\Markdown\Facades\Markdown::class,
+        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
 
     ],
 

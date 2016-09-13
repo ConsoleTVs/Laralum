@@ -169,6 +169,7 @@ class User extends Authenticatable
             return Laralum::defaultAvatar();
         }
     }
+
     /**
     * Returns all the documents from the user
     *
@@ -176,6 +177,30 @@ class User extends Authenticatable
     public function documents()
     {
         return $this->hasMany('App\Document');
+    }
+
+    /**
+    * Returns all the social accounts from the user
+    *
+    */
+    public function socials()
+    {
+        return $this->hasMany('App\Social');
+    }
+
+    /**
+    * Returns true if the user has the social account
+    *
+    * @param string $provider
+    */
+    public function hasSocial($provider)
+    {
+        foreach($this->socials as $social){
+            if($social->provider == $provider){
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

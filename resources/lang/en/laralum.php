@@ -559,4 +559,14 @@ return [
     'profile_updated'   => "Your profile has been updated",
     'incorrect_password'    => 'The current password is incorrect',
 
+    'social_success'    => "Your account on :provider was linked",
+    'social_success_register'   => "Your account was created using :provider",
+    'social_success_login'  => "Login successful using :provider",
+    'social_success_login_link' => "Linked & logged in successfully",
+    'social_error'  => "Your account on :provider is already linked",
+    'social_already_linked' => "Already Linked",
+    'social_login_with' => "Log in with :provider",
+    'social_register_with'  => "Register with :provider",
+    'social_link'   => "Link with :provider",
+
 ];

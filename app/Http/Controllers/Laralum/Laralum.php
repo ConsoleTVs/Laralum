@@ -19,8 +19,10 @@ use App\Post_Comment;
 use App\Post_View;
 use App\Settings;
 use App\Document;
+use App\Social;
 use Location;
 use URL;
+
 
 /**
  * The Laralum class
@@ -105,6 +107,14 @@ class Laralum extends Controller
         return Document::all();
     }
 
+    public static function socials($type = null, $data = null)
+    {
+        if($type and $data) {
+            return Social::where($type, $data)->get();
+        }
+        return Social::all();
+    }
+
     public static function user($type, $data)
     {
         if($type == 'id') {
@@ -169,6 +179,14 @@ class Laralum extends Controller
         return Document::where($type, $data)->first();
     }
 
+    public static function social($type, $data)
+    {
+        if($type == 'id') {
+            return Social::findOrFail($data);
+        }
+        return Social::where($type, $data)->first();
+    }
+
     public static function newUser()
     {
         return new User;
@@ -207,6 +225,11 @@ class Laralum extends Controller
     public static function newDocument()
     {
         return new Document;
+    }
+
+    public static function newSocial()
+    {
+        return new Social;
     }
 
     public static function settings()

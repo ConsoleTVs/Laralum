@@ -96,6 +96,10 @@ Route::group(['middleware' => ['laralum.base'], 'namespace' => 'Laralum', 'as' =
 	Route::get('/document/{slug}', 'DownloadsController@downloader')->name('document_downloader');
 	Route::post('/document/{slug}', 'DownloadsController@download');
 
+	# Social auth
+	Route::get('/social/{provider}', 'SocialController@redirectToProvider')->name('social');
+	Route::get('/social/{provider}/callback', 'SocialController@handleProviderCallback')->name('social_callback');
+
 	# Public language changer
 	Route::get('/locale/{locale}', 'LocaleController@set')->name('locale');
 
@@ -255,6 +259,5 @@ Route::group(['middleware' => ['auth', 'laralum.base', 'laralum.auth'], 'prefix'
 
 	# About
     Route::get('/about', 'AboutController@index')->name('about');
-
 
 });
