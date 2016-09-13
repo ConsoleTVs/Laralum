@@ -5,7 +5,7 @@
 
 ## Docs
 
-As this is a new version there will be new docs, just wait for them
+While we work on better documentation, the basic things can be found here: https://github.com/ConsoleTVs/Laralum/wiki
 
 ## Installation
 
