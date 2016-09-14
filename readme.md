@@ -1,7 +1,7 @@
 # Laralum - Laravel 5.3 Administration Panel
 
 ## Preview
-![Laralum Dashboard](https://i.gyazo.com/60cd068493cb9d96fe93140371d108be.png)
+![Laralum Dashboard](https://i.gyazo.com/9d0ee51030e51f2b6d67973aa335ef51.png)
 
 ## Docs
 
