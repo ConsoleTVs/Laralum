@@ -7,6 +7,7 @@
 	<title>@yield('title') - {{ Laralum::settings()->website_title }}</title>
 	<meta name="description" content="Laralum - Laravel administration panel">
 	<meta name="author" content="Èrik Campobadal Forés">
+	<link rel='shortcut icon' href="{{ asset(Laralum::publicPath() . '/favicon/laralum.ico') }}" type='image/x-icon'/ >
 
 	{!! Laralum::includeAssets('laralum_header') !!}
 
@@ -271,7 +272,7 @@
 								</a>
 									 <?php
 										$locales = Laralum::locales();
-										
+
 										if($locale = Laralum::loggedInUser()->locale) {
 											$locale = $locales[$locale];
 										} else {
