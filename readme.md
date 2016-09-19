@@ -12,3 +12,11 @@ While we work on better documentation, the basic things can be found here: https
 ```
 composer create-project erik/laralum ProjectName
 ```
+
+# News
+
+### September 19th, 2016
+
+Laralum is currently beeing recoded into diferent modules. Theese modules may be installed on top of the laralum base so you may install only the things you're interested in.
+
+More news will be added here soon
