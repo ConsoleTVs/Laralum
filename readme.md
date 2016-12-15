@@ -12,7 +12,7 @@ While we work on better documentation, the basic things can be found here: https
 ```
 composer create-project erik/laralum ProjectName
 ```
-
+You will need to visit your project url or visit the /install route to install laralum
 # News
 
 ### September 19th, 2016
