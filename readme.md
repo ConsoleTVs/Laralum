@@ -1,4 +1,10 @@
-# Laralum - Laravel 5.3 Administration Panel
+# Laralum Legacy - Laravel 5.3 Administration Panel
+
+## LARALUM LEGACY VERSION
+
+This is the legacy version of the currently laralum administration panel, found here:
+
+<https://laralum.com>
 
 ## Preview
 ![Laralum Dashboard](https://i.gyazo.com/9d0ee51030e51f2b6d67973aa335ef51.png)
@@ -14,6 +20,10 @@ composer create-project erik/laralum ProjectName
 ```
 You will need to visit your project url or visit the /install route to install laralum
 # News
+
+### April 23, 2017
+
+Laralum was successfully re-written into modules, this version will be marked as legacy version.
 
 ### February 12th, 2017
 
